@@ -14,12 +14,12 @@
         <div class="block-title">
             <h2><strong>Full Reports</strong> Table</h2>
             <div class="block-options pull-right">
-				<a href="<?php echo base_url('Admin/print/all'); ?>" class="btn btn-alt btn-default" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
+				<a href="<?php echo base_url('Admin/print/'.$this->uri->segment(2)); ?>" class="btn btn-alt btn-default" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
 
                 <?php 
                     if($this->uri->segment(2) == 'all') $filter_name = 'Report All'; 
                     if($this->uri->segment(2) == 'week') $filter_name = 'This Week'; 
-                    if($this->uri->segment(2) == 'last_week') $filter_name = 'Last Month'; 
+                    if($this->uri->segment(2) == 'last_week') $filter_name = 'Last Week'; 
                     if($this->uri->segment(2) == 'month') $filter_name = 'This Month'; 
                     if($this->uri->segment(2) == 'last_month') $filter_name = 'Last Month'; 
                     if($this->uri->segment(2) == 'custom') $filter_name = 'Custom'; 
@@ -74,7 +74,7 @@
                         <td class="text-center"><?php echo $i; ?></td>
                         <td class="text-capitalize"><?php echo $sale['description']; ?></td>
                         <td class="text-right"><h4 class="text-danger"><?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; ?></h4></td>
-						<td class="text-right"><h4 class="text-success"><?php if($sale['amount_type'] != 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'late') echo '<h5 class="text-bold text-warning"> (Late Pay)</h5>'; if($sale['amount_mode'] == 'gpay') echo '<h5 class="text-bold text-warning"> (GPay)</h5>'; ?></h4></td>
+						<td class="text-right"><h4 class="text-success"><?php if($sale['amount_type'] != 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'late') echo '<h5 class="text-bold text-warning"> (Late Pay)</h5>'; ?></h4></td>
 						<td class=""><?php echo $sale['name']; ?></td>
                         <td class=""><?php echo date('d-m-Y H:i a', strtotime($sale['date_added'])); ?></td>
                         <!-- <td class="text-center">
