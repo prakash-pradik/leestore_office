@@ -223,7 +223,7 @@ class Admin_model extends CI_Model{
 
     public function get_emp_advances($id){
 
-        $sql = "SELECT * FROM employee_advance WHERE status = 1 AND emp_id = $id ORDER BY date_added = 'desc'";
+        $sql = "SELECT * FROM employee_advance WHERE status = 1 AND emp_id = $id ORDER BY id desc";
 
         $query = $this->db->query($sql);
 
@@ -260,7 +260,7 @@ class Admin_model extends CI_Model{
 
     public function get_user_advances($id){
 
-        $sql = "SELECT *, 'incomes' as table_name FROM incomes WHERE status = 1 AND user_id = $id ORDER BY date_added = 'desc'";
+        $sql = "SELECT *, 'incomes' as table_name FROM incomes WHERE status = 1 AND user_id = $id ORDER BY id desc";
 
         $query = $this->db->query($sql);
 
@@ -268,7 +268,7 @@ class Admin_model extends CI_Model{
             return $query->result_array();
         }
         else {
-            $sql2 = "SELECT *, 'outcomes' as table_name FROM outcomes WHERE status = 1 AND user_id = $id ORDER BY date_added = 'desc'";
+            $sql2 = "SELECT *, 'outcomes' as table_name FROM outcomes WHERE status = 1 AND user_id = $id ORDER BY id desc";
 
             $query2 = $this->db->query($sql2);
 
@@ -316,7 +316,7 @@ class Admin_model extends CI_Model{
         else
            $where = 'purchase_type = "sell"';
 
-        $sql = "SELECT * FROM buysell_mobiles WHERE $where AND status = 1 ORDER BY id = 'desc'";
+        $sql = "SELECT * FROM buysell_mobiles WHERE $where AND status = 1 ORDER BY id desc";
 
         $query = $this->db->query($sql);
 
