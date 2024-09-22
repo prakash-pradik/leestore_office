@@ -316,7 +316,7 @@ class Admin_model extends CI_Model{
         else
            $where = 'purchase_type = "sell"';
 
-        $sql = "SELECT * FROM buysell_mobiles WHERE $where AND status = 1 ORDER BY date_added = 'desc'";
+        $sql = "SELECT * FROM buysell_mobiles WHERE $where AND status = 1 ORDER BY id = 'desc'";
 
         $query = $this->db->query($sql);
 
