@@ -22,7 +22,7 @@
                 <!-- Customer Info -->
                 <div class="block-section text-center">
                     <?php 
-                        if(!empty($employee) && $employee->profile_image != NULL) 
+                        if(!empty($employee) && isset($employee->profile_image) && $employee->profile_image != NULL) 
                             $photo = base_url().'uploads/'.$employee->profile_image.'.jpg'; 
                         else 
                             $photo = base_url(IMG).'/placeholders/avatars/avatar4@2x.jpg';
