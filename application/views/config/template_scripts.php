@@ -16,10 +16,14 @@
             })
             function startTime() {
                 const today = new Date();
-                let hours = checkTime(today.getHours());
+                let hours = today.getHours();
                 let minutes = checkTime(today.getMinutes());
                 let seconds = checkTime(today.getSeconds());
                 let ampm = hours >= 12 ? 'PM' : 'AM';
+
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                hours = checkTime(hours);
 
                 let day     = checkTime(today.getUTCDate());
                 let month   = checkTime(today.getUTCMonth() + 1); // months from 1-12

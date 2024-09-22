@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 | Please see the user guide for complete details:
 |
-|	https://codeigniter.com/user_guide/general/routing.html
+|	https://codeigniter.com/userguide3/general/routing.html
 |
 | -------------------------------------------------------------------------
 | RESERVED ROUTES
@@ -62,8 +62,12 @@ $route['incomes'] = 'admin/incomes';
 $route['outcomes'] = 'admin/outcomes';
 $route['daily_sales'] = 'admin/daily_sales';
 $route['full_report/(:any)'] = 'admin/full_report/$1';
+$route['buy_sell'] = 'admin/buy_sell';
 $route['employee_advance'] = 'admin/employee_advance';
 $route['employee_details/(:any)'] = 'admin/employee_details/$1';
 $route['user_details/(:any)'] = 'admin/user_details/$1';
 
 $route['print_test'] = 'admin/print_test';
+
+$route['user_profile'] = 'admin/user_profile';
+

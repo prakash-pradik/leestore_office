@@ -399,6 +399,244 @@
     </div>
 </div>
 
+<div id="modal-new-buy" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center bg-success">
+                <h2 class="modal-title"><i class="fa fa-shopping-cart"></i> Add New Buy</h2>
+            </div>
+            <!-- END Modal Header -->
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="<?php echo base_url('admin/insert_buy_mobile'); ?>" id="buy-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
+                    <input type="hidden" id="purchase_type" name="purchase_type" value="buy">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Customer Name</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="customer_name" name="customer_name" class="form-control" placeholder="Name..">
+                                <span class="input-group-addon"><i class="gi gi-user"></i></span>
+                            </div>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label class="col-md-4 control-label">Phone Number</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="customer_phone" name="customer_phone" class="form-control" placeholder="Phone Number..">
+                                <span class="input-group-addon"><i class="gi gi-earphone"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Phone Model</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="phone_name" name="phone_name" class="form-control" placeholder="Phone Model..">
+                                <span class="input-group-addon"><i class="gi gi-iphone"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Phone Details</label>
+                        <div class="col-md-8">
+                            <textarea id="phone_details" name="phone_details" rows="4" class="form-control" placeholder="Tell us phone details.."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
+
+<div id="modal-new-sell" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center bg-info">
+                <h2 class="modal-title"><i class="fa fa-shopping-cart"></i> Add New Sell</h2>
+            </div>
+            <!-- END Modal Header -->
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="<?php echo base_url('admin/insert_buy_mobile'); ?>" id="sell-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
+                    <input type="hidden" id="purchase_type" name="purchase_type" value="sell">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Customer Name</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="customer_name" name="customer_name" class="form-control" placeholder="Name..">
+                                <span class="input-group-addon"><i class="gi gi-user"></i></span>
+                            </div>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label class="col-md-4 control-label">Phone Number</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="customer_phone" name="customer_phone" class="form-control" placeholder="Phone Number..">
+                                <span class="input-group-addon"><i class="gi gi-earphone"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Phone Model</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="phone_name" name="phone_name" class="form-control" placeholder="Phone Model..">
+                                <span class="input-group-addon"><i class="gi gi-iphone"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Phone Details</label>
+                        <div class="col-md-8">
+                            <textarea id="phone_details" name="phone_details" rows="4" class="form-control" placeholder="Tell us phone details.."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-info">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
+
+<div id="modal-update-buysell" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center bg-info">
+                <h2 class="modal-title"><i class="fa fa-shopping-cart"></i> Update Details</h2>
+            </div>
+            <!-- END Modal Header -->
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="<?php echo base_url('admin/update_buy_mobile'); ?>" id="update-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
+                    <input type="hidden" id="update_buy_id" name="update_buy_id" value="">
+                    <input type="hidden" id="update_purchase_type" name="purchase_type" value="">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Customer Name</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="update_customer_name" name="customer_name" class="form-control" placeholder="Name..">
+                                <span class="input-group-addon"><i class="gi gi-user"></i></span>
+                            </div>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label class="col-md-4 control-label">Phone Number</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="update_customer_phone" name="customer_phone" class="form-control" placeholder="Phone Number..">
+                                <span class="input-group-addon"><i class="gi gi-earphone"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Phone Model</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="update_phone_name" name="phone_name" class="form-control" placeholder="Phone Model..">
+                                <span class="input-group-addon"><i class="gi gi-iphone"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Phone Details</label>
+                        <div class="col-md-8">
+                            <textarea id="update_phone_details" name="phone_details" rows="4" class="form-control" placeholder="Tell us phone details.."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-info">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
+
+<div id="modal-view-buysell" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center bg-info">
+                <h2 class="modal-title"><i class="fa fa-shopping-cart"></i> View Details</h2>
+            </div>
+            <!-- END Modal Header -->
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="javascript:;" class="form-horizontal form-bordered" >
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Customer Name :</label>
+                        <div class="col-md-8">
+                            <strong><p class="form-control-static view_customer_name"></p></strong>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label class="col-md-4 control-label">Phone Number :</label>
+                        <div class="col-md-8">
+                            <strong><p class="form-control-static view_phone_number"></p></strong>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Phone Model :</label>
+                        <div class="col-md-8">
+                            <strong><p class="form-control-static view_phone_name"></p></strong>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Phone Details :</label>
+                        <div class="col-md-8">
+                            <strong><p class="form-control-static view_phone_details"></p></strong>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
+
 <script>
     var base_url = document.getElementById("base_url").value; //$('#base_url').val();
 	
@@ -484,6 +722,60 @@
                         data: {userId : userId, tbl_name : 'daily_sales'},
                         success: function(res){
                             window.location.href = base_url+'daily_sales';
+                        }
+                    });
+                }
+            })
+    }
+
+    function fetchBuySellDetails(mythis){
+        var id = $(mythis).data('id');
+        $.ajax({
+            url: base_url+'admin/fetch_data',
+            type: 'post',
+            data: {id : id, tbl_name : 'buysell_mobiles'},
+            dataType: "json",
+            success: function(res){
+                console.log(res.customer_name);
+                $('.view_customer_name').text(res.customer_name);
+                $('.view_phone_number').text(res.phone_number);
+                $('.view_phone_name').text(res.phone_name);
+                $('.view_phone_details').text(res.details);
+
+                $('#update_buy_id').val(res.id);
+                $('#update_purchase_type').val(res.purchase_type);
+                $('#update_customer_name').val(res.customer_name);
+                $('#update_customer_phone').val(res.phone_number);
+                $('#update_phone_name').val(res.phone_name);
+                $('#update_phone_details').val(res.details);
+            }
+        });
+    }
+
+    function deleteBuyData(mythis){
+        //$.fn.dataTable.ext.errMode = 'none';
+        var id = $(mythis).data('id');
+        swal({
+            title: "Are you sure?", 
+            text: "You won't be able to revert this!", 
+            type: "warning",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!",
+            showCancelButton: true
+        })
+            .then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: base_url+'admin/delete_by_id',
+                        type: 'post',
+                        data: {id : id, tbl_name : 'buysell_mobiles'},
+                        success: function(res){
+                            
+                            $(mythis).parent().parent().parent().remove();
+                            swal("Deleted!", "Data Successfully Deleted", "success");
+                            setTimeout(() => {
+                                window.location.href = base_url+'buy_sell';    
+                            }, 3000);
                         }
                     });
                 }

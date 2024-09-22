@@ -139,7 +139,7 @@ class Admin_model extends CI_Model{
         $today_date   = date("Y-m-d");
 
         $start_date = $this->input->post('example-daterange1');
-        $end_date = $this->input->post('example-daterange2');
+        $end_date = $this->input->post('example-daterange2'); 
 
         if($all == 'today')
             $where = "AND DATE(ds.date_added) = '".$today_date."'";
@@ -308,5 +308,24 @@ class Admin_model extends CI_Model{
         else
             return false;
     }
+
+    public function get_all_buy_sell($type){
+
+        if($type == 'buy')
+            $where = 'purchase_type = "buy"';
+        else
+           $where = 'purchase_type = "sell"';
+
+        $sql = "SELECT * FROM buysell_mobiles WHERE $where AND status = 1 ORDER BY date_added = 'desc'";
+
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->result_array();
+        else 
+            return false;
+            
+    }
+
 }
 ?>

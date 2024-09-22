@@ -53,6 +53,10 @@
                                 <li>
                                     <a href="<?php echo base_url('full_report/month'); ?>" class="<?php if($this->uri->segment(1) == 'full_report') echo 'active'; ?>"><i class="gi gi-table sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Full Report</span></a>
                                 </li>
+                                <li>
+                                    <a href="<?php echo base_url('buy_sell'); ?>" class="<?php if($this->uri->segment(1) == 'buy_sell') echo 'active'; ?>"><i class="hi hi-shopping-cart sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Buy/Sell Mobiles</span></a>
+                                </li>
+
                                 <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') { ?>
 								
 								<li>

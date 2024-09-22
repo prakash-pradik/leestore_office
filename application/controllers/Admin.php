@@ -303,7 +303,7 @@ class Admin extends CI_Controller {
 		else{
 			$file_name = 'OverallSalesReport.pdf';
 			$data['day_type'] = 'Overall';
-			$orderBy = 'desc';
+			$orderBy = 'asc';
 		}
 		$today_dt = date('d-M-y h:ia');
 		$data['base_url'] = base_url();
@@ -454,4 +454,85 @@ class Admin extends CI_Controller {
 			redirect(base_url('dashboard'));
 		}
 	}
+
+	public function buy_sell()
+	{
+		$data['session_user'] = $this->session->userdata('user_loggedin');
+		$data['buy_mobiles'] = $this->admin_model->get_all_buy_sell('buy');
+		$data['sell_mobiles'] = $this->admin_model->get_all_buy_sell('sell');
+		$this->load->view('config/template_start');
+		$this->load->view('config/page_head',$data);
+		$this->load->view('buy_sell', $data);
+		$this->load->view('config/page_footer');
+		$this->load->view('config/template_scripts');
+		$this->load->view('config/template_end');
+	}
+
+	public function insert_buy_mobile(){
+
+		$data = array(
+			'customer_name' => $this->input->post('customer_name'),
+			'phone_number' => $this->input->post('customer_phone'),
+			'phone_name' => $this->input->post('phone_name'),
+			'details' => $this->input->post('phone_details'),
+			'purchase_type' => $this->input->post('purchase_type'),
+			'date_added' => date("Y-m-d H:i:s")
+		);
+
+		$insert = $this->admin_model->insert_row('buysell_mobiles', $data);
+		if($insert){
+			$this->session->set_flashdata('message', 'Data Successfully Added..!');
+			redirect(base_url('buy_sell'));
+		}
+	}
+
+	public function update_buy_mobile(){
+		$id = $this->input->post('update_buy_id');
+		$data = array(
+			'customer_name' => $this->input->post('customer_name'),
+			'phone_number' => $this->input->post('customer_phone'),
+			'phone_name' => $this->input->post('phone_name'),
+			'details' => $this->input->post('phone_details'),
+			'purchase_type' => $this->input->post('purchase_type'),
+			'date_modified' => date("Y-m-d H:i:s")
+		);
+		$where = array('id' => $id );
+
+		$update = $this->admin_model->update_row_data('buysell_mobiles', $where, $data);
+		if($update){
+			$this->session->set_flashdata('message', 'Data Successfully Updated..!');
+			redirect(base_url('buy_sell'));
+		}
+	}
+
+	public function fetch_data(){
+		$id = $this->input->post('id');
+		$tbl_name = $this->input->post('tbl_name');
+		$data = $this->admin_model->get_by_id($id, $tbl_name);
+		if($data)
+			echo json_encode($data);
+	}
+
+	public function delete_by_id(){
+		
+		$id = $this->input->post('id');
+		$tbl_name = $this->input->post('tbl_name');
+
+		$where = array('id' => $id );
+
+		if($id){
+			$update = $this->admin_model->update_row_data($tbl_name, $where, array('status' => 2 ));
+			
+			if ($update) 
+				$status = 'success';
+			else
+				$status = 'failed';
+		}
+		else 
+			$status = 'failed';
+
+		echo $status;
+
+	}
+
 }
