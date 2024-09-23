@@ -310,7 +310,14 @@ class Admin extends CI_Controller {
 		$data['daily_sales'] = $this->admin_model->get_all_sales($type, $orderBy);
 		$data['today_stats'] = $this->admin_model->get_sales_stats();
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
-        $html = $this->load->view('sales_pdf',$data,true);
+        
+		$dataSerialize = $this->_serialize($data['daily_sales']);
+		//var_dump($dataSerialize);
+
+		$result = $this->_unserialize($dataSerialize);
+		//var_dump($result);
+		
+		$html = $this->load->view('sales_pdf', $result, true);
         $mpdf = new \Mpdf\Mpdf([
             'format'=>'A4',
             'margin_top'=>10,
@@ -323,6 +330,13 @@ class Admin extends CI_Controller {
 		//$mpdf->Output();
 		$mpdf->Output($file_name, 'D'); 
     }
+
+	function _serialize($data) {
+		return base64_encode(serialize($data));
+	}
+	function _unserialize($data) {
+		return unserialize(base64_decode($data));
+	}
 	public function print_test()
     {
 		$data['base_url'] = base_url();
