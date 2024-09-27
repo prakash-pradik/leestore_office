@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx; */
 
+require FCPATH.'vendor/autoload.php';
+
 class Prints extends CI_Controller {
 	
 	public function __construct() {
@@ -17,7 +19,42 @@ class Prints extends CI_Controller {
 		{
 			redirect(base_url('login'), 'refresh');
 		}
-	}   
+	}
+
+	public function print($type)
+    {
+		ob_start();
+		$today_dt = date('d-M-y h:ia');
+		if($type == 'today'){
+			$file_name = 'DailySalesReport_'.$today_dt.'.pdf';
+			$data['day_type'] = 'Today';
+			$orderBy = 'asc';
+		}
+		else{
+			$file_name = 'OverallSalesReport_'.$today_dt.'.pdf';
+			$data['day_type'] = 'Overall';
+			$orderBy = 'asc';
+		}
+		
+		$data['base_url'] = base_url();
+		$data['daily_sales'] = $this->admin_model->get_all_sales($type, $orderBy);
+		$data['today_stats'] = $this->admin_model->get_sales_stats();
+		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
+
+		$html = $this->load->view('sales_pdf', $data, true);
+        $mpdf = new \Mpdf\Mpdf([
+            'format'=>'A4',
+            'margin_top'=>10,
+            'margin_right'=>5,
+            'margin_left'=>5,
+            'margin_bottom'=>15,
+        ]);
+		$mpdf->SetHTMLFooter('<div style="display:flex; justify-content:space-between; padding-top:10px; margin-left:10px;"><span style="">Created at:'.$today_dt.'</span> <span style="color:#777;font-size:12px;">&nbsp;&nbsp;Receipt was created on a computer and is valid without the signature and seal.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Page {PAGENO} of {nbpg}</span></div>');
+        $mpdf->WriteHTML($html);
+		//$mpdf->Output();
+		$mpdf->Output($file_name, 'D'); 
+		ob_end_flush();
+    }
 
 	/* public function createExcelTest() {
 

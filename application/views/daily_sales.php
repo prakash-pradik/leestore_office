@@ -86,7 +86,7 @@
 
 					<div class="block-options pull-right">
 						<?php if(!empty($daily_sales)) { ?>
-						<a href="<?php echo base_url('Admin/print/today'); ?>" class="btn btn-alt btn-default" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
+						<a href="<?php echo base_url('Prints/print/today'); ?>" class="btn btn-alt btn-default" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
 						<?php } ?>
 
 						<a href="#modal-sales-income" class="btn btn-success " data-toggle="modal" title="Add Income"><i class="fa fa-plus"></i> Add New</a>
