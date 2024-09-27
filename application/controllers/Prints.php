@@ -155,6 +155,9 @@ class Prints extends CI_Controller {
 		
 		$salesData = $this->admin_model->get_all_sales($type, $orderBy);
 
+		$today_stats = $this->admin_model->get_sales_stats();
+		$gpay_stats = $this->admin_model->get_gpay_stats();
+
 		$i = 1;               
 		$name = "Daily Sales";
 
@@ -195,7 +198,30 @@ class Prints extends CI_Controller {
 			$i++;
         }
 		
-		$html .="</tbody></table> <body> <html>";
+		$html .="</tbody></table> ";
+
+		$html .="<table><thead>
+		<tr>
+			<th class=''>Total Income (₹)</th>
+			<th>Total Expenses (₹)</th>
+			<th>Cash Available (₹)</th>
+			<th>Gpay Income (₹)</th>
+			<th>Gpay Expenses (₹)</th>
+			<th>Gpay Available (₹)</th>
+		<tr></thead>
+		<tbody>
+			<tr>
+				<td>".$today_stats->today_income."</td>
+				<td>".$today_stats->today_expense."</td>
+				<td>".$today_stats->today_available."</td>
+				<td>".$gpay_stats->gpay_income."</td>
+				<td>".$gpay_stats->gpay_expense."</td>
+				<td>".$gpay_stats->gpay_available."</td>
+			</tr>
+		</tbody>
+		</table>
+		 <body> <html>";
+
 		$fileName = 'DailySalesReport_'.$today_dt.'.xls';
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-disposition: attachment; filename='.$fileName.'');
