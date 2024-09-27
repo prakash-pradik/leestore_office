@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /* require FCPATH.'vendor/excel/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx; */
-
+require FCPATH.'vendor/autoload.php';
 class Prints extends CI_Controller {
 	
 	public function __construct() {
@@ -21,7 +21,7 @@ class Prints extends CI_Controller {
 
 	public function print($type)
     {
-		ob_start();
+		
 		$today_dt = date('d-M-y h:ia');
 		if($type == 'today'){
 			$file_name = 'DailySalesReport_'.$today_dt.'.pdf';
@@ -40,8 +40,8 @@ class Prints extends CI_Controller {
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
 
 		$html = $this->load->view('sales_pdf', $data, true);
-		ob_end_flush();
-		require FCPATH.'vendor/autoload.php';
+		ob_start();
+		
         $mpdf = new \Mpdf\Mpdf([
             'format'=>'A4',
             'margin_top'=>10,
@@ -53,7 +53,7 @@ class Prints extends CI_Controller {
         $mpdf->WriteHTML($html);
 		//$mpdf->Output();
 		$mpdf->Output($file_name, 'D'); 
-		ob_end_clean();
+		ob_end_flush();
     }
 
 	/* public function createExcelTest() {
