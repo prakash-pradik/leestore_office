@@ -115,11 +115,14 @@
 							<tr>
 								<td class="text-center"><?php echo $i; ?></td>
 								<td class="text-capitalize"><?php echo $sale['description']; ?></td>
-								<td class="text-right"><h4 class="text-danger"><?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; ?></h4></td>
-								<td class="text-right"><h4 class="text-success"><?php if($sale['amount_type'] != 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'late') echo '<h5 class="text-bold text-warning"> (Late Pay)</h5>'; if($sale['amount_mode'] == 'gpay') echo '<h5 class="text-bold text-warning"> (GPay)</h5>'; ?></h4></td>
+								<td class="text-right"><h4 class="text-danger"><?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; if($sale['amount_mode'] == 'gpay') echo '<h5 class="text-bold text-warning"> (GPay)</h5>'; ?></h4></td>
+								<td class="text-right"><h4 class="text-success"><?php if($sale['amount_type'] != 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'late') echo '<h5 class="text-bold text-warning"> (Late Pay)</h5>'; if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') echo '<h5 class="text-bold text-warning"> (GPay)</h5>'; ?> </h4></td>
 								<td class=""><?php echo $sale['name']; ?></td>
 								<td class="text-center">
 									<div class="btn-group">
+										<?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') { ?>
+											<a href="#modal-sales-income-update" data-id="<?php echo $sale['id']; ?>" onclick="fetchSaleDetails(this);" data-toggle="modal" title="Update" class="btn btn-warning enable-tooltip"><i class="fa fa-pencil"></i></a>
+										<?php } ?>
 										<a href="javascript:void(0)" data-user_id="<?php echo $sale['id']; ?>" onclick="deleteSalesData(this);" data-toggle="tooltip" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></a>
 									</div>
 								</td>

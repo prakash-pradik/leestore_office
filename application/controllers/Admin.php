@@ -251,6 +251,38 @@ class Admin extends CI_Controller {
 			redirect(base_url('daily_sales'));
 		}
 	}
+
+	public function update_sales(){
+
+		$id = $this->input->post('sale_id');
+		$amtMode = $this->input->post('amount_mode');
+		echo $saleType = $this->input->post('sale_type');
+		
+		$data = array(
+				'emp_id' => $this->input->post('emp_id'),
+				'description' => $this->input->post('sale_desc'),
+				'amount' => $this->input->post('sale_amt'),
+				'amount_mode' => $this->input->post('amount_mode'),
+				'date_modified' => date("Y-m-d H:i:s")
+			);
+		
+		if($this->input->post('amount_mode') == 'late_pay'){
+			$data['amount_type'] = 'late';
+		}
+		else if($saleType == 'late') {
+			$data['amount_type'] = 'inc';
+		}
+
+		$where = array('id' => $id );
+		
+		if($id){
+			$update = $this->admin_model->update_row_data('daily_sales', $where, $data);
+			if($update){
+				$this->session->set_flashdata('message', 'Data Successfully Updated..!');
+			}
+		}
+		redirect(base_url('daily_sales'));
+	}
 	
 	public function insert_expense(){
 		$data = array(

@@ -225,6 +225,76 @@
     </div>
 </div>
 
+<div id="modal-sales-income-update" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center bg-warning">
+                <h2 class="modal-title"><i class="fa fa-pencil"></i> Update Details</h2>
+            </div>
+            <!-- END Modal Header -->
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="<?php echo base_url('admin/update_sales'); ?>" id="sale-income-validation" method="post" class="form-horizontal form-bordered">
+					<input type="hidden" id="update_sale_type" name="sale_type" class="form-control" value="">
+                    <input type="hidden" id="update_sale_id" name="sale_id" class="form-control" value="">
+					<div class="form-group">
+                        <label class="col-md-4 control-label">Sales Person</label>
+                        <div class="col-md-8">
+                            <select id="update_emp_id" name="emp_id" class="form-control" size="1" require="true">
+                            <option value="">Please select</option>
+                            <?php if(!empty($employees)) {
+                                $i = 1; 
+                                foreach($employees as $emp){
+                                    echo '<option value="'.$emp['id'].'">'.$emp['name'].'</option>';
+                                }
+                            }?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Description</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="update_sale_desc" name="sale_desc" class="form-control" placeholder="Description..">
+                                <span class="input-group-addon"><i class="gi gi-notes"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="update_sale_amt" name="sale_amt" class="form-control" placeholder="Enter Amount" require="true">
+                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                            </div>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label class="col-md-4 control-label">Amount Mode</label>
+                        <div class="col-md-8">
+                            <select id="update_amount_mode" name="amount_mode" class="form-control" size="1" require="true">
+								<option value="">Please select</option>
+								<option value="cash">Cash</option>
+								<option value="gpay">Gpay</option>
+                                <option value="late_pay">Late Pay</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-warning">Update Amount</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
+
 <div id="modal-sales-expense" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -780,5 +850,25 @@
                     });
                 }
             })
+    }
+
+    function fetchSaleDetails(mythis){
+        var id = $(mythis).data('id');
+        $.ajax({
+            url: base_url+'admin/fetch_data',
+            type: 'post',
+            data: {id : id, tbl_name : 'daily_sales'},
+            dataType: "json",
+            success: function(res){
+                console.log(res);
+                $("#update_sale_id").val(res.id);
+                $("#update_sale_type").val(res.amount_type);
+                $("#update_emp_id").val(res.emp_id).change();
+                $("#update_sale_desc").val(res.description);
+                $("#update_sale_amt").val(res.amount);
+                $("#update_amount_mode").val(res.amount_mode).change();
+               
+            }
+        });
     }
 </script>
