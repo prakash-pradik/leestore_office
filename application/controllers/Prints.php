@@ -208,7 +208,8 @@ class Prints extends CI_Controller {
 			<th>Gpay Income </th>
 			<th>Gpay Expenses </th>
 			<th>Gpay Available </th>
-		<tr></thead>
+		</tr>
+		</thead>
 		<tbody>
 			<tr>
 				<td><strong>".$today_stats->today_income."</strong></td>
