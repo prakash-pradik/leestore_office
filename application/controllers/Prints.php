@@ -49,7 +49,6 @@ class Prints extends CI_Controller {
             'margin_bottom'=>15,
         ]);
 		$mpdf->SetHTMLFooter('<div style="display:flex; justify-content:space-between; padding-top:10px; margin-left:10px;"><span style="">Created at:'.$today_dt.'</span> <span style="color:#777;font-size:12px;">&nbsp;&nbsp;Receipt was created on a computer and is valid without the signature and seal.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Page {PAGENO} of {nbpg}</span></div>');
-		ob_start();
         $mpdf->WriteHTML($html);
 		//$mpdf->Output();
 		$mpdf->Output($file_name, 'D'); 
@@ -142,6 +141,62 @@ class Prints extends CI_Controller {
 		
 		$html .="</tbody></table> <body> <html>";
 		$fileName = 'fullReport'.time().'.xls';
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-disposition: attachment; filename='.$fileName.'');
+		echo $html;
+	}
+
+	public function excelToday($type){
+
+		$today_dt = date('d-M-y h:ia');
+		$data['day_type'] = 'Today';
+		$orderBy = 'asc';
+		
+		
+		$salesData = $this->admin_model->get_all_sales($type, $orderBy);
+
+		$i = 1;               
+		$name = "Daily Sales";
+
+		$html = "<html>
+					<body>
+						<table border=1>
+							<thead>
+							<tr>
+								<th>Sl.No</th> <th>Descriptions</th> <th>Amount</th>
+								<th>Amount Mode</th> <th>Amount Type</th> <th>Sales Person</th> <th>Date Added</th>
+							</tr> 
+							</thead> 
+						<tbody>";
+		
+		foreach ($salesData as $val){
+
+			$dateAdded 	  = date('d-m-Y H:i a', strtotime($val['date_added']));
+			$dateModified = date('d-m-Y H:i a', strtotime($val['date_modified']));
+
+			if($val['amount_type'] == 'exp')
+				$amountType = 'Expense';
+			else if($val['amount_type'] == 'inc')
+				$amountType = 'Income';
+			else
+				$amountType = 'Late Pay';
+	
+			$html .= "<tr>";	
+			$html .= "<td>".$i."</td>";
+			$html .= "<td>".$val['description']."</td>";
+			$html .= "<td>".$val['amount']."</td>";
+			$html .= "<td>".$val['amount_mode']."</td>";
+			$html .= "<td>".$amountType."</td>";
+			$html .= "<td>".$val['name']."</td>";
+			$html .= "<td>".$dateAdded."</td>";
+			$html .= "</tr>";
+			$html .="";
+
+			$i++;
+        }
+		
+		$html .="</tbody></table> <body> <html>";
+		$fileName = 'DailySalesReport_'.$today_dt.'.xls';
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-disposition: attachment; filename='.$fileName.'');
 		echo $html;
