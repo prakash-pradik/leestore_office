@@ -40,7 +40,6 @@ class Prints extends CI_Controller {
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
 
 		$html = $this->load->view('sales_pdf', $data, true);
-		ob_start();
 		
         $mpdf = new \Mpdf\Mpdf([
             'format'=>'A4',
@@ -50,10 +49,10 @@ class Prints extends CI_Controller {
             'margin_bottom'=>15,
         ]);
 		$mpdf->SetHTMLFooter('<div style="display:flex; justify-content:space-between; padding-top:10px; margin-left:10px;"><span style="">Created at:'.$today_dt.'</span> <span style="color:#777;font-size:12px;">&nbsp;&nbsp;Receipt was created on a computer and is valid without the signature and seal.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Page {PAGENO} of {nbpg}</span></div>');
+		ob_start();
         $mpdf->WriteHTML($html);
 		//$mpdf->Output();
 		$mpdf->Output($file_name, 'D'); 
-		ob_end_flush();
     }
 
 	/* public function createExcelTest() {
