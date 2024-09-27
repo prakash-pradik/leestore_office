@@ -4,8 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx; */
 
-require FCPATH.'vendor/autoload.php';
-
 class Prints extends CI_Controller {
 	
 	public function __construct() {
@@ -42,6 +40,8 @@ class Prints extends CI_Controller {
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
 
 		$html = $this->load->view('sales_pdf', $data, true);
+		ob_end_flush();
+		require FCPATH.'vendor/autoload.php';
         $mpdf = new \Mpdf\Mpdf([
             'format'=>'A4',
             'margin_top'=>10,
@@ -53,7 +53,7 @@ class Prints extends CI_Controller {
         $mpdf->WriteHTML($html);
 		//$mpdf->Output();
 		$mpdf->Output($file_name, 'D'); 
-		ob_end_flush();
+		ob_end_clean();
     }
 
 	/* public function createExcelTest() {
