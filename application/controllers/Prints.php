@@ -200,23 +200,23 @@ class Prints extends CI_Controller {
 		
 		$html .="</tbody></table> ";
 
-		$html .="<table><thead>
+		$html .="<table border=1><thead>
 		<tr>
-			<th class=''>Total Income (₹)</th>
-			<th>Total Expenses (₹)</th>
-			<th>Cash Available (₹)</th>
-			<th>Gpay Income (₹)</th>
-			<th>Gpay Expenses (₹)</th>
-			<th>Gpay Available (₹)</th>
+			<th>Total Income</th>
+			<th>Total Expenses</th>
+			<th>Cash Available</th>
+			<th>Gpay Income </th>
+			<th>Gpay Expenses </th>
+			<th>Gpay Available </th>
 		<tr></thead>
 		<tbody>
 			<tr>
-				<td>".$today_stats->today_income."</td>
-				<td>".$today_stats->today_expense."</td>
-				<td>".$today_stats->today_available."</td>
-				<td>".$gpay_stats->gpay_income."</td>
-				<td>".$gpay_stats->gpay_expense."</td>
-				<td>".$gpay_stats->gpay_available."</td>
+				<td><strong>".$today_stats->today_income."</strong></td>
+				<td><strong>".$today_stats->today_expense."</strong></td>
+				<td><strong>".$today_stats->today_available."</strong></td>
+				<td><strong>".$gpay_stats->gpay_income."</strong></td>
+				<td><strong>".$gpay_stats->gpay_expense."</strong></td>
+				<td><strong>".$gpay_stats->gpay_available."</strong></td>
 			</tr>
 		</tbody>
 		</table>
