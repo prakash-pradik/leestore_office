@@ -355,7 +355,7 @@ class Admin extends CI_Controller {
         $mpdf->WriteHTML($html);
 		//$mpdf->Output();
 		ob_end_clean();
-		$pdf->Output($_SERVER['DOCUMENT_ROOT'].$file_name, 'D');  
+		$pdf->Output($file_name, 'D');  
     }
 	public function print_test()
     {
