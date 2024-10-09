@@ -39,7 +39,7 @@
             padding: 8px 0;
         }
         .invoice, .footer-sign{
-            background-image: url("http://office.leestoreindia.com/assets/img/lee_gray.png");
+            background-image: url("http://office.leestoreindia.com/assets/img/invoice/lee_gray.jpg");
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;   
@@ -65,7 +65,7 @@
                                 <tr>
                                     <td>
                                         <a href="javascript:;">
-                                            <img src="http://office.leestoreindia.com/assets/img/lee_store.png" width="100" alt="">
+                                            <img src="http://office.leestoreindia.com/assets/img/invoice/logo.jpg" width="100" alt="">
                                         </a>
                                     </td>
                                     <td class="text-right">
