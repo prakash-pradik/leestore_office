@@ -343,13 +343,7 @@ class Admin extends CI_Controller {
 		$data['today_stats'] = $this->admin_model->get_sales_stats();
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
         
-		$dataSerialize = $this->_serialize($data['daily_sales']);
-		//var_dump($dataSerialize);
-
-		$result = $this->_unserialize($dataSerialize);
-		//var_dump($result);
-		
-		$html = $this->load->view('sales_pdf', $result, true);
+		$html = $this->load->view('sales_pdf', $data, true);
         $mpdf = new \Mpdf\Mpdf([
             'format'=>'A4',
             'margin_top'=>10,
@@ -360,15 +354,9 @@ class Admin extends CI_Controller {
 		$mpdf->SetHTMLFooter('<div style="display:flex; justify-content:space-between; padding-top:10px; margin-left:10px;"><span style="">Created at:'.$today_dt.'</span> <span style="color:#777;font-size:12px;">&nbsp;&nbsp;Receipt was created on a computer and is valid without the signature and seal.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Page {PAGENO} of {nbpg}</span></div>');
         $mpdf->WriteHTML($html);
 		//$mpdf->Output();
-		$mpdf->Output($file_name, 'D'); 
+		ob_end_clean();
+		$pdf->Output($_SERVER['DOCUMENT_ROOT'].$file_name, 'D');  
     }
-
-	function _serialize($data) {
-		return base64_encode(serialize($data));
-	}
-	function _unserialize($data) {
-		return unserialize(base64_decode($data));
-	}
 	public function print_test()
     {
 		$data['base_url'] = base_url();
