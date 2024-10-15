@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require FCPATH.'../vendor/autoload.php';
+require FCPATH.'vendor/autoload.php';
 class Admin extends CI_Controller {
 	
 	public function __construct() {
