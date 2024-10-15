@@ -43,7 +43,7 @@
                         <!-- Title -->
                         <h1 class="push-top-bottom">
                             <img src="<?php echo base_url(IMG); ?>/logo.png" style="padding: 3px 0px;"><br>
-                            <small>Welcome to Lee Store Billing Panel..!</small>
+                            <small>Welcome to Lee Store Admin Panel..!</small>
                         </h1>
                         <!-- END Title -->
 
@@ -72,7 +72,7 @@
                     <div id="login-container">
                         <!-- Login Title -->
                         <div class="login-title text-center">
-                            <h1><strong>Login</strong> to Billing Panel</h1>
+                            <h1><strong>Login</strong> to Admin Panel</h1>
                         </div>
                         <!-- END Login Title -->
 

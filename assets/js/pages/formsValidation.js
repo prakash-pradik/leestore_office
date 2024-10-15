@@ -75,7 +75,7 @@ var FormsValidation = function () {
                 messages: {
                     val_username: {
                         required: 'Please enter a username',
-                        minlength: 'Your username must consist of at least 3 characters.!'
+                        minlength: 'Your username must consist of at least 3 characters'
                     },
                     val_email: 'Please enter a valid email address',
                     val_password: {
@@ -97,8 +97,7 @@ var FormsValidation = function () {
                 }
             });
 
-
-            $('#category-validation').validate({
+            $('#income-validation').validate({
                 errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
                 errorElement: 'div',
                 errorPlacement: function (error, e) {
@@ -114,376 +113,25 @@ var FormsValidation = function () {
                     e.closest('.help-block').remove();
                 },
                 rules: {
-                    category_store: {
-                        required: true
-                    },
-                    category_name: {
-                        required: true,
-                        minlength: 2
-                    }
-                },
-                messages: {
-                    category_store: 'Please select the store.!',
-                    category_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 2 characters.!'
-                    }
-                }
-            });
-
-            $('#category-update-validation').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    // You can use the following if you would like to highlight with green color the input after successful validation!
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    category_store: {
-                        required: true
-                    },
-                    category_name: {
-                        required: true,
-                        minlength: 2
-                    }
-                },
-                messages: {
-                    category_store: 'Please select the store.!',
-                    category_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 2 characters.!'
-                    }
-                }
-            });
-
-            $('#brand-validation').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    // You can use the following if you would like to highlight with green color the input after successful validation!
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    brand_store: {
-                        required: true
-                    },
-                    brand_name: {
-                        required: true,
-                        minlength: 3
-                    }
-                },
-                messages: {
-                    brand_store: 'Please select the store.!',
-                    brand_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
-                    }
-                }
-            });
-
-            $('#brand-update-validation').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    // You can use the following if you would like to highlight with green color the input after successful validation!
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    brand_store: {
-                        required: true
-                    },
-                    brand_name: {
-                        required: true,
-                        minlength: 3
-                    }
-                },
-                messages: {
-                    brand_store: 'Please select the store.!',
-                    brand_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
-                    }
-                }
-            });
-
-            $('#product-validation').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    // You can use the following if you would like to highlight with green color the input after successful validation!
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    product_store: {
-                        required: true
-                    },
-                    product_type: {
-                        required: true
-                    },
-                    product_name: {
+                    income_user_name: {
                         required: true,
                         minlength: 3
                     },
-                    category_name: {
-                        required: true
-                    },
-                    price: {
-                        required: true,
-                        range: [1, 999999]
-                    },
-                    cost_price: {
-                        required: true,
-                        range: [1, 999999]
-                    },
-                    sell_price: {
-                        required: true,
-                        range: [1, 999999]
-                    }
-                },
-                messages: {
-                    product_store: 'Please select the store.!',
-                    product_type: 'Please select a product type.!',
-                    product_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
-                    },
-                    category_name: 'Please select a category.!',
-                    price: 'Please enter price.!',
-                    cost_price: 'Please enter cost price.!',
-                    sell_price: 'Please enter selling price.!'
-                }
-            });
-
-            $('#product-update-validation').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    // You can use the following if you would like to highlight with green color the input after successful validation!
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    product_store: {
-                        required: true
-                    },
-                    product_type: {
-                        required: true
-                    },
-                    product_name: {
-                        required: true,
-                        minlength: 3
-                    },
-                    category_name: {
-                        required: true
-                    },
-                    price: {
-                        required: true,
-                        range: [1, 999999]
-                    },
-                    cost_price: {
-                        required: true,
-                        range: [1, 999999]
-                    },
-                    sell_price: {
-                        required: true,
-                        range: [1, 999999]
-                    }
-                },
-                messages: {
-                    product_store: 'Please select the store.!',
-                    product_type: 'Please select a product type.!',
-                    product_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
-                    },
-                    category_name: 'Please select a category.!',
-                    price: 'Please enter price.!',
-                    cost_price: 'Please enter cost price.!',
-                    sell_price: 'Please enter selling price.!'
-                }
-            });
-
-            $('#staff-validation').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    // You can use the following if you would like to highlight with green color the input after successful validation!
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    staff_store: {
-                        required: true
-                    },
-                    staff_full_name: {
-                        required: true,
-                        minlength: 3
-                    },
-                    staff_phone_number: {
-                        required: true
-                    },
-                    staff_user_name: {
-                        required: true
-                    },
-                    staff_password: {
-                        required: true
-                    },
-                    staff_address: {
-                        required: true
-                    }
-                },
-                messages: {
-                    staff_store: 'Please select the store.!',
-                    staff_full_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
-                    },
-                    staff_phone_number: 'Please enter phone number.!',
-                    staff_user_name: 'Please enter user name.!',
-                    staff_password: 'Please enter password.!',
-                    staff_address: 'Please enter address.!'
-                }
-            });
-
-            $('#staff-update-validation').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    // You can use the following if you would like to highlight with green color the input after successful validation!
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    staff_store: {
-                        required: true
-                    },
-                    staff_full_name: {
-                        required: true,
-                        minlength: 3
-                    },
-                    staff_phone_number: {
-                        required: true
-                    },
-                    staff_user_name: {
-                        required: true
-                    },
-                    staff_password: {
-                        required: true
-                    },
-                    staff_address: {
-                        required: true
-                    }
-                },
-                messages: {
-                    staff_store: 'Please select the store.!',
-                    staff_full_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
-                    },
-                    staff_phone_number: 'Please enter phone number.!',
-                    staff_user_name: 'Please enter user name.!',
-                    staff_password: 'Please enter password.!',
-                    staff_address: 'Please enter address.!'
-                }
-            });
-
-            $('#stock-validation').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    // You can use the following if you would like to highlight with green color the input after successful validation!
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    stock_product_id: {
-                        required: true
-                    },
-                    supplier_name: {
-                        required: true,
-                        minlength: 3
-                    },
-                    supplier_phone: {
-                        required: true,
-                        digits: true
-                    },
-                    stock_number: {
+                    income_amt_value: {
                         required: true,
                         digits: true
                     }
                 },
                 messages: {
-                    stock_product_id: 'Please select a product.!',
-                    supplier_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
+                    income_user_name: {
+                        required: 'Please enter a name',
+                        minlength: 'Your name must consist of at least 3 characters'
                     },
-                    supplier_phone: 'Please enter the phone number.!',
-                    stock_number: 'Please enter the stock number.!'
+                    income_amt_value: 'Please enter only digits!'
                 }
             });
 
-            $('#stock-update-validation').validate({
+            $('#income-validation-old').validate({
                 errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
                 errorElement: 'div',
                 errorPlacement: function (error, e) {
@@ -499,17 +147,134 @@ var FormsValidation = function () {
                     e.closest('.help-block').remove();
                 },
                 rules: {
-                    update_stock_number: {
+                    old_user_id: {
+                        required: true
+                    },
+                    old_income_amt: {
                         required: true,
                         digits: true
                     }
                 },
                 messages: {
-                    update_stock_number: 'Please enter the stock number.!'
+                    old_user_id: 'Please select a user!',
+                    old_income_amt: 'Please enter only digits!'
                 }
             });
 
-            $('#customer-validation').validate({
+            $('#user-validation').validate({
+                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+                errorElement: 'div',
+                errorPlacement: function (error, e) {
+                    e.parents('.form-group > div').append(error);
+                },
+                highlight: function (e) {
+                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+                    $(e).closest('.help-block').remove();
+                },
+                success: function (e) {
+                    // You can use the following if you would like to highlight with green color the input after successful validation!
+                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
+                    e.closest('.help-block').remove();
+                },
+                rules: {
+                    user_name: {
+                        required: true,
+                        minlength: 3
+                    }
+                },
+                messages: {
+                    user_name: {
+                        required: 'Please enter a name',
+                        minlength: 'Your name must consist of at least 3 characters'
+                    }
+                }
+            });
+
+            $('#sale-income-validation').validate({
+                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+                errorElement: 'div',
+                errorPlacement: function (error, e) {
+                    e.parents('.form-group > div').append(error);
+                },
+                highlight: function (e) {
+                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+                    $(e).closest('.help-block').remove();
+                },
+                success: function (e) {
+                    // You can use the following if you would like to highlight with green color the input after successful validation!
+                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
+                    e.closest('.help-block').remove();
+                },
+                rules: {
+                    emp_id: {
+                        required: true
+                    },
+                    sale_desc: {
+                        required: true,
+                        minlength: 3
+                    },
+                    sale_amt: {
+                        required: true,
+                        digits: true
+                    },
+                    amount_mode: {
+                        required: true
+                    }
+                },
+                messages: {
+                    emp_id: 'Please select a sales person!',
+                    sale_desc: {
+                        required: 'Please enter a description',
+                        minlength: 'Description must consist of at least 3 characters'
+                    },
+                    sale_amt: 'Please enter only digits!',
+                    amount_mode: 'Please select a mode of payment!',
+                }
+            });
+
+            $('#sale-exp-validation').validate({
+                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+                errorElement: 'div',
+                errorPlacement: function (error, e) {
+                    e.parents('.form-group > div').append(error);
+                },
+                highlight: function (e) {
+                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+                    $(e).closest('.help-block').remove();
+                },
+                success: function (e) {
+                    // You can use the following if you would like to highlight with green color the input after successful validation!
+                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
+                    e.closest('.help-block').remove();
+                },
+                rules: {
+                    emp_id: {
+                        required: true
+                    },
+                    sale_desc: {
+                        required: true,
+                        minlength: 3
+                    },
+                    sale_amt: {
+                        required: true,
+                        digits: true
+                    },
+                    amount_mode: {
+                        required: true
+                    }
+                },
+                messages: {
+                    emp_id: 'Please select a sales person!',
+                    sale_desc: {
+                        required: 'Please enter a description',
+                        minlength: 'Description must consist of at least 3 characters'
+                    },
+                    sale_amt: 'Please enter only digits!',
+                    amount_mode: 'Please select a mode of payment!',
+                }
+            });
+
+            $('#buy-validation').validate({
                 errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
                 errorElement: 'div',
                 errorPlacement: function (error, e) {
@@ -530,23 +295,29 @@ var FormsValidation = function () {
                         minlength: 3
                     },
                     customer_phone: {
+                        required: true,
+                        digits: true
+                    },
+                    phone_name: {
                         required: true
+                    },
+                    phone_details: {
+                        required: true,
+                        minlength: 3
                     }
                 },
                 messages: {
                     customer_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
+                        required: 'Please enter a name',
+                        minlength: 'Your name must consist of at least 3 characters'
                     },
-                    customer_phone: 'Please enter phone number.!'
-                },
-                submitHandler: function (form) {
-                    //console.log(form);
-                    addCustomer();
+                    customer_phone: 'Please enter valid phone number!',
+                    phone_name: 'Please enter phone model!',
+                    phone_details: 'Please enter something about phone!'
                 }
             });
 
-            $('#customer-update-validation').validate({
+            $('#sell-validation').validate({
                 errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
                 errorElement: 'div',
                 errorPlacement: function (error, e) {
@@ -567,19 +338,29 @@ var FormsValidation = function () {
                         minlength: 3
                     },
                     customer_phone: {
+                        required: true,
+                        digits: true
+                    },
+                    phone_name: {
                         required: true
+                    },
+                    phone_details: {
+                        required: true,
+                        minlength: 3
                     }
                 },
                 messages: {
                     customer_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
+                        required: 'Please enter a name',
+                        minlength: 'Your name must consist of at least 3 characters'
                     },
-                    customer_phone: 'Please enter phone number.!'
+                    customer_phone: 'Please enter valid phone number!',
+                    phone_name: 'Please enter phone model!',
+                    phone_details: 'Please enter something about phone!'
                 }
             });
 
-            $('#assginRole-validation').validate({
+            $('#update-validation').validate({
                 errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
                 errorElement: 'div',
                 errorPlacement: function (error, e) {
@@ -595,289 +376,30 @@ var FormsValidation = function () {
                     e.closest('.help-block').remove();
                 },
                 rules: {
-                    staff_role_type: {
-                        required: true
-                    }
-                },
-                messages: {
-                    staff_role_type: 'Please select the role type.!'
-                }
-            });
-
-            $('#store-validation').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    // You can use the following if you would like to highlight with green color the input after successful validation!
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    store_name: {
+                    customer_name: {
                         required: true,
                         minlength: 3
                     },
-                    store_address: {
-                        required: true
-                    }
-                },
-                messages: {
-                    store_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
-                    },
-                    store_address: 'Please enter store address.!'
-                }
-            });
-            $('#store-update-validation').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    // You can use the following if you would like to highlight with green color the input after successful validation!
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    store_name: {
+                    customer_phone: {
                         required: true,
-                        minlength: 3
+                        digits: true
                     },
-                    store_address: {
-                        required: true
-                    }
-                },
-                messages: {
-                    store_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
-                    },
-                    store_address: 'Please enter store address.!'
-                }
-            });
-
-            $('#supplier-validation').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    // You can use the following if you would like to highlight with green color the input after successful validation!
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    new_supplier_name: {
-                        required: true,
-                        minlength: 3
-                    },
-                    new_supplier_phone: {
-                        required: true
-                    }
-                },
-                messages: {
-                    new_supplier_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
-                    },
-                    new_supplier_phone: 'Please enter phone number.!'
-                }
-            });
-            $('#supplier-update-validation').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    // You can use the following if you would like to highlight with green color the input after successful validation!
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    new_supplier_name: {
-                        required: true,
-                        minlength: 3
-                    },
-                    new_supplier_phone: {
-                        required: true
-                    }
-                },
-                messages: {
-                    new_supplier_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
-                    },
-                    new_supplier_phone: 'Please enter phone number.!'
-                }
-            });
-
-            $('#product-modal-validation').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    // You can use the following if you would like to highlight with green color the input after successful validation!
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    product_name: {
-                        required: true,
-                        minlength: 3
-                    },
-                    category_name: {
+                    phone_name: {
                         required: true
                     },
-                    price: {
-                        required: true,
-                        range: [1, 999999]
-                    },
-                    cost_price: {
-                        required: true,
-                        range: [1, 999999]
-                    },
-                    sell_price: {
-                        required: true,
-                        range: [1, 999999]
-                    }
-                },
-                messages: {
-                    product_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
-                    },
-                    category_name: 'Please select a category.!',
-                    price: 'Please enter price.!',
-                    cost_price: 'Please enter cost price.!',
-                    sell_price: 'Please enter selling price.!'
-                },
-                submitHandler: function (form) {
-                    addProduct();
-                }
-            });
-
-            $('#role-validation').validate({
-                errorClass: 'help-block animation-slideDown',
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    role_name: {
+                    phone_details: {
                         required: true,
                         minlength: 3
                     }
                 },
                 messages: {
-                    role_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
-                    }
-                }
-            });
-
-            $('#role-update-validation').validate({
-                errorClass: 'help-block animation-slideDown',
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    role_name: {
-                        required: true,
-                        minlength: 3
-                    }
-                },
-                messages: {
-                    role_name: {
-                        required: 'Please enter a name.!',
-                        minlength: 'Name must contain at least 3 characters.!'
-                    }
-                }
-            });
-
-            $('#update-password').validate({
-                errorClass: 'help-block animation-slideDown',
-                errorElement: 'div',
-                errorPlacement: function (error, e) {
-                    e.parents('.form-group > div').append(error);
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
-                    $(e).closest('.help-block').remove();
-                },
-                success: function (e) {
-                    e.closest('.form-group').removeClass('has-success has-error'); // e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
-                    e.closest('.help-block').remove();
-                },
-                rules: {
-                    user_password: {
-                        required: true,
-                        minlength: 5
+                    customer_name: {
+                        required: 'Please enter a name',
+                        minlength: 'Your name must consist of at least 3 characters'
                     },
-                    user_confirm_password: {
-                        required: true,
-                        equalTo: '#user_password'
-                    }
-                },
-                messages: {
-                    user_password: {
-                        required: 'Please provide a password.!',
-                        minlength: 'Your password must be at least 5 characters long.!'
-                    },
-                    user_confirm_password: {
-                        required: 'Please provide a password.!',
-                        minlength: 'Your password must be at least 5 characters long.!',
-                        equalTo: 'Please enter the same password as above.!'
-                    }
-                },
-                submitHandler: function (form) {
-                    updatePassword();
+                    customer_phone: 'Please enter valid phone number!',
+                    phone_name: 'Please enter phone model!',
+                    phone_details: 'Please enter something about phone!'
                 }
             });
             // Initialize Masked Inputs

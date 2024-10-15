@@ -5,15 +5,8 @@
 			$this->load->database();
 		}
 
-		public function login($email, $password)
-		{
+		public function login($email, $password){
 			$query = $this->db->get_where('admin', array('name'=>$email, 'password'=>$password));
-			return $query->row_array();
-		}
-
-		public function login_staff($email, $password)
-		{
-			$query = $this->db->get_where('employees', array('user_name'=>$email, 'password'=>$password));
 			return $query->row_array();
 		}
 
