@@ -27,28 +27,20 @@
 
                     <!-- Modal Body -->
                     <div class="modal-body">
-                        <form action="index.html" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered" onsubmit="return false;">
-                            <fieldset>
-                                <legend>User Info</legend>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label">Username</label>
-                                    <div class="col-md-8">
-                                        <p class="form-control-static">Admin</p>
-                                    </div>
-                                </div>
-                            </fieldset>
+                        <form action="javascript:void(0);" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered" id="update-password">
+                
                             <fieldset>
                                 <legend>Password Update</legend>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="user-settings-password">New Password</label>
+                                    <label class="col-md-4 control-label" for="user_password">New Password</label>
                                     <div class="col-md-8">
-                                        <input type="password" id="user-settings-password" name="user-settings-password" class="form-control" placeholder="Please choose a complex one..">
+                                        <input type="password" id="user_password" name="user_password" class="form-control" placeholder="Please choose a complex one..">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="user-settings-repassword">Confirm New Password</label>
+                                    <label class="col-md-4 control-label" for="user_confirm_password">Confirm New Password</label>
                                     <div class="col-md-8">
-                                        <input type="password" id="user-settings-repassword" name="user-settings-repassword" class="form-control" placeholder="..and confirm it!">
+                                        <input type="password" id="user_confirm_password" name="user_confirm_password" class="form-control" placeholder="..and confirm it!">
                                     </div>
                                 </div>
                             </fieldset>
@@ -67,34 +59,241 @@
         <!-- END User Settings -->
 
 
-<div id="modal-user-update" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modal-update-category" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
-            <div class="modal-header text-center bg-success">
-                <h2 class="modal-title"><i class="fa fa-user"></i> Update User Details</h2>
+            <div class="modal-header text-center bg-info">
+                <h2 class="modal-title"><i class="fa fa-pencil"></i> Update Category</h2>
             </div>
             <!-- END Modal Header -->
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <form action="<?php echo base_url('admin/update_user'); ?>" id="user-validation" method="post" class="form-horizontal form-bordered">
-                    <input type="hidden" id="user_id" name="user_id" value="">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Name</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="user_name" name="user_name" class="form-control" placeholder="Name..">
-                                <span class="input-group-addon"><i class="gi gi-user"></i></span>
+                
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
+
+<div id="modal-new-staff" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center bg-success">
+                <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Staff</h2>
+            </div>
+            <!-- END Modal Header -->
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="<?php echo base_url('staffs/insert_staff'); ?>" id="staff-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Store<span class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <select id="staff_store" name="staff_store" class="form-control">
+                                        <option value="">Please select</option>
+                                        <?php if(!empty($stores)) {
+                                            $i = 1; 
+                                            foreach($stores as $store){
+                                        ?>
+                                            <option value="<?php echo $store['id']; ?>"><?php echo $store['store_name']; ?></option>
+                                        <?php } } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Full Name<span class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="staff_full_name" name="staff_full_name" class="form-control" placeholder="Name..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Phone Number<span class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="staff_phone_number" name="staff_phone_number" class="form-control numeric" placeholder="Phone Number.." maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">User Name<span class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="staff_user_name" name="staff_user_name" class="form-control" placeholder="User Name..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Password<span class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="staff_password" name="staff_password" class="form-control" placeholder="********" maxlength="8">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Email</label>
+                                <div class="col-md-8">
+                                    <input type="email" id="staff_email" name="staff_email" class="form-control" placeholder="Email..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Date of Birth</label>
+                                <div class="col-md-8">
+                                    <input type="text" id="staff_dob" name="staff_dob" class="form-control input-datepicker-close" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Gender</label>
+                                <div class="col-md-8">
+                                    <select id="staff_gender" name="staff_gender" class="form-control">
+                                        <option value="">Please select</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="others">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label class="col-md-4 control-label">Profile Image</label>
+                                <div class="col-md-8">
+                                    <input type="file" id="staff_photo" name="staff_photo">
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Address   <span class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <textarea id="staff_address" name="staff_address" rows="4" class="form-control" placeholder="Address.."></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Phone Number</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="user_phone" name="user_phone" class="form-control" placeholder="Phone Number..">
-                                <span class="input-group-addon"><i class="gi gi-earphone"></i></span>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
+
+<div id="modal-update-staff" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center bg-info">
+                <h2 class="modal-title"><i class="fa fa-pencil"></i> Update Staff</h2>
+            </div>
+            <!-- END Modal Header -->
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="<?php echo base_url('staffs/update_staff'); ?>" id="staff-update-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
+                    <input type="hidden" class="staff_edit_id" name="staff_edit_id">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Store<span class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <select id="" name="staff_store" class="form-control staff_store">
+                                        <option value="">Please select</option>
+                                        <?php if(!empty($stores)) {
+                                            $i = 1; 
+                                            foreach($stores as $store){
+                                        ?>
+                                            <option value="<?php echo $store['id']; ?>"><?php echo $store['store_name']; ?></option>
+                                        <?php } } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Full Name</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="staff_full_name" class="form-control staff_full_name" placeholder="Name..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Phone Number</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="staff_phone_number" class="form-control staff_phone_number" placeholder="Phone Number..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">User Name</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="staff_user_name" class="form-control staff_user_name" placeholder="User Name..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Password</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="staff_password" class="form-control staff_password" placeholder="******">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Email</label>
+                                <div class="col-md-8">
+                                    <input type="email" name="staff_email" class="form-control staff_email" placeholder="Email..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Date of Birth</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="staff_dob" class="form-control staff_dob input-datepicker-close" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Gender</label>
+                                <div class="col-md-8">
+                                    <select name="staff_gender" class="form-control staff_gender">
+                                        <option value="">Please select</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="others">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Address</label>
+                                <div class="col-md-8">
+                                    <textarea name="staff_address" rows="4" class="form-control staff_address" placeholder="Address.."></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -111,410 +310,88 @@
     </div>
 </div>
 
-<div id="modal-emp-update" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-info">
-                <h2 class="modal-title"><i class="fa fa-user"></i> Update Employee Details</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/update_employee'); ?>" id="user-validation" method="post" class="form-horizontal form-bordered">
-                    <input type="hidden" id="emp_id" name="emp_id" value="">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Name</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="emp_name" name="emp_name" class="form-control" placeholder="Name..">
-                                <span class="input-group-addon"><i class="gi gi-user"></i></span>
-                            </div>
-                        </div>
-                    </div>
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Phone Number</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="emp_phone" name="emp_phone" class="form-control" placeholder="Phone Number..">
-                                <span class="input-group-addon"><i class="gi gi-earphone"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-info">Update</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
-
-<div id="modal-sales-income" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modal-new-stock" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header text-center bg-success">
-                <h2 class="modal-title"><i class="fa fa-angle-double-down"></i> Add New Sale</h2>
+                <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Stock</h2>
             </div>
             <!-- END Modal Header -->
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_sales'); ?>" id="sale-income-validation" method="post" class="form-horizontal form-bordered">
-					<input type="hidden" id="sale_type" name="sale_type" class="form-control" value="inc">
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Sales Person</label>
-                        <div class="col-md-8">
-                            <select id="emp_id" name="emp_id" class="form-control" size="1" require="true">
-                            <option value="">Please select</option>
-                            <?php if(!empty($employees)) {
-                                $i = 1; 
-                                foreach($employees as $emp){
-                                    echo '<option value="'.$emp['id'].'">'.$emp['name'].'</option>';
-                                }
-                            }?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Description</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="sale_desc" name="sale_desc" class="form-control" placeholder="Description..">
-                                <span class="input-group-addon"><i class="gi gi-notes"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="sale_amt" name="sale_amt" class="form-control" placeholder="Enter Amount" require="true">
-                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
-                            </div>
-                        </div>
-                    </div>
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Amount Mode</label>
-                        <div class="col-md-8">
-                            <select id="amount_mode" name="amount_mode" class="form-control" size="1" require="true">
-								<option value="">Please select</option>
-								<option value="cash">Cash</option>
-								<option value="gpay">Gpay</option>
-                                <option value="late_pay">Late Pay</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save Amount</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
-<div id="modal-sales-income-update" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-warning">
-                <h2 class="modal-title"><i class="fa fa-pencil"></i> Update Details</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/update_sales'); ?>" id="sale-income-validation" method="post" class="form-horizontal form-bordered">
-					<input type="hidden" id="update_sale_type" name="sale_type" class="form-control" value="">
-                    <input type="hidden" id="update_sale_id" name="sale_id" class="form-control" value="">
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Sales Person</label>
-                        <div class="col-md-8">
-                            <select id="update_emp_id" name="emp_id" class="form-control" size="1" require="true">
-                            <option value="">Please select</option>
-                            <?php if(!empty($employees)) {
-                                $i = 1; 
-                                foreach($employees as $emp){
-                                    echo '<option value="'.$emp['id'].'">'.$emp['name'].'</option>';
-                                }
-                            }?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Description</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="update_sale_desc" name="sale_desc" class="form-control" placeholder="Description..">
-                                <span class="input-group-addon"><i class="gi gi-notes"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="update_sale_amt" name="sale_amt" class="form-control" placeholder="Enter Amount" require="true">
-                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
-                            </div>
-                        </div>
-                    </div>
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Amount Mode</label>
-                        <div class="col-md-8">
-                            <select id="update_amount_mode" name="amount_mode" class="form-control" size="1" require="true">
-								<option value="">Please select</option>
-								<option value="cash">Cash</option>
-								<option value="gpay">Gpay</option>
-                                <option value="late_pay">Late Pay</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-warning">Update Amount</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
-<div id="modal-sales-expense" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-info">
-                <h2 class="modal-title"><i class="fa fa-angle-double-down"></i> Add New Expenses</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_sales'); ?>" id="sale-exp-validation" method="post" class="form-horizontal form-bordered">
-					<input type="hidden" id="sale_type" name="sale_type" class="form-control" value="exp">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Name</label>
-                        <div class="col-md-8">
-                            <select id="emp_id" name="emp_id" class="form-control" size="1" require="true">
-                            <option value="">Please select</option>
-                            <?php if(!empty($employees)) {
-                                $i = 1; 
-                                foreach($employees as $emp){
-                                    echo '<option value="'.$emp['id'].'">'.$emp['name'].'</option>';
-                                }
-                            }?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Description</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="sale_desc" name="sale_desc" class="form-control" placeholder="Description..">
-                                <span class="input-group-addon"><i class="gi gi-notes"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="sale_amt" name="sale_amt" class="form-control" placeholder="Enter Amount" require="true">
-                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
-                            </div>
-                        </div>
-                    </div>
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Amount Mode</label>
-                        <div class="col-md-8">
-                            <select id="amount_mode" name="amount_mode" class="form-control" size="1" require="true">
-								<option value="">Please select</option>
-								<option value="cash">Cash</option>
-								<option value="gpay">Gpay</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-info">Save Expense</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
-<div id="modal-custom-range" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-success">
-                <h2 class="modal-title"><i class="fa fa-filter"></i> Filter Full Report</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('full_report/custom'); ?>" id="sale-income-validation" method="post" class="form-horizontal form-bordered">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="example-daterange1">Select Date Range</label>
-                        <div class="col-md-8">
-                            <div class="input-group input-daterange" data-date-format="yyyy/mm/dd">
-                                <input type="text" id="example-daterange1" name="example-daterange1" class="form-control text-center input-datepicker-close" placeholder="From">
-                                <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
-                                <input type="text" id="example-daterange2" name="example-daterange2" class="form-control text-center input-datepicker-close" placeholder="To">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Get Data</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
-<div id="modal-new-employee" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-success">
-                <h2 class="modal-title"><i class="fa fa-angle-double-down"></i> Add New Employee</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_employee'); ?>" id="income-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
-                    <input type="hidden" id="insert_type" name="insert_type" value="new">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Name</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="income_user_name" name="income_user_name" class="form-control" placeholder="Name..">
-                                <span class="input-group-addon"><i class="gi gi-user"></i></span>
-                            </div>
-                        </div>
-                    </div>
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Phone Number</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="income_user_phone" name="income_user_phone" class="form-control" placeholder="Phone Number..">
-                                <span class="input-group-addon"><i class="gi gi-earphone"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Birth Date</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="income_user_birth" name="income_user_birth" class="form-control input-datepicker-close" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd">
-                            </div>
-                        </div>
-                    </div>
+                <form action="<?php echo base_url('insert_stock'); ?>" id="stock-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
                     
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Address</label>
+                        <label class="col-md-4 control-label">Category</label>
                         <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="income_user_address" name="income_user_address" class="form-control" placeholder="Address..">
-                                <span class="input-group-addon"><i class="gi gi-home"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Photo</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="file" id="income_user_photo" name="income_user_photo">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save Employee</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
-<div id="modal-new-buy" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-success">
-                <h2 class="modal-title"><i class="fa fa-shopping-cart"></i> Add New Buy</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_buy_mobile'); ?>" id="buy-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
-                    <input type="hidden" id="purchase_type" name="purchase_type" value="buy">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Customer Name</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="customer_name" name="customer_name" class="form-control" placeholder="Name..">
-                                <span class="input-group-addon"><i class="gi gi-user"></i></span>
-                            </div>
-                        </div>
-                    </div>
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Phone Number</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="customer_phone" name="customer_phone" class="form-control" placeholder="Phone Number..">
-                                <span class="input-group-addon"><i class="gi gi-earphone"></i></span>
-                            </div>
+                            <select id="stock_category" name="stock_category" class="form-control" >
+                                <option value="">Please select</option>
+                                <?php if(!empty($categories)) {
+                                    foreach($categories as $cate){
+                                ?>
+                                    <option value="<?php echo $cate['id']; ?>"><?php echo $cate['category_name']; ?></option>
+                                <?php
+                                    }
+                                }?>
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Phone Model</label>
+                        <label class="col-md-4 control-label">Products</label>
                         <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="phone_name" name="phone_name" class="form-control" placeholder="Phone Model..">
-                                <span class="input-group-addon"><i class="gi gi-iphone"></i></span>
+                            <select id="stock_product_id" name="stock_product_id" class="form-control">
+                                <option value="">Please select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="hidden" id="supplier_type" name="supplier_type" value="old">
+                    <div id="old_supplier_block">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Supplier</label>
+                            <div class="col-md-8">
+                                <select id="stock_supplier_id" name="stock_supplier_id" class="form-control">
+                                    <option value="">Please select</option>
+                                    <?php if(!empty($suppliers)) {
+                                        foreach($suppliers as $sup){
+                                    ?>
+                                        <option value="<?php echo $sup['id']; ?>"><?php echo $sup['supplier_name']; ?></option>
+                                    <?php
+                                        }
+                                    }?>
+                                </select>
+                                <a href="javascript:void(0)" onclick="showSupplierBlock('new');" class="sub_text">New Supplier</a>
                             </div>
                         </div>
                     </div>
+                    <div id="new_supplier_block" style="display:none;">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Supplier Name</label>
+                            <div class="col-md-8">
+                                <input type="text" id="supplier_name" name="supplier_name" class="form-control" placeholder="Name..">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Supplier Phone</label>
+                            <div class="col-md-8">
+                                <input type="text" id="supplier_phone" name="supplier_phone" class="form-control" placeholder="Phone..">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Address</label>
+                            <div class="col-md-8">
+                                <textarea id="supplier_details" name="supplier_details" rows="4" class="form-control" placeholder="Address.."></textarea>
 
+                                <a href="javascript:void(0)" onclick="showSupplierBlock('old');" class="sub_text">Old Supplier</a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Phone Details</label>
+                        <label class="col-md-4 control-label">No.of Stock</label>
                         <div class="col-md-8">
-                            <textarea id="phone_details" name="phone_details" rows="4" class="form-control" placeholder="Tell us phone details.."></textarea>
+                            <input type="text" id="stock_number" name="stock_number" class="form-control" placeholder="Stock..">
                         </div>
                     </div>
                     
@@ -531,59 +408,37 @@
     </div>
 </div>
 
-<div id="modal-new-sell" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modal-assign-staff" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
-            <div class="modal-header text-center bg-info">
-                <h2 class="modal-title"><i class="fa fa-shopping-cart"></i> Add New Sell</h2>
+            <div class="modal-header text-center bg-warning">
+                <h2 class="modal-title"><i class="fa fa-chain-broken"></i> Assign Role</h2>
             </div>
             <!-- END Modal Header -->
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_buy_mobile'); ?>" id="sell-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
-                    <input type="hidden" id="purchase_type" name="purchase_type" value="sell">
+                <form action="<?php echo base_url('staffs/assign_role'); ?>" id="assginRole-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
+                    <input type="hidden" name="assign_emp_id" id="assign_emp_id" >
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Customer Name</label>
+                        <label class="col-md-4 control-label">Role Type</label>
                         <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="customer_name" name="customer_name" class="form-control" placeholder="Name..">
-                                <span class="input-group-addon"><i class="gi gi-user"></i></span>
-                            </div>
-                        </div>
-                    </div>
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Phone Number</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="customer_phone" name="customer_phone" class="form-control" placeholder="Phone Number..">
-                                <span class="input-group-addon"><i class="gi gi-earphone"></i></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Phone Model</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="phone_name" name="phone_name" class="form-control" placeholder="Phone Model..">
-                                <span class="input-group-addon"><i class="gi gi-iphone"></i></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Phone Details</label>
-                        <div class="col-md-8">
-                            <textarea id="phone_details" name="phone_details" rows="4" class="form-control" placeholder="Tell us phone details.."></textarea>
+                            <select id="staff_role_type" name="staff_role_type" class="form-control" placeholder="Select Role...">
+                                <option value="">Please select</option>
+                                <?php if(!empty($roles)) {
+                                    foreach($roles as $role){
+                                ?>
+                                <option value="<?php echo $role['role_name']; ?>"><?php echo $role['role_name']; ?></option>
+                                <?php } } ?>
+                            </select>
                         </div>
                     </div>
                     
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-info">Save</button>
+                            <button type="submit" class="btn btn-warning">Assign</button>
                         </div>
                     </div>
                 </form>
@@ -593,56 +448,80 @@
     </div>
 </div>
 
-<div id="modal-update-buysell" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modal-new-customer" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
-            <div class="modal-header text-center bg-info">
-                <h2 class="modal-title"><i class="fa fa-shopping-cart"></i> Update Details</h2>
+            <div class="modal-header text-center bg-success">
+                <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Customer</h2>
             </div>
             <!-- END Modal Header -->
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <form action="<?php echo base_url('admin/update_buy_mobile'); ?>" id="update-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
-                    <input type="hidden" id="update_buy_id" name="update_buy_id" value="">
-                    <input type="hidden" id="update_purchase_type" name="purchase_type" value="">
+                <?php //echo base_url('admin/insert_customer'); ?>
+                <form action="javascript:void(0);" id="customer-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Customer Name</label>
+                        <label class="col-md-4 control-label">Full Name</label>
                         <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="update_customer_name" name="customer_name" class="form-control" placeholder="Name..">
-                                <span class="input-group-addon"><i class="gi gi-user"></i></span>
-                            </div>
+                            <input type="text" id="customer_name" name="customer_name" class="form-control" placeholder="Name..">
                         </div>
                     </div>
-					<div class="form-group">
+                    <div class="form-group">
                         <label class="col-md-4 control-label">Phone Number</label>
                         <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="update_customer_phone" name="customer_phone" class="form-control" placeholder="Phone Number..">
-                                <span class="input-group-addon"><i class="gi gi-earphone"></i></span>
-                            </div>
+                            <input type="text" id="customer_phone" name="customer_phone" class="form-control numeric" placeholder="Phone Number.." maxlength="10">
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Phone Model</label>
+                        <label class="col-md-4 control-label">Address</label>
                         <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="update_phone_name" name="phone_name" class="form-control" placeholder="Phone Model..">
-                                <span class="input-group-addon"><i class="gi gi-iphone"></i></span>
-                            </div>
+                            <textarea id="customer_address" name="customer_address" rows="4" class="form-control" placeholder="Address.."></textarea>
                         </div>
                     </div>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
+<div id="modal-update-customer" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center bg-info">
+                <h2 class="modal-title"><i class="fa fa-pencil"></i> Update Customer</h2>
+            </div>
+            <!-- END Modal Header -->
 
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="<?php echo base_url('customers/update_customer'); ?>" id="customer-update-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
+                    <input type="hidden" name="customer_id" id="customer_id">
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Phone Details</label>
+                        <label class="col-md-4 control-label">Full Name</label>
                         <div class="col-md-8">
-                            <textarea id="update_phone_details" name="phone_details" rows="4" class="form-control" placeholder="Tell us phone details.."></textarea>
+                            <input type="text" id="update_customer_name" name="customer_name" class="form-control" placeholder="Name..">
                         </div>
                     </div>
-                    
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Phone Number</label>
+                        <div class="col-md-8">
+                            <input type="text" id="update_customer_phone" name="customer_phone" class="form-control numeric" placeholder="Phone Number.." maxlength="10">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Address</label>
+                        <div class="col-md-8">
+                            <textarea id="update_customer_address" name="customer_address" rows="4" class="form-control" placeholder="Address.."></textarea>
+                        </div>
+                    </div>
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -656,48 +535,35 @@
     </div>
 </div>
 
-<div id="modal-view-buysell" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modal-new-store" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
-            <div class="modal-header text-center bg-info">
-                <h2 class="modal-title"><i class="fa fa-shopping-cart"></i> View Details</h2>
+            <div class="modal-header text-center bg-success">
+                <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Store</h2>
             </div>
             <!-- END Modal Header -->
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <form action="javascript:;" class="form-horizontal form-bordered" >
+                <?php //echo base_url('admin/insert_customer'); ?>
+                <form action="<?php echo base_url('stores/insert_store'); ?>" id="store-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Customer Name :</label>
+                        <label class="col-md-4 control-label">Store Name</label>
                         <div class="col-md-8">
-                            <strong><p class="form-control-static view_customer_name"></p></strong>
+                            <input type="text" name="store_name" class="form-control" placeholder="Name..">
                         </div>
                     </div>
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Phone Number :</label>
-                        <div class="col-md-8">
-                            <strong><p class="form-control-static view_phone_number"></p></strong>
-                        </div>
-                    </div>
-
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Phone Model :</label>
+                        <label class="col-md-4 control-label">Address</label>
                         <div class="col-md-8">
-                            <strong><p class="form-control-static view_phone_name"></p></strong>
+                            <textarea name="store_address" rows="4" class="form-control" placeholder="Address.."></textarea>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Phone Details :</label>
-                        <div class="col-md-8">
-                            <strong><p class="form-control-static view_phone_details"></p></strong>
-                        </div>
-                    </div>
-                    
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save</button>
                         </div>
                     </div>
                 </form>
@@ -707,168 +573,309 @@
     </div>
 </div>
 
-<script>
-    var base_url = document.getElementById("base_url").value; //$('#base_url').val();
-	
-	function fetchDetails(mythis){
-		$('#user_id').val( $(mythis).data('user_id') );
-		$('#user_name').val( $(mythis).data('name') );
-		$('#user_phone').val( $(mythis).data('phone') );
-	}
+<div id="modal-update-store" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center bg-info">
+                <h2 class="modal-title"><i class="fa fa-pencil"></i> Update Store</h2>
+            </div>
+            <!-- END Modal Header -->
 
-    function fetchEmpDetails(mythis){
-		$('#emp_id').val( $(mythis).data('user_id') );
-		$('#emp_name').val( $(mythis).data('name') );
-		$('#emp_phone').val( $(mythis).data('phone') );
-	}
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <?php //echo base_url('admin/insert_customer'); ?>
+                <form action="<?php echo base_url('stores/update_store'); ?>" id="store-update-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
+                    <input type="hidden" id="store_id" name="store_id">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Store Name</label>
+                        <div class="col-md-8">
+                            <input type="text" name="store_name" class="form-control store_name" placeholder="Name..">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Address</label>
+                        <div class="col-md-8">
+                            <textarea name="store_address" rows="4" class="form-control store_address" placeholder="Address.."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-info">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
 
-    function deleteData(mythis){
-        var userId = $(mythis).data('user_id');
-        swal({
-            title: "Are you sure?", 
-            text: "You won't be able to revert this!", 
-            type: "warning",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "Yes, delete it!",
-            showCancelButton: true
-        })
-            .then((result) => {
-                if (result.value) {
+<div id="modal-new-supplier" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center bg-success">
+                <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Supplier</h2>
+            </div>
+            <!-- END Modal Header -->
 
-                    $.ajax({
-                        url: base_url+'admin/delete_row',
-                        type: 'post',
-                        data: {userId : userId, tbl_name : 'users'},
-                        success: function(res){
-                            window.location.href = base_url;
-                        }
-                    });
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="<?php echo base_url('suppliers/insert_supplier'); ?>" id="supplier-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
+                    
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Supplier Name</label>
+                        <div class="col-md-8">
+                            <input type="text" name="new_supplier_name" class="form-control" placeholder="Name..">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Supplier Phone</label>
+                        <div class="col-md-8">
+                            <input type="text" name="new_supplier_phone" class="form-control numeric" placeholder="Phone.." maxlength="10">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">GST Number</label>
+                        <div class="col-md-8">
+                            <input type="text" name="new_supplier_gst" class="form-control" placeholder="GST..">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Details</label>
+                        <div class="col-md-8">
+                            <textarea name="new_supplier_address" rows="4" class="form-control" placeholder="Tell us details.."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">City</label>
+                        <div class="col-md-8">
+                            <select name="new_supplier_city" class="form-control">
+                                <option value="">Please select</option>
+                                <?php if(!empty($cities)) {
+                                    $i = 1; 
+                                    foreach($cities as $city){
+                                ?>
+                                    <option value="<?php echo $city['name']; ?>"><?php echo $city['name']; ?></option>
+                                <?php } } ?>
+                            </select>
+                        </div>
+                    </div>
 
-                }
-            })
-    }
-    
-    function deleteEmpData(mythis){
-        var userId = $(mythis).data('user_id');
-        swal({
-            title: "Are you sure?", 
-            text: "You won't be able to revert this!", 
-            type: "warning",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "Yes, delete it!",
-            showCancelButton: true
-        })
-            .then((result) => {
-                if (result.value) {
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
 
-                    $.ajax({
-                        url: base_url+'admin/delete_row',
-                        type: 'post',
-                        data: {userId : userId, tbl_name : 'employees'},
-                        success: function(res){
-                            window.location.href = base_url;
-                        }
-                    });
+<div id="modal-update-supplier" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center bg-info">
+                <h2 class="modal-title"><i class="fa fa-pencil"></i> Update Supplier</h2>
+            </div>
+            <!-- END Modal Header -->
 
-                }
-            })
-    }
-    
-    function deleteSalesData(mythis){
-        var userId = $(mythis).data('user_id');
-        swal({
-            title: "Are you sure?", 
-            text: "You won't be able to revert this!", 
-            type: "warning",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "Yes, delete it!",
-            showCancelButton: true
-        })
-            .then((result) => {
-                if (result.value) {
-                    $.ajax({
-                        url: base_url+'admin/delete_sales',
-                        type: 'post',
-                        data: {userId : userId, tbl_name : 'daily_sales'},
-                        success: function(res){
-                            window.location.href = base_url+'daily_sales';
-                        }
-                    });
-                }
-            })
-    }
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="<?php echo base_url('suppliers/update_supplier'); ?>" id="supplier-update-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
+                    <input type="hidden" name="supplier_id" class="supplier_id">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Supplier Name</label>
+                        <div class="col-md-8">
+                            <input type="text" name="new_supplier_name" class="form-control new_supplier_name" placeholder="Name..">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Supplier Phone</label>
+                        <div class="col-md-8">
+                            <input type="text" name="new_supplier_phone" class="form-control new_supplier_phone numeric" placeholder="Phone.." maxlength="10">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">GST Number</label>
+                        <div class="col-md-8">
+                            <input type="text" name="new_supplier_gst" class="form-control new_supplier_gst" placeholder="GST..">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Address</label>
+                        <div class="col-md-8">
+                            <textarea name="new_supplier_address" rows="4" class="form-control new_supplier_address" placeholder="Address.."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">City</label>
+                        <div class="col-md-8">
+                            <select name="new_supplier_city" class="form-control new_supplier_city">
+                                <option value="">Please select</option>
+                                <?php if(!empty($cities)) {
+                                    $i = 1; 
+                                    foreach($cities as $city){
+                                ?>
+                                    <option value="<?php echo $city['name']; ?>"><?php echo $city['name']; ?></option>
+                                <?php } } ?>
+                            </select>
+                        </div>
+                    </div>
 
-    function fetchBuySellDetails(mythis){
-        var id = $(mythis).data('id');
-        $.ajax({
-            url: base_url+'admin/fetch_data',
-            type: 'post',
-            data: {id : id, tbl_name : 'buysell_mobiles'},
-            dataType: "json",
-            success: function(res){
-                console.log(res.customer_name);
-                $('.view_customer_name').text(res.customer_name);
-                $('.view_phone_number').text(res.phone_number);
-                $('.view_phone_name').text(res.phone_name);
-                $('.view_phone_details').text(res.details);
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-info">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>
 
-                $('#update_buy_id').val(res.id);
-                $('#update_purchase_type').val(res.purchase_type);
-                $('#update_customer_name').val(res.customer_name);
-                $('#update_customer_phone').val(res.phone_number);
-                $('#update_phone_name').val(res.phone_name);
-                $('#update_phone_details').val(res.details);
-            }
-        });
-    }
+<div id="modal-new-product" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center bg-success">
+                <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Product</h2>
+            </div>
+            <!-- END Modal Header -->
 
-    function deleteBuyData(mythis){
-        //$.fn.dataTable.ext.errMode = 'none';
-        var id = $(mythis).data('id');
-        swal({
-            title: "Are you sure?", 
-            text: "You won't be able to revert this!", 
-            type: "warning",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "Yes, delete it!",
-            showCancelButton: true
-        })
-            .then((result) => {
-                if (result.value) {
-                    $.ajax({
-                        url: base_url+'admin/delete_by_id',
-                        type: 'post',
-                        data: {id : id, tbl_name : 'buysell_mobiles'},
-                        success: function(res){
-                            
-                            $(mythis).parent().parent().parent().remove();
-                            swal("Deleted!", "Data Successfully Deleted", "success");
-                            setTimeout(() => {
-                                window.location.href = base_url+'buy_sell';    
-                            }, 3000);
-                        }
-                    });
-                }
-            })
-    }
-
-    function fetchSaleDetails(mythis){
-        var id = $(mythis).data('id');
-        $.ajax({
-            url: base_url+'admin/fetch_data',
-            type: 'post',
-            data: {id : id, tbl_name : 'daily_sales'},
-            dataType: "json",
-            success: function(res){
-                console.log(res);
-                $("#update_sale_id").val(res.id);
-                $("#update_sale_type").val(res.amount_type);
-                $("#update_emp_id").val(res.emp_id).change();
-                $("#update_sale_desc").val(res.description);
-                $("#update_sale_amt").val(res.amount);
-                $("#update_amount_mode").val(res.amount_mode).change();
-               
-            }
-        });
-    }
-</script>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="javascript:void(0);" id="product-modal-validation" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
+                    <input type="hidden" id="product_type" name="product_type" value="non-stock" >
+                    <div class="row">
+                        <?php if(isset($session_user) && $session_user['role_type'] === 'super_admin') {  ?>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Store<span class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <select id="product_store" name="product_store" class="form-control">
+                                        <option value="">Please select</option>
+                                        <?php if(isset($stores)) {
+                                            $i = 1; 
+                                            foreach($stores as $store){
+                                        ?>
+                                            <option value="<?php echo $store['id']; ?>" ><?php echo $store['store_name']; ?></option>
+                                        <?php } } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } else { ?>
+                            <input type="hidden" id="product_store" name="product_store" value="<?php if(isset($session_user) && $session_user['role_type'] !== 'super_admin') echo $session_user['store_id'];  ?>" >
+                        <?php } ?>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Product Name<span class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="product_name" name="product_name" class="form-control" placeholder="Name..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Category Name<span class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <select id="modal_category_name" name="category_name" class="form-control">
+                                        <option value="">Please select</option>
+                                        <?php if(!empty($categories)) {
+                                            foreach($categories as $cate){
+                                        ?>
+                                            <option value="<?php echo $cate['id']; ?>"><?php echo $cate['category_name']; ?></option>
+                                        <?php
+                                            }
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Brand Name</label>
+                                <div class="col-md-8">
+                                    <select id="brand_id" name="brand_id" class="form-control">
+                                        <option value="">Please select</option>
+                                        <?php if(!empty($brands)) {
+                                            foreach($brands as $brand){
+                                        ?>
+                                            <option value="<?php echo $brand['id']; ?>"><?php echo $brand['brand_name']; ?></option>
+                                        <?php
+                                            }
+                                        }?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">IMEI Number 1</label>
+                                <div class="col-md-8">
+                                    <input type="text" id="imei_number1" name="imei_number1" class="form-control" placeholder="IMEI 1..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">IMEI Number 2</label>
+                                <div class="col-md-8">
+                                    <input type="text" id="imei_number2" name="imei_number2" class="form-control" placeholder="IMEI 1..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Serial Number</label>
+                                <div class="col-md-8">
+                                    <input type="text" id="serial_number" name="serial_number" class="form-control" placeholder="Serial #..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">MRP<span class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="price" name="price" class="form-control numeric" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Cost Price<span class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="cost_price" name="cost_price" class="form-control numeric" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Selling Price<span class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="sell_price" name="sell_price" class="form-control numeric" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END Modal Body -->
+        </div>
+    </div>
+</div>

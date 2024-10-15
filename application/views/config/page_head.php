@@ -12,7 +12,7 @@
             
             <!-- Page Container -->
             <div id="page-container" class="sidebar-partial sidebar-visible-lg sidebar-no-animations">
-                <input type="hidden" id="base_url" value="<?php echo base_url(); ?>">
+                
                 <!-- Main Sidebar -->
                 <div id="sidebar">
                     <!-- Wrapper for scrolling functionality -->
@@ -20,7 +20,7 @@
                         <!-- Sidebar Content -->
                         <div class="sidebar-content">
                             <!-- Brand -->
-                            <a href="<?php echo base_url('admin'); ?>" class="sidebar-brand" style="display:flex; justify-content:center;">
+                            <a href="javascript:void(0);" class="sidebar-brand" style="display:flex; justify-content:center;">
                                 <img src="<?php echo base_url(IMG); ?>/logo.png" style="padding: 3px 0px;"><!-- <span class="sidebar-nav-mini-hide"><strong>Lee</strong> Store</span> -->
                             </a>
                             <!-- END Brand -->
@@ -32,9 +32,9 @@
                                         <img src="<?php echo base_url(IMG); ?>/placeholders/avatars/avatar2.jpg" alt="avatar">
                                     </a>
                                 </div>
-                                <div class="sidebar-user-name"> <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') echo 'Admin'; else echo 'Seller'; ?></div>
+                                <div class="sidebar-user-name"> <?php if(!empty($session_user) && $session_user['role_type'] === 'super_admin') echo $session_user['name']; else echo $session_user['full_name']; ?></div>
                                 <div class="sidebar-user-links">
-                                    <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') { ?>
+                                    <?php if(!empty($session_user) && $session_user['role_type'] === 'super_admin') { ?>
                                         <a href="javascript:void(0)" class="enable-tooltip" data-placement="bottom" title="Settings" onclick="$('#modal-user-settings').modal('show');"><i class="gi gi-cogwheel"></i></a>
                                     <?php } ?>
                                     <a href="<?php echo base_url('logout') ?>" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="gi gi-exit"></i></a>
@@ -44,33 +44,72 @@
                             
                             <!-- Sidebar Navigation -->
                             <ul class="sidebar-nav">
+
+                                <?php if(!empty($session_user) && ($session_user['role_type'] === 'super_admin' || $session_user['role_type'] === 'Manager')) { ?>
+                                
                                 <li>
                                     <a href="<?php echo base_url('dashboard'); ?>" class="<?php if($this->uri->segment(1) == 'dashboard') echo 'active'; ?>"><i class="gi gi-home sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
                                 </li>
+                                <?php if($session_user['role_type'] === 'super_admin') { ?>
                                 <li>
-                                    <a href="<?php echo base_url('daily_sales'); ?>" class="<?php if($this->uri->segment(1) == 'daily_sales') echo 'active'; ?>"><i class="hi hi-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Daily Sales</span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo base_url('full_report/month'); ?>" class="<?php if($this->uri->segment(1) == 'full_report') echo 'active'; ?>"><i class="gi gi-table sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Full Report</span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo base_url('buy_sell'); ?>" class="<?php if($this->uri->segment(1) == 'buy_sell') echo 'active'; ?>"><i class="hi hi-shopping-cart sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Buy/Sell Mobiles</span></a>
-                                </li>
-
-                                <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') { ?>
-								
-								<li>
-                                    <a href="<?php echo base_url('employee_advance'); ?>" class="<?php if($this->uri->segment(1) == 'employee_advance') echo 'active'; ?>"><i class="hi hi-user sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Employee Advance</span></a>
-                                </li>
-								
-								<li>
-                                    <a href="<?php echo base_url('incomes'); ?>" class="<?php if($this->uri->segment(1) == 'incomes') echo 'active'; ?>"><i class="hi hi-arrow-down sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Incomes</span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo base_url('outcomes'); ?>" class="<?php if($this->uri->segment(1) == 'outcomes') echo 'active'; ?>"><i class="hi hi-arrow-up sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Outcomes</span></a>
+                                    <a href="<?php echo base_url('stores'); ?>" class="<?php if($this->uri->segment(1) == 'stores') echo 'active'; ?>"><i class="gi gi-shop sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Stores List</span></a>
                                 </li>
                                 
+                                <li>
+                                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-users sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Admin Manage</span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="<?php echo base_url('staffs') ?>">Staff Admins</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo base_url('roles_list') ?>">Role Type Master</a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <?php } ?>
+                                <li>
+                                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-cargo sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Product Manage</span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="<?php echo base_url('categories') ?>">Category list</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo base_url('brands') ?>">Brand list</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo base_url('products') ?>">Product list</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo base_url('godown') ?>">Godown Manage</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <?php } ?>
+                                <li>
+                                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-inr sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Sales Manage</span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="<?php echo base_url('sales_list/month') ?>">Sales list</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo base_url('sales_draft/month') ?>">Sales Draft</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <?php if(!empty($session_user) && $session_user['role_type'] === 'super_admin') { ?>
+                                <li>
+                                    <a href="<?php echo base_url('suppliers'); ?>" class="<?php if($this->uri->segment(1) == 'suppliers') echo 'active'; ?>"><i class="gi gi-cart_in sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Suppliers List</span></a>
+                                </li>
+                                <?php }  ?>
+                                <li>
+                                    <a href="<?php echo base_url('customers'); ?>" class="<?php if($this->uri->segment(1) == 'customers') echo 'active'; ?>"><i class="hi hi-user sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Customers List</span></a>
+                                </li>
+
+                                <li>
+                                    <a href="<?php echo base_url('payments'); ?>" class="<?php if($this->uri->segment(1) == 'payments') echo 'active'; ?>" target="_blank"><i class="fa fa-inr sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Payment Billing</span></a>
+                                </li>
+
+                                
                             </ul>
                             <!-- END Sidebar Navigation -->
                         </div>
@@ -109,7 +148,7 @@
                                     <img src="<?php echo base_url(IMG); ?>/placeholders/avatars/avatar2.jpg" alt="avatar"> <i class="fa fa-angle-down"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
-                                    <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') { ?>
+                                    <?php if(!empty($session_user) && $session_user['role_type'] === 'super_admin') { ?>
                                     <li class="dropdown-header text-center">Account</li>
                                     
                                     <li>
@@ -126,7 +165,7 @@
                                     <li class="divider"></li>
                                     <?php } ?>
                                     <li>
-                                        <a href="<?php echo base_url('logout') ?>"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
+                                        <a href="<?php echo base_url('logout') ?>"><i class="gi gi-exit fa-fw pull-right"></i> Logout</a>
                                     </li>                                    
                                 </ul>
                             </li>
