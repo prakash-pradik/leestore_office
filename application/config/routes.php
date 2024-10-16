@@ -57,18 +57,50 @@ $route['login'] = 'login/index';
 $route['logout'] = 'login/logout';
 
 $route['dashboard'] = 'admin/dashboard';
-$route['users'] = 'admin/users';
-$route['incomes'] = 'admin/incomes';
-$route['outcomes'] = 'admin/outcomes';
-$route['daily_sales'] = 'admin/daily_sales';
-$route['full_report/(:any)'] = 'admin/full_report/$1';
-$route['buy_sell'] = 'admin/buy_sell';
-$route['employee_advance'] = 'admin/employee_advance';
-$route['employee_details/(:any)'] = 'admin/employee_details/$1';
-$route['user_details/(:any)'] = 'admin/user_details/$1';
+
+/**** Store Manage ****/
+$route['stores'] = 'stores/stores_list';
+
+/**** Admin Manage ****/
+$route['staffs_list'] = 'staffs/staffs_list';
+$route['roles_list'] = 'staffs/roles_list';
+$route['insert_role'] = 'staffs/insert_role';
+$route['update_role'] = 'staffs/update_role';
+
+/**** Customers Manage ****/
+$route['suppliers'] = 'suppliers/suppliers_list';
+$route['supplier/(:any)'] = 'suppliers/supplier_details/$1';
+
+/**** Customers Manage ****/
+$route['customers'] = 'customers/customers';
+$route['customer/(:any)'] = 'customers/customer_details/$1';
+
+/**** Products Manage ****/
+$route['categories'] = 'products/categories';
+$route['insert_category'] = 'products/insert_category';
+$route['update_category'] = 'products/update_category';
+
+$route['brands'] = 'products/brands';
+$route['insert_brand'] = 'products/insert_brand';
+$route['update_brand'] = 'products/update_brand';
+
+$route['products_list'] = 'products/products_list';
+$route['product_create'] = 'products/product_create';
+$route['product_update/(:any)'] = 'products/product_update/$1';
+$route['product_view/(:any)'] = 'products/product_view/$1';
+
+$route['godown'] = 'products/godown';
+$route['insert_stock'] = 'products/insert_stock';
+/**** End Products Manage ****/
+
+/**** Sales Manage ****/
+$route['sales_list/(:any)'] = 'sales/sales_list/$1';
+$route['sales_draft/(:any)'] = 'sales/sales_draft/$1';
+$route['invoice/(:any)'] = 'sales/invoice/$1';
+$route['invoice_pdf/(:any)'] = 'sales/invoice_pdf/$1';
+$route['payments'] = 'payments/pos_create';
+$route['pos_create'] = 'payments/pos_create';
+$route['pos_update/(:any)'] = 'payments/pos_update/$1';
+/**** End Sales Manage ****/
 
 $route['print_test'] = 'admin/print_test';
-
-$route['user_profile'] = 'admin/user_profile';
-
-$route['createExcel'] = 'prints/createExcel';

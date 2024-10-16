@@ -9094,7 +9094,7 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 
 	function _getObjAttr($t)
 	{
-		$c = explode(Mpdf::OBJECT_IDENTIFIER, $t, 3);
+		$c = explode(Mpdf::OBJECT_IDENTIFIER, $t, 2);
 		$c = explode(',', $c[1], 2);
 
 		foreach ($c as $v) {

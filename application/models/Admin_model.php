@@ -10,21 +10,6 @@ class Admin_model extends CI_Model{
     }
  
     /*
-        Get all the records from the database
-    */
-    public function get_all_users($table_name)
-    {
-        $users = $this->db->get_where($table_name, array('status' => "1") )->result_array();
-        return $users;
-    }
-
-    public function get_all()
-    {
-        $incomes = $this->db->get("incomes")->result();
-        return $incomes;
-    }
- 
-    /*
         Get an specific record from the database
     */
     public function get_by_id($id, $tbl_name)
@@ -53,11 +38,10 @@ class Admin_model extends CI_Model{
         }       
     }
  
- 
     /*
         Update or Modify a record in the database
     */
-    public function update_row_data($table_name,$condition, $array) 
+    public function update_row_data($table_name, $condition, $array) 
     {
         $this->db->where($condition);
         if($this->db->update($table_name, $array)){
@@ -74,8 +58,29 @@ class Admin_model extends CI_Model{
             return false;
     }
  
-    public function get_income_users(){
-        $sql = "SELECT u.id, u.name, u.phone_number FROM `incomes` as inc join users as u on u.id=inc.user_id GROUP by inc.user_id";
+    public function delete_data($table_name, $condition) 
+    {
+        $this->db->where($condition);
+        if($this->db->delete($table_name)){
+            return true;}
+        else
+            return false;
+    }
+
+    public function get_all_products(){
+
+        $sessionUser = $this->session->userdata('admin_loggedin');
+        if(isset($sessionUser['store_id']) && $sessionUser['store_id']){
+            $storeWhere = "AND prod.store_id = ".$sessionUser['store_id']."";
+        }
+        else{
+            $storeWhere = "";
+        }
+
+        $sql = "SELECT prod.*, 
+        (SELECT category_name FROM categories WHERE id = prod.category_id) as category_name, 
+        (SELECT brand_name FROM brands WHERE id = prod.brand_id) as brand_name 
+        FROM `products` as prod WHERE status = '1' $storeWhere order by id desc";
         $query = $this->db->query($sql);
 
         if($query->num_rows() > 0 )
@@ -84,47 +89,12 @@ class Admin_model extends CI_Model{
             return false;
     }
 
-    public function get_all_incomes(){
-
-        $sql = "select u.name, u.id,
-                    sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) as total_credit,
-                    sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_debit,
-                    sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_available 
-                from incomes as inc
-                join users as u 
-                    on u.id = inc.user_id
-                    and inc.status = 1
-                group by inc.user_id";
-
-        $query = $this->db->query($sql);
-
-        if($query->num_rows() > 0 )
-            return $query->result_array();
-        else
-            return false;
-    }
-
-    public function get_outcome_users(){
-        $sql = "SELECT u.id, u.name, u.phone_number FROM `outcomes` as inc join users as u on u.id=inc.user_id GROUP by inc.user_id";
-        $query = $this->db->query($sql);
-
-        if($query->num_rows() > 0 )
-            return $query->result_array();
-        else
-            return false;
-    }
-
-    public function get_all_outcomes(){
-
-        $sql = "select u.name, u.id,
-                    sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) as total_credit,
-                    sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_debit,
-                    sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_available 
-                from outcomes as inc
-                join users as u 
-                    on u.id = inc.user_id
-                    and inc.status = 1
-                group by inc.user_id";
+    public function get_all_stocks(){
+        $sql = "SELECT g.*, 
+                    (SELECT product_name FROM products WHERE id = g.product_id) as product_name,
+                    (SELECT supplier_name FROM suppliers WHERE id = g.supplier_id) as supplier_name,
+                    SUM(g.no_of_stock) as total_number 
+                FROM `godown` as g WHERE g.status = 1 GROUP BY g.product_id, g.supplier_id ORDER BY g.id desc";
 
         $query = $this->db->query($sql);
 
@@ -134,198 +104,281 @@ class Admin_model extends CI_Model{
             return false;
     }
 
-    public function get_all_sales($all = '', $orderBy){
-        
-        $today_date   = date("Y-m-d");
+    public function get_stocks_by_supplier($id){
+        $sql = "SELECT g.*, 
+                    (SELECT product_name FROM products WHERE id = g.product_id) as product_name
+                FROM `godown` as g WHERE g.supplier_id = $id AND status = 1 ORDER BY g.id desc";
 
-        $start_date = $this->input->post('example-daterange1');
-        $end_date = $this->input->post('example-daterange2'); 
+        $query = $this->db->query($sql);
 
-        if($all == 'today')
-            $where = "AND DATE(ds.date_added) = '".$today_date."'";
-        else if($all == 'week')
-            $where = "AND yearweek(ds.date_added) = yearweek(now()) ";
-        else if($all == 'last_week')
-            $where = "AND week(ds.date_added) = week(now())-1 ";
-        else if($all == 'month')
-            $where = "AND MONTH(ds.date_added) = MONTH(now()) AND YEAR(ds.date_added)=YEAR(now()) ";
-        else if($all == 'last_month')
-            $where = "AND MONTH(ds.date_added) = MONTH(now())-1 ";
-        else if($all == 'custom')
-            $where = "AND DATE(ds.date_added) BETWEEN '$start_date' AND '$end_date'";
+        if($query->num_rows() > 0 )
+            return $query->result_array();
+        else
+            return false;
+    }
+
+    public function get_all_orders($status, $id, $all){
+
+        $sessionUser = $this->session->userdata('admin_loggedin');
+        if(isset($sessionUser['store_id']) && $sessionUser['store_id'])
+            $storeWhere = "AND ord.store_id = ".$sessionUser['store_id']."";
+        else
+            $storeWhere = "";
+
+        if($status !== ""){
+            if($status == 'paid')
+                $where = "AND ord.order_status IN ('paid')";
+            else
+                $where = "AND ord.order_status IN ('draft','pending')";
+        }
         else
             $where = "";
+
+        if($id !== "")
+            $where1 = "AND ord.customer_id = '".$id."'";
+        else
+            $where1 = "";
+
+        $today_date   = date("Y-m-d");
+        $start_date = $this->input->post('example-daterange1');
+        $end_date = $this->input->post('example-daterange2');
+
+        if($all == 'today')
+            $where2 = "AND DATE(ord.date_added) = '".$today_date."'";
+        else if($all == 'week')
+            $where2 = "AND yearweek(ord.date_added) = yearweek(now()) ";
+        else if($all == 'last_week')
+            $where2 = "AND week(ord.date_added) = week(now()) - 1 ";
+        else if($all == 'month')
+            $where2 = "AND MONTH(ord.date_added) = MONTH(now()) AND YEAR(ord.date_added) = YEAR(now()) ";
+        else if($all == 'last_month')
+            $where2 = "AND MONTH(ord.date_added) = MONTH(now()) - 1 ";
+        else if($all == 'custom')
+            $where2 = "AND DATE(ord.date_added) BETWEEN '$start_date' AND '$end_date'";
+        else
+            $where2 = "";
+
+        $sql = "SELECT ord.*, (SELECT name FROM customers WHERE id = ord.customer_id) as customer_name, (SELECT phone_number FROM customers WHERE id = ord.customer_id) as customer_phone FROM `orders` as ord WHERE status = '1' $where $where1 $where2 $storeWhere order by id desc";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->result_array();
+        else
+            return false;
+    }
+
+    public function get_order_stats($all){
+        $today_date   = date("Y-m-d");
         
-        $sql = "SELECT e.name, ds.* FROM daily_sales as ds
-                JOIN employees as e  ON e.id = ds.emp_id AND ds.status = 1 $where
-                order by ds.date_added $orderBy";
-
-        $query = $this->db->query($sql);
-        //echo $this->db->last_query();
-
-        if($query->num_rows() > 0 )
-            return $query->result_array();
-        else
-            return false;
-    }
-	
-	public function get_sales_stats(){
-        $today_date   = date("Y-m-d");
-        $sql = "SELECT 
-                    sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) as today_income,
-                    sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as today_expense,
-                    sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) - sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as today_available 
-                FROM daily_sales WHERE status = 1 AND amount_mode = 'cash' AND DATE(date_added) = '".$today_date."'";
-
-        $query = $this->db->query($sql);
-
-        if($query->num_rows() > 0 )
-            return $query->row();
-        else
-            return false;
-    }
-	
-	public function get_gpay_stats(){
-        $today_date   = date("Y-m-d");
-        $sql = "SELECT 
-                    sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) as gpay_income,
-					sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as gpay_expense,
-					sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) - sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as gpay_available
-                FROM daily_sales WHERE amount_mode = 'gpay' AND status = 1 AND DATE(date_added) = '".$today_date."'";
-
-        $query = $this->db->query($sql);
-
-        if($query->num_rows() > 0 )
-            return $query->row();
-        else
-            return false;
-    }
-		
-	public function get_all_advances(){
-
-        $sql = "select e.name, e.id,
-                    sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) as total_credit,
-                    sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_debit,
-                    sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_available 
-                from employee_advance as ea
-                join employees as e 
-                    on e.id = ea.emp_id
-                    and ea.status = 1
-                group by ea.emp_id";
-
-        $query = $this->db->query($sql);
-
-        if($query->num_rows() > 0 )
-            return $query->result_array();
-        else
-            return false;
-    }
-
-    public function get_emp_advances($id){
-
-        $sql = "SELECT * FROM employee_advance WHERE status = 1 AND emp_id = $id ORDER BY id desc";
-
-        $query = $this->db->query($sql);
-
-        if($query->num_rows() > 0 )
-            return $query->result_array();
-        else
-            return false;
-    }
-
-    public function emp_adv_stats($id){
-        $today_date   = date("Y-m-d");
-        $sql = "SELECT 
-					sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as balance_amt
-                FROM employee_advance WHERE status = 1 AND emp_id = $id ";
-
-        $query = $this->db->query($sql);
-
-        if($query->num_rows() > 0 )
-            return $query->row();
-        else
-            return false;
-    }
-
-    public function get_emp_sales($id){
-        $today_date   = date("Y-m-d");
-        $sql = "SELECT * FROM daily_sales WHERE status = 1 AND emp_id = $id AND amount_type = 'inc' ORDER BY id desc ";
-        $query = $this->db->query($sql);
-
-        if($query->num_rows() > 0 )
-            return $query->result_array();
-        else
-            return false;
-    }
-
-    public function get_user_advances($id){
-
-        $sql = "SELECT *, 'incomes' as table_name FROM incomes WHERE status = 1 AND user_id = $id ORDER BY id desc";
-
-        $query = $this->db->query($sql);
-
-        if($query->num_rows() > 0 ){
-            return $query->result_array();
+        $sessionUser = $this->session->userdata('admin_loggedin');
+        if(isset($sessionUser['store_id']) && $sessionUser['store_id']){
+            $pendWhere = "AND store_id = ".$sessionUser['store_id']."";
+            $storeWhere = "AND ord.store_id = ".$sessionUser['store_id']."";
         }
-        else {
-            $sql2 = "SELECT *, 'outcomes' as table_name FROM outcomes WHERE status = 1 AND user_id = $id ORDER BY id desc";
+        else{
+            $storeWhere = $pendWhere = "";
+        }
 
-            $query2 = $this->db->query($sql2);
+        if($all == 'today')
+            $where = "AND DATE(ord.date_added) = '".$today_date."'";
+        else if($all == 'week')
+            $where = "AND yearweek(ord.date_added) = yearweek(now()) ";
+        else if($all == 'last_week')
+            $where = "AND week(ord.date_added) = week(now()) - 1 ";
+        else if($all == 'month')
+            $where = "AND MONTH(ord.date_added) = MONTH(now()) AND YEAR(ord.date_added) = YEAR(now()) ";
+        else if($all == 'last_month')
+            $where = "AND MONTH(ord.date_added) = MONTH(now()) - 1 ";
+        else
+            $where = "";
 
-            if($query2->num_rows() > 0 )
-                return $query2->result_array();
-            else 
+        $sql = "SELECT 
+                    sum(COALESCE( case when order_status = 'paid' then total_paid END, 0)) as total_income,
+                    count(id) as today_sales,
+                    (select count(id) from orders where order_status IN ('draft','pending') $where $pendWhere) as total_pending
+                FROM orders as ord WHERE status = 1 AND order_status = 'paid'  $where $storeWhere";
+
+        $query = $this->db->query($sql);
+        
+        if($query->num_rows() > 0 )
+            return $query->row();
+        else
+            return false;
+    }
+
+    public function get_prev_sales(){
+        $today_date   = date("Y-m-d");
+        
+        $sql = "SELECT sum(total_paid) as yesterday_sales
+                FROM orders WHERE status = 1 AND order_status = 'paid' AND DATE(date_added) = (CURDATE() - INTERVAL 1 DAY) ";
+
+        $query = $this->db->query($sql);
+        if($query->num_rows() > 0 )
+            return $query->row();
+        else
+            return false;
+    }
+
+    public function get_order_by_id($id){
+
+        if($id !== "")
+        {
+            $sql = "SELECT ord.*, 
+                    (SELECT name FROM customers WHERE id = ord.customer_id) as customer_name, 
+                    (SELECT phone_number FROM customers WHERE id = ord.customer_id) as customer_phone,
+                    (SELECT address FROM customers WHERE id = ord.customer_id) as customer_address 
+                    FROM `orders` as ord WHERE ord.id = $id ";
+            $query = $this->db->query($sql);
+
+            if($query->num_rows() > 0 )
+                return $query->row();
+            else
                 return false;
         }
-            
+        else
+            return false;
     }
 
-    public function user_income_stats($id){
-        $sql = "SELECT 
-					sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as balance_amt
-                FROM incomes WHERE status = 1 AND user_id = $id ";
+    public function get_orders_item_id($id){
+        if($id !== "")
+        {
+            $sql = "SELECT oi.*, 
+                (SELECT product_name FROM products WHERE id = oi.product_id) as product_name,
+                (SELECT imei_number1 FROM products WHERE id = oi.product_id) as product_imei1,
+                (SELECT imei_number2 FROM products WHERE id = oi.product_id) as product_imei2,
+                (SELECT serial_number FROM products WHERE id = oi.product_id) as product_serial
+            FROM `order_items` as oi WHERE oi.order_id = $id ";
+            $query = $this->db->query($sql);
 
-        $query = $this->db->query($sql);
-        if($query->num_rows() > 0 ){
-            $row = $query->row();
-            if(!empty($row) && $row->balance_amt !== NULL){
-                return $query->row();
-            }
-            else {
-                $sql2 = "SELECT 
-					sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as balance_amt
-                FROM outcomes WHERE status = 1 AND user_id = $id ";
-
-                $query2 = $this->db->query($sql2);
-
-                if($query2->num_rows() > 0 )
-                    return $query2->row();
-                
-                else
-                    return false;
-            }
+            if($query->num_rows() > 0 )
+                return $query->result_array();
+            else
+                return false;
         }
         else
             return false;
     }
 
-    public function get_all_buy_sell($type){
-
-        if($type == 'buy')
-            $where = 'purchase_type = "buy"';
-        else
-           $where = 'purchase_type = "sell"';
-
-        $sql = "SELECT * FROM buysell_mobiles WHERE $where AND status = 1 ORDER BY id desc";
-
+    public function get_all_staffs(){
+        $sql = "SELECT emp.*, 
+                (SELECT store_name FROM stores WHERE id = emp.store_id) as store_name
+                FROM `employees` as emp WHERE status = '1' order by emp.id desc";
         $query = $this->db->query($sql);
 
         if($query->num_rows() > 0 )
             return $query->result_array();
-        else 
+        else
             return false;
-            
     }
 
+    public function check_by_phone(){
+        $sql = "SELECT emp.*, 
+                (SELECT store_name FROM stores WHERE id = emp.store_id) as store_name
+                FROM `employees` as emp WHERE status = '1' order by emp.id desc";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->result_array();
+        else
+            return false;
+    }
+
+    public function get_product_data($id){
+        $sql = "SELECT prod.*, 
+                (SELECT store_name FROM stores WHERE id = prod.store_id) as store_name,
+                (SELECT category_name FROM categories WHERE id = prod.category_id) as category_name, 
+                (SELECT brand_name FROM brands WHERE id = prod.brand_id) as brand_name 
+                FROM `products` as prod WHERE prod.id = $id ";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->row();
+        else
+            return false;
+    }
+
+    public function get_dashboard_stats($filter = ''){
+        
+        $today_date   = date("Y-m-d");
+
+        if($filter == 'today')
+            $where = "WHERE DATE(date_added) = '".$today_date."'";
+        else if($filter == 'week')
+            $where = "WHERE yearweek(date_added) = yearweek(now()) ";
+        else if($filter == 'last_week')
+            $where = "WHERE week(date_added) = week(now())-1 ";
+        else if($filter == 'month')
+            $where = "WHERE MONTH(date_added) = MONTH(now()) AND YEAR(date_added)=YEAR(now()) ";
+        else if($filter == 'last_month')
+            $where = "WHERE MONTH(date_added) = MONTH(now())-1 ";
+        else
+            $where = "";
+
+        $sql = "SELECT 
+                (SELECT sum(total_paid) FROM orders $where) as order_total,
+                (SELECT count(id) FROM orders $where) as order_count,
+                (SELECT count(id) FROM stores) as stores_count,
+                (SELECT count(id) FROM employees) as staffs_count,
+                (SELECT count(id) FROM customers) as customer_count,
+                (SELECT count(id) FROM products) as product_count ";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->row();
+        else
+            return false;
+    }
+    public function get_top_customers($limit){
+
+        if($limit != ""){
+            $where = "HAVING order_count > 0";
+            $whereLimit = "LIMIT 10";
+        } else {
+            $where = "";
+            $whereLimit = "";
+        }
+
+        $sql = "SELECT cus.*,
+                (SELECT sum(total_paid) FROM orders WHERE customer_id = cus.id) as order_total,
+                (SELECT count(id) FROM orders WHERE customer_id = cus.id) as order_count
+                FROM `customers` as cus WHERE cus.status = '1' GROUP BY cus.id $where ORDER BY order_total desc $whereLimit";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->result_array();
+        else
+            return false;
+    }
+    public function get_top_products(){
+
+        $sessionUser = $this->session->userdata('admin_loggedin');
+        if(isset($sessionUser['store_id']) && $sessionUser['store_id'])
+            $storeWhere = "prod.store_id = ".$sessionUser['store_id']."";
+        else
+            $storeWhere = "1=1";
+
+        $sql = "SELECT prod.*,
+                (SELECT sum(sub_total) FROM order_items WHERE product_id = prod.id) as order_total,
+                (SELECT sum(quantity) FROM order_items WHERE product_id = prod.id) as order_count
+                FROM `products` as prod WHERE $storeWhere GROUP BY prod.id HAVING order_count > 0 ORDER BY order_count desc LIMIT 10 ";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->result_array();
+        else
+            return false;
+    }
+
+    public function getSalesChartData(){
+        $sql = "SELECT YEAR(date_added) AS year, MONTH(date_added) AS month, COUNT(DISTINCT id) as sale_count
+                FROM orders
+                GROUP BY year, month";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->result_array();
+        else
+            return false;
+    }
 }
 ?>

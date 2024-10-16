@@ -428,13 +428,13 @@ header.navbar-inverse.navbar-fixed-bottom {
 }
 
 .sidebar-section {
-    padding: 10px;
+    padding: 12px;
 }
 
 /* Sidebar Brand + Title */
 .sidebar-brand,
 .sidebar-title {
-    height: 50px;
+    height: 62px;
     line-height: 50px;
     padding: 0 10px;
     margin: 0;
@@ -1380,7 +1380,7 @@ a.widget.widget-hover-effect4:active {
 #login-container .login-title {
     padding: 20px 10px;
     background: #444444;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 1);
 }
 
 #login-container .login-title h1,
@@ -2211,6 +2211,7 @@ textarea.form-control {
     margin: 0;
     padding-left: 20px;
     padding-right: 20px;
+    padding-top: 10px;
 }
 
 .form-bordered .form-group {
@@ -2632,13 +2633,14 @@ a.list-group-item.active>.badge {
 }
 
 .dropdown-menu i {
-    opacity: 0.2;
+    /*opacity: 0.2;*/
+    opacity: 1;
     line-height: 17px;
 }
 
-.dropdown-menu a:hover i {
+/*.dropdown-menu a:hover i {
     opacity: 0.5;
-}
+}*.
 
 .dropdown-menu .divider {
     margin: 2px 0;
@@ -2899,7 +2901,7 @@ li.dropdown-header {
 }
 
 .modal-body {
-    padding: 20px 15px;
+    padding: 20px 0px !important;
 }
 
 .modal-body .nav-tabs {
@@ -3304,7 +3306,7 @@ fieldset[disabled] .btn-info.active:focus {
 }
 
 .block-options .btn {
-    border-radius: 15px;
+    border-radius: 5px;
     padding-right: 8px;
     padding-left: 8px;
     min-width: 30px;
@@ -4269,4 +4271,9 @@ table tbody>tr>td h4 {
 
 .p-0 {
     padding: 0px;
+}
+
+.sub_text {
+    padding-top: 5px;
+    color: #1bbae1;
 }
