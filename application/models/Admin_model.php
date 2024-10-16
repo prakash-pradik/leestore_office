@@ -128,6 +128,8 @@ class Admin_model extends CI_Model{
         if($status !== ""){
             if($status == 'paid')
                 $where = "AND ord.order_status IN ('paid')";
+            else if($status == 'credit')
+                $where = "AND ord.order_status IN ('credit')";
             else
                 $where = "AND ord.order_status IN ('draft','pending')";
         }
@@ -195,7 +197,8 @@ class Admin_model extends CI_Model{
         $sql = "SELECT 
                     sum(COALESCE( case when order_status = 'paid' then total_paid END, 0)) as total_income,
                     count(id) as today_sales,
-                    (select count(id) from orders where order_status IN ('draft','pending') $where $pendWhere) as total_pending
+                    (select count(id) from orders where order_status IN ('draft','pending') $where $pendWhere) as total_pending,
+                    (select count(id) from orders where order_status = 'credit' $where $pendWhere) as total_credit
                 FROM orders as ord WHERE status = 1 AND order_status = 'paid'  $where $storeWhere";
 
         $query = $this->db->query($sql);

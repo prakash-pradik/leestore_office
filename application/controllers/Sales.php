@@ -47,6 +47,17 @@ class Sales extends CI_Controller {
 		$this->load->view('config/template_scripts');
 		$this->load->view('config/template_end');
 	}
+	public function sales_credit($type)
+	{
+		$data['session_user'] = $this->session->userdata('admin_loggedin');
+		$data['orders'] = $this->admin_model->get_all_orders('credit', '', $type);
+		$this->load->view('config/template_start');
+		$this->load->view('config/page_head', $data);
+		$this->load->view('sales/sales_credit', $data);
+		$this->load->view('config/page_footer', $data);
+		$this->load->view('config/template_scripts');
+		$this->load->view('config/template_end');
+	}
 
 	public function invoice($id)
 	{

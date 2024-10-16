@@ -94,6 +94,9 @@
                                         <li>
                                             <a href="<?php echo base_url('sales_draft/month') ?>">Sales Draft</a>
                                         </li>
+                                        <li>
+                                            <a href="<?php echo base_url('sales_credit/month') ?>">Sales Credit</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <?php if(!empty($session_user) && $session_user['role_type'] === 'super_admin') { ?>

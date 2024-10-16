@@ -52,7 +52,7 @@
 
         <!-- Table -->
         <div class="table-responsive">
-            <table class="table table-vcenter">
+            <table class="table table-bordered table-vcenter">
                 <thead>
                     <tr>
                         <th style="width: 8%;" class="text-center">Sl.NO</th>
@@ -123,7 +123,8 @@
                         </tr>
                     <?php  } ?>
                     <tr>
-                        <td colspan="3" style="max-height: 70px !important;">
+                        <td colspan="2" style="max-height: 70px !important;">
+                            <div class="alert alert-success alert-dismissable" style="margin-bottom:0px;">
                             <?php 
                                 if($order->payment_mode == 'multipay'){
                                     if(isset($order_cash)){
@@ -133,7 +134,7 @@
                                     }
 
                                     if($order->balance_amount !== "" && $order->balance_amount !== "0.00"){
-                                        echo '<h4 class="text-capitalize text-danger">Balance : ₹'.number_format($order->balance_amount,2).'</h4>';
+                                        echo '<h4 class="text-capitalize" style="color:red;">Balance : ₹'.number_format($order->balance_amount,2).'</h4>';
                                     }
                                 }
 
@@ -141,7 +142,9 @@
                                     echo '<h4 class="text-capitalize">'.$order->payment_mode.' : ₹'.number_format($order->total_paid,2).'</h4>';
                                 }
                             ?>
+                            </div>
                         </td>
+                        <td ></td>
                         <td class="text-center"> 
                             <strong><?php echo $order->quantity; ?></strong>
                         </td>

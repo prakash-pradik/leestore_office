@@ -71,7 +71,8 @@
                             <?php if($product->barcode != "") { ?>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Barcode</label>
+                                    <label class="control-label">Barcode</label><br/>
+                                    <img src="<?php echo base_url(UPLOADS).'barcodes/'.$product->barcode.'.png'; ?>" style="width:100px">
                                     <p class="form-control-static"><?php echo $product->barcode; ?></p>
                                 </div>
                             </div>

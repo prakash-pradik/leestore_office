@@ -84,7 +84,7 @@ class Products extends CI_Controller {
 		), array())->draw();
 
 		$barcode_img = $code_name.'.png';
-		imagepng($create, './assets/img/barcodes/'.$barcode_img);
+		imagepng($create, './uploads/barcodes/'.$barcode_img);
 		$data['barcode'] = $code_name;
 
 		//var_dump($data); exit();

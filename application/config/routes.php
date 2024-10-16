@@ -96,6 +96,7 @@ $route['insert_stock'] = 'products/insert_stock';
 /**** Sales Manage ****/
 $route['sales_list/(:any)'] = 'sales/sales_list/$1';
 $route['sales_draft/(:any)'] = 'sales/sales_draft/$1';
+$route['sales_credit/(:any)'] = 'sales/sales_credit/$1';
 $route['invoice/(:any)'] = 'sales/invoice/$1';
 $route['invoice_pdf/(:any)'] = 'sales/invoice_pdf/$1';
 $route['payments'] = 'payments/pos_create';
