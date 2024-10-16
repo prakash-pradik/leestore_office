@@ -7,7 +7,7 @@
 	<div id="page-content">
 		<div class="container" style="padding:0px;">
 			
-			<div style="background-image: url('http://localhost/Git_projects/leestore_billing/assets/img/invoice/bg.jpg'); background-size: contain; height:100%; width:100%">
+			<div style="background-image: url('http://pos.leestoreindia.com/assets/img/invoice/bg.jpg'); background-size: contain; height:100%; width:100%">
 				
 				<div class="invoice-content-block" style="padding-left: 55px; padding-right: 50px; padding-top: 3px;">
 					<div class="block-section" style="margin-top:145px; margin-left:290px;">
