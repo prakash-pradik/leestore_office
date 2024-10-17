@@ -31,22 +31,40 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Store<span class="text-danger">*</span></label>
+                                    
                                     <?php if(isset($session_user) && $session_user['role_type'] === 'Manager'){ ?>
-                                    <input type="hidden" id="" name="product_store" class="form-control" placeholder="Name.." value="<?php echo $product->store_id; ?>">
-                                    <?php } ?>
-                                    <select id="" name="" class="form-control" <?php echo $disabled; ?>>
-                                        <option value="">Please select</option>
-                                        <?php if(!empty($stores)) {
-                                            $i = 1; 
-                                            foreach($stores as $store){
-                                                if($store['id'] == $product->store_id)
-                                                    $selected = 'selected';
-                                                else
-                                                    $selected = '';
-                                        ?>
-                                            <option value="<?php echo $store['id']; ?>" <?php echo $selected; ?>><?php echo $store['store_name']; ?></option>
-                                        <?php } } ?>
-                                    </select>
+                                        <input type="hidden" id="" name="product_store" class="form-control" placeholder="Name.." value="<?php echo $product->store_id; ?>">
+                                        <select class="form-control" <?php echo $disabled; ?>>
+                                            <option value="">Please select</option>
+                                            <?php if(!empty($stores)) {
+                                                $i = 1; 
+                                                foreach($stores as $store){
+                                                    if($store['id'] == $product->store_id)
+                                                        $selected = 'selected';
+                                                    else
+                                                        $selected = '';
+                                            ?>
+                                                <option value="<?php echo $store['id']; ?>" <?php echo $selected; ?>><?php echo $store['store_name']; ?></option>
+                                            <?php } } ?>
+                                        </select>
+
+                                    <?php } else { ?>
+
+                                        <select id="" name="product_store" class="form-control" <?php echo $disabled; ?>>
+                                            <option value="">Please select</option>
+                                            <?php if(!empty($stores)) {
+                                                $i = 1; 
+                                                foreach($stores as $store){
+                                                    if($store['id'] == $product->store_id)
+                                                        $selected = 'selected';
+                                                    else
+                                                        $selected = '';
+                                            ?>
+                                                <option value="<?php echo $store['id']; ?>" <?php echo $selected; ?>><?php echo $store['store_name']; ?></option>
+                                            <?php } } ?>
+                                        </select>
+
+                                    <?php  } ?>
                                 </div>
                             </div>
                             <div class="col-md-6">

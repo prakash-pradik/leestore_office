@@ -348,7 +348,7 @@ class Admin_model extends CI_Model{
         }
 
         $sql = "SELECT cus.*,
-                (SELECT sum(total_paid) FROM orders WHERE customer_id = cus.id $storeWhere) as order_total,
+                (SELECT sum(net_amount) FROM orders WHERE customer_id = cus.id $storeWhere) as order_total,
                 (SELECT count(id) FROM orders WHERE customer_id = cus.id $storeWhere) as order_count
                 FROM `customers` as cus WHERE cus.status = '1' GROUP BY cus.id $where ORDER BY order_total desc $whereLimit";
         $query = $this->db->query($sql);
