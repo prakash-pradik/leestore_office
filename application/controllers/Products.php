@@ -76,7 +76,7 @@ class Products extends CI_Controller {
 			}
 		}
 
-		$this->load->library('zend');
+		/* $this->load->library('zend');
 		$this->zend->load('Zend/Barcode');
 		$code_name = 'LS'.time();
 		$create = Zend_Barcode::factory('code128', 'image', array(
@@ -85,7 +85,7 @@ class Products extends CI_Controller {
 
 		$barcode_img = $code_name.'.png';
 		imagepng($create, './uploads/barcodes/'.$barcode_img);
-		$data['barcode'] = $code_name;
+		$data['barcode'] = $code_name; */
 
 		//var_dump($data); exit();
 
