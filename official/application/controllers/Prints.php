@@ -36,7 +36,7 @@ class Prints extends CI_Controller {
 		$data['today_stats'] = $this->admin_model->get_sales_stats();
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
 
-		$html = $this->load->view('sales_pdf', $data, true);
+		$html = $this->load->view('pages/sales_pdf', $data, true);
 		
         $mpdf = new \Mpdf\Mpdf([
             'format'=>'A4',
