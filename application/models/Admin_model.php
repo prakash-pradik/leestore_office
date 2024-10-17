@@ -333,6 +333,12 @@ class Admin_model extends CI_Model{
     }
     public function get_top_customers($limit){
 
+        $sessionUser = $this->session->userdata('admin_loggedin');
+        if(isset($sessionUser['store_id']) && $sessionUser['store_id'])
+            $storeWhere = "AND store_id = ".$sessionUser['store_id']."";
+        else
+            $storeWhere = "AND 1=1";
+        
         if($limit != ""){
             $where = "HAVING order_count > 0";
             $whereLimit = "LIMIT 10";
@@ -342,8 +348,8 @@ class Admin_model extends CI_Model{
         }
 
         $sql = "SELECT cus.*,
-                (SELECT sum(total_paid) FROM orders WHERE customer_id = cus.id) as order_total,
-                (SELECT count(id) FROM orders WHERE customer_id = cus.id) as order_count
+                (SELECT sum(total_paid) FROM orders WHERE customer_id = cus.id $storeWhere) as order_total,
+                (SELECT count(id) FROM orders WHERE customer_id = cus.id $storeWhere) as order_count
                 FROM `customers` as cus WHERE cus.status = '1' GROUP BY cus.id $where ORDER BY order_total desc $whereLimit";
         $query = $this->db->query($sql);
 
@@ -362,7 +368,7 @@ class Admin_model extends CI_Model{
 
         $sql = "SELECT prod.*,
                 (SELECT sum(sub_total) FROM order_items WHERE product_id = prod.id) as order_total,
-                (SELECT sum(quantity) FROM order_items WHERE product_id = prod.id) as order_count
+                (SELECT count(id) FROM order_items WHERE product_id = prod.id) as order_count
                 FROM `products` as prod WHERE $storeWhere GROUP BY prod.id HAVING order_count > 0 ORDER BY order_count desc LIMIT 10 ";
         $query = $this->db->query($sql);
 

@@ -183,7 +183,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php //var_dump($customers); 
+                        <?php 
+                            //var_dump($products); 
                             if(isset($products)){
                                 foreach($products as $prod){
                         ?>

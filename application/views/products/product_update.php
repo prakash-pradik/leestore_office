@@ -31,7 +31,10 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Store<span class="text-danger">*</span></label>
-                                    <select id="" name="product_store" class="form-control" <?php echo $disabled; ?>>
+                                    <?php if(isset($session_user) && $session_user['role_type'] === 'Manager'){ ?>
+                                    <input type="hidden" id="" name="product_store" class="form-control" placeholder="Name.." value="<?php echo $product->store_id; ?>">
+                                    <?php } ?>
+                                    <select id="" name="" class="form-control" <?php echo $disabled; ?>>
                                         <option value="">Please select</option>
                                         <?php if(!empty($stores)) {
                                             $i = 1; 
