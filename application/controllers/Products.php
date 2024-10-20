@@ -36,10 +36,16 @@ class Products extends CI_Controller {
 	public function product_create()
 	{
 		$data['session_user'] =  $sessionUser = $this->session->userdata('admin_loggedin');
+		if(isset($sessionUser) && $sessionUser['role_type'] === 'Manager')
+			$where = array('store_id' => $sessionUser['store_id'], 'status'=>'1');
+		else
+			$where = array('status'=>'1');
+		
+
 		$data['stores'] = $this->admin_model->get_data('stores', array('status'=>'1'), 'result_array');
 		$data['products'] = $this->admin_model->get_all_products();
-		$data['categories'] = $this->admin_model->get_data('categories', array('status'=>'1'), 'result_array', 'category_name', 'asc');
-		$data['brands'] = $this->admin_model->get_data('brands', array('status'=>'1'), 'result_array', 'brand_name', 'asc');
+		$data['categories'] = $this->admin_model->get_data('categories', $where, 'result_array', 'category_name', 'asc');
+		$data['brands'] = $this->admin_model->get_data('brands', $where, 'result_array', 'brand_name', 'asc');
 		$this->load->view('config/template_start');
 		$this->load->view('config/page_head',$data);
 		$this->load->view('products/product_create', $data);
@@ -171,7 +177,7 @@ class Products extends CI_Controller {
 		$data['session_user'] = $sessionUser = $this->session->userdata('admin_loggedin');
 
 		if(isset($sessionUser) && $sessionUser['role_type'] === 'Manager')
-			$where = array('store_id' => $sessionUser['id'], 'status'=>'1');
+			$where = array('store_id' => $sessionUser['store_id'], 'status'=>'1');
 		else
 			$where = array('status'=>'1');
 
@@ -222,7 +228,7 @@ class Products extends CI_Controller {
 	{
 		$data['session_user'] = $sessionUser = $this->session->userdata('admin_loggedin');
 		if(isset($sessionUser) && $sessionUser['role_type'] === 'Manager')
-			$where = array('store_id' => $sessionUser['id'], 'status'=>'1');
+			$where = array('store_id' => $sessionUser['store_id'], 'status'=>'1');
 		else
 			$where = array('status'=>'1');
 
@@ -267,9 +273,14 @@ class Products extends CI_Controller {
 
 	public function godown()
 	{
-		$data['session_user'] = $this->session->userdata('admin_loggedin');
+		$data['session_user'] = $sessionUser = $this->session->userdata('admin_loggedin');
+		if(isset($sessionUser) && $sessionUser['role_type'] === 'Manager')
+			$where = array('store_id' => $sessionUser['store_id'], 'status'=>'1');
+		else
+			$where = array('status'=>'1');
+
 		$data['stocks'] = $this->admin_model->get_all_stocks();
-		$data['categories'] = $this->admin_model->get_data('categories', array('status'=>'1'), 'result_array');
+		$data['categories'] = $this->admin_model->get_data('categories', $where, 'result_array', 'category_name', 'asc');
 		$data['suppliers'] = $this->admin_model->get_data('suppliers', array('status'=>'1'), 'result_array');
 		$this->load->view('config/template_start');
 		$this->load->view('config/page_head',$data);

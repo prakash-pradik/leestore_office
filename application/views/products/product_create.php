@@ -39,6 +39,8 @@
 
                                                     if($store['id'] == $storeId)
                                                         $selected = 'selected';
+                                                    else
+                                                        $selected = '';
                                             ?>
                                                 <option value="<?php echo $store['id']; ?>" <?php echo $selected; ?> ><?php echo $store['store_name']; ?></option>
                                             <?php } } ?>

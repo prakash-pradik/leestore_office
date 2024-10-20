@@ -33,7 +33,7 @@ class Payments extends CI_Controller {
 
 		$data['customers'] = $this->admin_model->get_data('customers', array('status'=>'1'), 'result_array');
 		$data['categories'] = $this->admin_model->get_data('categories', $where, 'result_array', 'category_name', 'asc');
-		$data['brands'] = $this->admin_model->get_data('brands', array('status'=>'1'), 'result_array', 'brand_name', 'asc');
+		$data['brands'] = $this->admin_model->get_data('brands', $where, 'result_array', 'brand_name', 'asc');
 		$data['stores'] = $this->admin_model->get_data('stores', array('status'=>'1'), 'result_array');
 		$this->load->view('config/template_start', $data);
 		$this->load->view('payments/pos_create', $data);

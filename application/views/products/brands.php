@@ -89,6 +89,25 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">Store <span class="text-danger">*</span></label>
                         <div class="col-md-8">
+
+                            <?php if(isset($session_user) && $session_user['role_type'] === 'Manager'){ ?>
+                                <input type="hidden" name="brand_store" class="form-control" placeholder="Name.." value="<?php echo $session_user['store_id']; ?>" readonly>
+                                <select class="form-control" <?php echo $disabled; ?>>
+                                    <option value="">Please select</option>
+                                    <?php if(!empty($stores)) {
+                                        $i = 1; 
+                                        foreach($stores as $store){
+
+                                            if($store['id'] == $storeId)
+                                                $selected = 'selected';
+                                            else
+                                                $selected = '';
+                                    ?>
+                                        <option value="<?php echo $store['id']; ?>" <?php echo $selected; ?> ><?php echo $store['store_name']; ?></option>
+                                    <?php } } ?>
+                                </select>
+
+                            <?php } else { ?>
                             <select id="" name="brand_store" class="form-control" <?php echo $disabled; ?>>
                                 <option value="">Please select</option>
                                 <?php if(!empty($stores)) {
@@ -103,6 +122,7 @@
                                     <option value="<?php echo $store['id']; ?>" <?php echo $selected; ?>><?php echo $store['store_name']; ?></option>
                                 <?php } } ?>
                             </select>
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="form-group">
@@ -134,6 +154,26 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">Store <span class="text-danger">*</span></label>
                         <div class="col-md-8">
+                        
+                            <?php if(isset($session_user) && $session_user['role_type'] === 'Manager'){ ?>
+                                <input type="hidden" name="brand_store" class="form-control" placeholder="Name.." value="<?php echo $session_user['store_id']; ?>" readonly>
+                                <select class="form-control" <?php echo $disabled; ?>>
+                                    <option value="">Please select</option>
+                                    <?php if(!empty($stores)) {
+                                        $i = 1; 
+                                        foreach($stores as $store){
+
+                                            if($store['id'] == $storeId)
+                                                $selected = 'selected';
+                                            else
+                                                $selected = '';
+                                    ?>
+                                        <option value="<?php echo $store['id']; ?>" <?php echo $selected; ?> ><?php echo $store['store_name']; ?></option>
+                                    <?php } } ?>
+                                </select>
+
+                            <?php } else { ?>
+
                             <select id="" name="brand_store" class="form-control brand_store" <?php echo $disabled; ?>>
                                 <option value="">Please select</option>
                                 <?php if(!empty($stores)) {
@@ -147,6 +187,7 @@
                                     <option value="<?php echo $store['id']; ?>" <?php echo $selected; ?>><?php echo $store['store_name']; ?></option>
                                 <?php } } ?>
                             </select>
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="form-group">
