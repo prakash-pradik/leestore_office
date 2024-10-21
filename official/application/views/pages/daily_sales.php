@@ -102,12 +102,12 @@
 					<table id="income-datatable" class="table table-vcenter table-bordered table-striped table-hover">
 						<thead>
 							<tr>
-								<th class="text-center">Sl.No</th>
+								<th width="5%" class="text-center">Sl.No</th>
 								<th >Details</th>
-								<th class="text-right">Today Debit (₹)</th>
-								<th class="text-right">Today Credit (₹)</th>
-								<th>Sales Person</th>
-								<th class="text-center">Actions</th>
+								<th width="18%" class="text-right">Today Debit (₹)</th>
+								<th width="18%" class="text-right">Today Credit (₹)</th>
+								<th width="18%">Sales Person</th>
+								<th width="10%" class="text-center">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -119,14 +119,14 @@
 								<td class="text-center"><?php echo $i; ?></td>
 								<td class="text-capitalize"><?php echo $sale['description']; ?></td>
 								<td class="text-right">
-									<h4 class="text-danger"><?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') echo '<h5 class="text-bold text-warning"> (GPay)</h5>'; ?></h4>
+									<h4 class="text-danger"><?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning"> (GPay)</small>'; ?></h4>
 								</td>
 								<td class="text-right">
 									<h4 class="text-success">
 										<?php if($sale['amount_type'] != 'exp') echo $sale['amount'].' ₹'; 
-										if($sale['amount_type'] == 'late') echo '<h5 class="text-bold text-warning"> (Late Pay)</h5>'; 
-										if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') echo '<h5 class="text-bold text-warning"> (GPay)</h5>'; 
-										if($sale['amount_type'] == 'card') echo '<h5 class="text-bold text-warning"> (Card Pay)</h5>'; ?> 
+										if($sale['amount_type'] == 'late') echo '<small class="text-bold text-warning"> (Late Pay)</small>'; 
+										if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning"> (GPay)</small>'; 
+										if($sale['amount_type'] == 'card') echo '<small class="text-bold text-warning"> (Card Pay)</small>'; ?> 
 									</h4>
 								</td>
 								<td class=""><?php echo $sale['name']; ?></td>

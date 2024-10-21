@@ -359,6 +359,7 @@ class Admin_model extends CI_Model{
         else
             return false;
     }
+    
     public function get_top_products(){
 
         $sessionUser = $this->session->userdata('admin_loggedin');
@@ -383,6 +384,23 @@ class Admin_model extends CI_Model{
         $sql = "SELECT YEAR(date_added) AS year, MONTH(date_added) AS month, COUNT(DISTINCT id) as sale_count
                 FROM orders
                 GROUP BY year, month";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->result_array();
+        else
+            return false;
+    }
+
+    public function get_reorder_products(){
+
+        $sessionUser = $this->session->userdata('admin_loggedin');
+        if(isset($sessionUser['store_id']) && $sessionUser['store_id'])
+            $storeWhere = "prod.store_id = ".$sessionUser['store_id']."";
+        else
+            $storeWhere = "1=1";
+
+        $sql = "SELECT prod.* FROM `products` as prod WHERE $storeWhere AND qnty <= reorder_qnty ORDER BY id desc LIMIT 7";
         $query = $this->db->query($sql);
 
         if($query->num_rows() > 0 )

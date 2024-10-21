@@ -30,6 +30,7 @@ class Admin extends CI_Controller {
 		$data['stats'] = $this->admin_model->get_dashboard_stats($filter);
 		$data['customers'] = $this->admin_model->get_top_customers($limit);
 		$data['products'] = $this->admin_model->get_top_products();
+		$data['reorders'] = $this->admin_model->get_reorder_products();
 		$this->load->view('config/template_start');
 		$this->load->view('config/page_head',$data);
 		$this->load->view('dashboard', $data);

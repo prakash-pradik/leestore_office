@@ -77,14 +77,14 @@
                         <td class="text-capitalize"><?php echo $sale['description']; ?></td>
                         <td class="text-right">
                             <h4 class="text-danger">
-                                <?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') echo '<h5 class="text-bold text-warning"> (GPay)</h5>'; ?>
+                                <?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning"> (GPay)</small>'; ?>
                             </h4>
                         </td>
 						<td class="text-right">
                             <h4 class="text-success">
                                 <?php if($sale['amount_type'] != 'exp') echo $sale['amount'].' ₹'; 
-                                if($sale['amount_type'] == 'late') echo '<h5 class="text-bold text-warning"> (Late Pay)</h5>'; if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') echo '<h5 class="text-bold text-warning"> (GPay)</h5>';
-                                if($sale['amount_type'] == 'card') echo '<h5 class="text-bold text-warning">(Card Pay)</h5>';?>
+                                if($sale['amount_type'] == 'late') echo '<small class="text-bold text-warning"> (Late Pay)</small>'; if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning"> (GPay)</small>';
+                                if($sale['amount_type'] == 'card') echo '<small class="text-bold text-warning">(Card Pay)</small>';?>
                             </h4>
                         </td>
 						<td class=""><?php echo $sale['name']; ?></td>
