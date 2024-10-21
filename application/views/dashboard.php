@@ -18,10 +18,8 @@
     </div>
     <!-- END eCommerce Dashboard Header -->
 
-
-    <!-- eShop Overview Block -->
-    <?php if(!empty($session_user) && ($session_user['role_type'] === 'super_admin')) { ?>
     <div class="row">
+        <?php if(!empty($session_user) && ($session_user['role_type'] === 'super_admin')) { ?>
         <div class="col-md-6 col-lg-6">
             <div class="block">
                 <!-- eShop Overview Title -->
@@ -113,6 +111,7 @@
                 <!-- END eShop Overview Content -->
             </div>
         </div>
+        <?php } ?>
         <div class="col-md-6 col-lg-6">
             <!-- <div class="block">
                 <div class="block-title">
@@ -120,7 +119,7 @@
                 </div>
                 <div id="chart-overview" style="height: 350px; margin-bottom:15px;"></div>
             </div> -->
-            <div class="block">
+            <div class="block" style="min-height: 430px;">
                 <div class="block-title">
                     <h2><strong>Top </strong> Re-Order Products</h2>
                 </div>
@@ -148,13 +147,9 @@
                 </table>
             </div>
         </div>
-    </div>
-    <?php } ?>
-    <!-- END eShop Overview Block -->
     
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="block">
+        <div class="col-md-6 col-lg-6">
+            <div class="block" style="min-height: 430px;">
                 <div class="block-title">
                     <div class="block-options pull-right">
                         <a href="<?php echo base_url('customers'); ?>" class="btn btn-sm btn-success" data-toggle="tooltip" title="Show All"><i class="fa fa-eye"></i></a>
@@ -165,11 +160,11 @@
                 <table class="table table-borderless table-striped table-vcenter table-bordered">
                     <thead>
                         <tr>
-                            <th class="text-center">Id</th>
-                            <th style="width:150px;">Name</th>
+                            <th width="5%" class="text-center">Id</th>
+                            <th>Name</th>
                             <!-- <th class="hidden-xs">Phone Number</th> -->
-                            <th class="hidden-xs text-center">Sales Count</th>
-                            <th class="text-right">Sales Amount (₹)</th>
+                            <th width="20%" class="hidden-xs text-center">Sales Count</th>
+                            <th width="25%" class="text-right">Sales Amount (₹)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -190,8 +185,8 @@
             </div>
         </div>
 
-        <div class="col-lg-6">
-            <div class="block">
+        <div class="col-md-6 col-lg-6">
+            <div class="block" style="min-height: 430px;">
                 <div class="block-title">
                     <div class="block-options pull-right">
                         <a href="<?php echo base_url('products_list'); ?>" class="btn btn-sm btn-success" data-toggle="tooltip" title="Show All"><i class="fa fa-eye"></i></a>
@@ -202,10 +197,10 @@
                 <table class="table table-borderless table-striped table-vcenter table-bordered">
                     <thead>
                         <tr>
-                            <th class="text-center">Id</th>
-                            <th style="width:150px;">Name</th>
-                            <th class="hidden-xs text-center">Sales Count</th>
-                            <th class="text-right">Sales Amount (₹)</th>
+                            <th width="5%" class="text-center">Id</th>
+                            <th >Name</th>
+                            <th width="20%" class="hidden-xs text-center">Sales Count</th>
+                            <th width="25%" class="text-right">Sales Amount (₹)</th>
                         </tr>
                     </thead>
                     <tbody>
