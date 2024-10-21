@@ -164,7 +164,7 @@
                             <th>Name</th>
                             <!-- <th class="hidden-xs">Phone Number</th> -->
                             <th width="20%" class="hidden-xs text-center">Sales Count</th>
-                            <th width="25%" class="text-right">Sales Amount (₹)</th>
+                            <th width="27%" class="text-right">Sales Amount (₹)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -200,7 +200,7 @@
                             <th width="5%" class="text-center">Id</th>
                             <th >Name</th>
                             <th width="20%" class="hidden-xs text-center">Sales Count</th>
-                            <th width="25%" class="text-right">Sales Amount (₹)</th>
+                            <th width="27%" class="text-right">Sales Amount (₹)</th>
                         </tr>
                     </thead>
                     <tbody>
