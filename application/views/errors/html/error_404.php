@@ -46,10 +46,12 @@ code {
 
 #container {
 	margin: 10px;
-	border: 1px solid #D0D0D0;
-	box-shadow: 0 0 8px #D0D0D0;
+	min-height: 300px;
+	display:flex;
+	align-items: end;
+	justify-content: center;
 }
-
+.text-center{ text-align: center; }
 p {
 	margin: 12px 15px 12px 15px;
 }
@@ -57,6 +59,9 @@ p {
 </head>
 <body>
 	<div id="container">
+		<img src="<?php echo base_url(IMG); ?>/invoice/logo.png" style="padding: 3px 0px;width:150px;">
+	</div>
+	<div class="text-center">
 		<h1><?php echo $heading; ?></h1>
 		<?php echo $message; ?>
 	</div>

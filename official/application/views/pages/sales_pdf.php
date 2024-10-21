@@ -83,11 +83,11 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">Sl.No</th>
-                                        <th>Details</th>
-                                        <th class="text-right">Debit Amt(₹)</th>
-                                        <th class="text-right">Credit Amt(₹)</th>
-                                        <th>Sales Person</th>
-                                        <th>Date</th>
+                                        <th width="20%">Details</th>
+                                        <th width="20%" class="text-right">Debit Amt(₹)</th>
+                                        <th width="20%" class="text-right">Credit Amt(₹)</th>
+                                        <th width="18%">Sales Person</th>
+                                        <th width="18%">Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,11 +98,23 @@
                                     <tr>
                                         <td class="text-center"><?php echo $i; ?></td>
                                         <td class="" style="text-transform:capitalize;"><?php echo $sale['description']; ?></td>
-                                        <td class="text-right"><h4 class="text-danger"><?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; ?></h4></td>
-                                        <td class="text-right"><h4 class="text-success"><?php if($sale['amount_type'] != 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'late') echo '<h5 class="text-bold"> (Late Pay)</h5>'; ?></h4></td>
+                                        <td class="text-right">
+                                            <h4 class="text-danger">
+                                                <?php if($sale['amount_type'] == 'exp') echo '₹'.$sale['amount']; 
+                                                if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning" style="font-size:12px;"> (GPay)</small>'; ?>
+                                            </h4>
+                                        </td>
+                                        <td class="text-right">
+                                            <h4 class="text-success">
+                                                <?php if($sale['amount_type'] != 'exp') echo '₹'.$sale['amount']; 
+                                                if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning" style="font-size:12px;"> (GPay)</small>';
+                                                if($sale['amount_type'] == 'late') echo '<small class="text-bold text-warning" style="font-size:12px;"> (Late Pay)</small>'; 
+                                                if($sale['amount_type'] == 'card') echo '<small class="text-bold text-warning" style="font-size:12px;"> (Card Pay)</small>'; ?>
+                                            </h4>
+                                        </td>
                                         <td class=""><?php echo $sale['name']; ?></td>
                                         <td class="">
-                                            <?php echo date('d-m-Y h:i a', strtotime($sale['date_added'])); ?>
+                                            <?php echo date('d-m-y H:i', strtotime($sale['date_added'])); ?>
                                         </td>
                                     </tr>
                                     <?php

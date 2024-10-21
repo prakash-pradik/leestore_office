@@ -89,13 +89,13 @@
                                     <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-inr sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Sales Manage</span></a>
                                     <ul>
                                         <li>
-                                            <a href="<?php echo base_url('sales_list/month') ?>">Sales list</a>
+                                            <a href="<?php echo base_url('sales_list/week') ?>">Sales list</a>
                                         </li>
                                         <li>
-                                            <a href="<?php echo base_url('sales_draft/month') ?>">Sales Draft</a>
+                                            <a href="<?php echo base_url('sales_draft/week') ?>">Sales Draft</a>
                                         </li>
                                         <li>
-                                            <a href="<?php echo base_url('sales_credit/month') ?>">Sales Credit</a>
+                                            <a href="<?php echo base_url('sales_credit/week') ?>">Sales Credit</a>
                                         </li>
                                     </ul>
                                 </li>

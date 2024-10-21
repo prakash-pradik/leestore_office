@@ -63,28 +63,35 @@ class Sales extends CI_Controller {
 	{
 		$data['session_user'] = $this->session->userdata('admin_loggedin');
 		$data['order'] = $this->admin_model->get_order_by_id($id);
-		$data['order_items'] = $this->admin_model->get_orders_item_id($id);
-		$data['order_cash'] = $this->admin_model->get_data('order_cash', array('order_id'=>$id), 'result_array');
-		$this->load->view('config/template_start');
-		$this->load->view('config/page_head', $data);
-		$this->load->view('sales/invoice_view', $data);
-		$this->load->view('config/page_footer');
-		$this->load->view('config/template_scripts');
-		$this->load->view('config/template_end');
+		
+		if(isset($data['order']) && $data['order'] != "" ){
+			$data['order_items'] = $this->admin_model->get_orders_item_id($id);
+			$data['order_cash'] = $this->admin_model->get_data('order_cash', array('order_id'=>$id), 'result_array');
+			$this->load->view('config/template_start');
+			$this->load->view('config/page_head', $data);
+			$this->load->view('sales/invoice_view', $data);
+			$this->load->view('config/page_footer');
+			$this->load->view('config/template_scripts');
+			$this->load->view('config/template_end');
+		}else{
+			$data['heading'] = '404 Page Not Found';
+			$data['message'] = 'The page you requested was not found.';
+			$this->load->view('errors/html/error_404', $data);
+		}
 	}
 
 	public function invoice_pdf($id)
 	{
 		$today_dt = date('d-M-y h:ia');
 		$data['session_user'] = $this->session->userdata('admin_loggedin');
-		$data['order'] = $this->admin_model->get_order_by_id($id);
+		$data['order'] = $order = $this->admin_model->get_order_by_id($id);
 		$data['order_items'] = $this->admin_model->get_orders_item_id($id);
 		$html = $this->load->view('sales/invoice_pdf', $data, true);
 		
-		$file_name = 'OverallSalesReport.pdf';
+		$file_name = $order->invoice_no.'.pdf';
 		$bootUrl = "http://localhost/Git_projects/leestore_billing/assets/css/bootstrap.min.css";
 		$stylesheet = file_get_contents($bootUrl);
-		//exit();
+
 		$mpdf = new \Mpdf\Mpdf([
             'format'=>'A4',
             'margin_top'=>0,
@@ -92,22 +99,9 @@ class Sales extends CI_Controller {
             'margin_left'=>0,
             'margin_bottom'=>-1,
         ]);
-		
+
 		$mpdf->WriteHTML($html);
-		$mpdf->Output('test.pdf', 'I');	 		
-	}
-
-	/* public function test_pdf(){
-		$id = 1;
-		$today_dt = date('d-M-y h:ia');
-		$data['session_user'] = $this->session->userdata('admin_loggedin');
-		$data['order'] = $this->admin_model->get_order_by_id($id);
-		$data['order_items'] = $this->admin_model->get_orders_item_id($id);
-		$this->load->view('sales/invoice_pdf', $data);
-	} */
-
-	public function test(){
-		echo (100 * (6000 - 5000) / 5000);
+		$mpdf->Output($file_name, 'I');	 		
 	}
 
 }

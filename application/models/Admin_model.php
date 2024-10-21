@@ -249,7 +249,8 @@ class Admin_model extends CI_Model{
                 (SELECT product_name FROM products WHERE id = oi.product_id) as product_name,
                 (SELECT imei_number1 FROM products WHERE id = oi.product_id) as product_imei1,
                 (SELECT imei_number2 FROM products WHERE id = oi.product_id) as product_imei2,
-                (SELECT serial_number FROM products WHERE id = oi.product_id) as product_serial
+                (SELECT serial_number FROM products WHERE id = oi.product_id) as product_serial,
+                (SELECT model_name FROM products WHERE id = oi.product_id) as product_model
             FROM `order_items` as oi WHERE oi.order_id = $id ";
             $query = $this->db->query($sql);
 

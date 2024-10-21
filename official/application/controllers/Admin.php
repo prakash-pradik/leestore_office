@@ -233,6 +233,8 @@ class Admin extends CI_Controller {
 
 		if($this->input->post('amount_mode') == 'late_pay'){
 			$amt_type = 'late';
+		} else if($this->input->post('amount_mode') == 'card_pay'){
+			$amt_type = 'card';
 		} else {
 			$amt_type = $this->input->post('sale_type');
 		}
@@ -256,7 +258,16 @@ class Admin extends CI_Controller {
 
 		$id = $this->input->post('sale_id');
 		$amtMode = $this->input->post('amount_mode');
-		echo $saleType = $this->input->post('sale_type');
+
+		if($amtMode == 'late_pay'){
+			$amt_type = 'late';
+		} else if($amtMode == 'card_pay'){
+			$amt_type = 'card';
+		} else {
+			$amt_type = $this->input->post('sale_type');
+		}
+
+		$saleType = $this->input->post('sale_type');
 		
 		$data = array(
 				'emp_id' => $this->input->post('emp_id'),
@@ -270,6 +281,13 @@ class Admin extends CI_Controller {
 			$data['amount_type'] = 'late';
 		}
 		else if($saleType == 'late') {
+			$data['amount_type'] = 'inc';
+		}
+
+		if($amtMode == 'card_pay'){
+			$data['amount_type'] = 'card';
+		}
+		else if($saleType == 'card') {
 			$data['amount_type'] = 'inc';
 		}
 

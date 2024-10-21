@@ -89,8 +89,11 @@
                                         if($items['product_serial'] != ""){
                                             echo "<br/><small>( Serial: ".$items['product_serial']."";
                                         }
-                                        echo " )</small>";
+                                        echo " )</small>";   
                                     } 
+                                    if($items['product_model'] != ""){
+                                        echo ' ('.$items['product_model'].')';
+                                    }
                                 ?>
                             </h5>
                         </td>

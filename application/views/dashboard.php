@@ -131,7 +131,7 @@
             <div class="block">
                 <div class="block-title">
                     <div class="block-options pull-right">
-                        <a href="page_ecom_orders.php" class="btn btn-sm btn-success" data-toggle="tooltip" title="Show All"><i class="fa fa-eye"></i></a>
+                        <a href="<?php echo base_url('customers'); ?>" class="btn btn-sm btn-success" data-toggle="tooltip" title="Show All"><i class="fa fa-eye"></i></a>
                     </div>
                     <h2><strong>Top 10</strong> Customers</h2>
                 </div>
@@ -148,7 +148,7 @@
                     </thead>
                     <tbody>
                         <?php //var_dump($customers); 
-                            if(isset($customers)){
+                            if(isset($customers) && $customers != ""){
                                 foreach($customers as $cus){
                         ?>
                         <tr>
@@ -185,7 +185,7 @@
                     <tbody>
                         <?php 
                             //var_dump($products); 
-                            if(isset($products)){
+                            if(isset($products) && $products != ""){
                                 foreach($products as $prod){
                         ?>
                         <tr>

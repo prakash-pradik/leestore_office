@@ -126,7 +126,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Password<span class="text-danger">*</span></label>
                                 <div class="col-md-8">
-                                    <input type="text" id="staff_password" name="staff_password" class="form-control" placeholder="********" maxlength="8">
+                                    <input type="text" id="staff_password" name="staff_password" class="form-control" placeholder="********" maxlength="12">
                                 </div>
                             </div>
                         </div>
@@ -229,7 +229,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Phone Number</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="staff_phone_number" class="form-control staff_phone_number" placeholder="Phone Number..">
+                                    <input type="text" name="staff_phone_number" class="form-control staff_phone_number" placeholder="Phone Number.." maxlength="10">
                                 </div>
                             </div>
                         </div>
@@ -245,7 +245,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Password</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="staff_password" class="form-control staff_password" placeholder="******">
+                                    <input type="text" name="staff_password" class="form-control staff_password" placeholder="******" maxlength="12">
                                 </div>
                             </div>
                         </div>

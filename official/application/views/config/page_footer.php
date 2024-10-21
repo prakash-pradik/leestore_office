@@ -208,6 +208,7 @@
 								<option value="">Please select</option>
 								<option value="cash">Cash</option>
 								<option value="gpay">Gpay</option>
+                                <option value="card_pay">Card Pay</option>
                                 <option value="late_pay">Late Pay</option>
                             </select>
                         </div>
@@ -278,6 +279,7 @@
 								<option value="">Please select</option>
 								<option value="cash">Cash</option>
 								<option value="gpay">Gpay</option>
+                                <option value="card_pay">Card Pay</option>
                                 <option value="late_pay">Late Pay</option>
                             </select>
                         </div>

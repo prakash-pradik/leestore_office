@@ -49,6 +49,9 @@
 													}
 													echo " )</small>";
 												}
+												if($items['product_model'] != ""){
+													echo ' ('.$items['product_model'].')';
+												}
 												
 											?> 
 										</h5>

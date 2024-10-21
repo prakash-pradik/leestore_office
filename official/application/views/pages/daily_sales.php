@@ -118,8 +118,17 @@
 							<tr>
 								<td class="text-center"><?php echo $i; ?></td>
 								<td class="text-capitalize"><?php echo $sale['description']; ?></td>
-								<td class="text-right"><h4 class="text-danger"><?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') echo '<h5 class="text-bold text-warning"> (GPay)</h5>'; ?></h4></td>
-								<td class="text-right"><h4 class="text-success"><?php if($sale['amount_type'] != 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'late') echo '<h5 class="text-bold text-warning"> (Late Pay)</h5>'; if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') echo '<h5 class="text-bold text-warning"> (GPay)</h5>'; ?> </h4></td>
+								<td class="text-right">
+									<h4 class="text-danger"><?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') echo '<h5 class="text-bold text-warning"> (GPay)</h5>'; ?></h4>
+								</td>
+								<td class="text-right">
+									<h4 class="text-success">
+										<?php if($sale['amount_type'] != 'exp') echo $sale['amount'].' ₹'; 
+										if($sale['amount_type'] == 'late') echo '<h5 class="text-bold text-warning"> (Late Pay)</h5>'; 
+										if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') echo '<h5 class="text-bold text-warning"> (GPay)</h5>'; 
+										if($sale['amount_type'] == 'card') echo '<h5 class="text-bold text-warning"> (Card Pay)</h5>'; ?> 
+									</h4>
+								</td>
 								<td class=""><?php echo $sale['name']; ?></td>
 								<td class="text-center">
 									<div class="btn-group">

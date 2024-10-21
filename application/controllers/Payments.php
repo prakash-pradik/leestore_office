@@ -287,7 +287,7 @@ class Payments extends CI_Controller {
 		$data['stores'] = $this->admin_model->get_data('stores', array('status'=>'1'), 'result_array');
 		$data['customers'] = $this->admin_model->get_data('customers', array('status'=>'1'), 'result_array');
 		$data['categories'] = $this->admin_model->get_data('categories', $where, 'result_array', 'category_name', 'asc');
-		$data['brands'] = $this->admin_model->get_data('brands', array('status'=>'1'), 'result_array', 'brand_name', 'asc');
+		$data['brands'] = $this->admin_model->get_data('brands', $where, 'result_array', 'brand_name', 'asc');
 		$data['order'] = $this->admin_model->get_order_by_id($id);
 		$data['order_items'] = $this->admin_model->get_orders_item_id($id);
 		$this->load->view('config/template_start');
