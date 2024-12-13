@@ -170,8 +170,9 @@ $(document).on('click', '.decrement', function () {
 $(document).on('input', '#net_discount', function () {
 
     var percentageVal = $(this).val();
-
-    netDiscountCal(percentageVal);
+	
+	if(percentageVal != 0)
+		netDiscountCal(percentageVal);
 
 })
 
@@ -214,6 +215,52 @@ function netDiscountCal(percentageVal) {
         return false;
     }
 }
+
+$(document).on('input', '#discount_amount', function () {
+    var disVal = $(this).val();
+    discountCal(disVal);
+})
+
+function discountCal(percentageVal){
+	
+	var grossInputVal = $("#gross_amount").val();
+
+    if (percentageVal == "") {
+        $(".discount_amount").text('0.00');
+        var grossVal = parseFloat(grossInputVal).toFixed(2);
+        $("#total_payable").val(grossVal);
+        $(".net_amount, .total_payable").text(numberWithCommas(grossVal));
+        return false;
+    }
+    if ((isNaN(percentageVal))) {
+        alertify.error("Invalid Number!");
+        return false;
+    }
+    if (parseFloat(percentageVal) != 0) {
+		console.log(percentageVal);
+        var grossAmount = discountAmt = 0;
+        discountAmt = percentageVal;
+        //$(".discount_amount").text(discountAmt.toFixed(2));
+
+        grossAmount = parseFloat(grossInputVal - discountAmt);
+		console.log(grossAmount);
+        $("#total_payable").val(grossAmount);
+        grossAmount = grossAmount.toFixed(2);
+        $(".net_amount, .total_payable").text(numberWithCommas(grossAmount));
+        return true;
+
+    } else {
+        $(this).val('');
+        $(".discount_amount").text('0.00');
+        $("#total_payable").val(grossInputVal);
+        var grossVal = parseFloat(grossInputVal).toFixed(2);
+        $(".net_amount, .total_payable").text(numberWithCommas(grossVal));
+        alertify.error("Enter number between 0 to 100!");
+        return false;
+    }
+	
+}
+
 
 /* $(document).on('change', '#round_off', function () {
     var roundVal = $(this).val();
@@ -460,7 +507,11 @@ function addCustomer() {
             if (res.status == 200) {
                 $('#modal-new-customer').modal('toggle');
                 alertify.success(res.message);
-                $("#pos_customer").append('<option selected="selected" value="' + res.customer_id + '">' + customer_name + ' - ' + customer_phone + '</option>');
+				
+				if(res.status_type == 'success'){
+					$("#pos_customer").append('<option selected="selected" value="' + res.customer_id + '">' + customer_name + ' - ' + customer_phone + '</option>');
+				}
+				
                 setTimeout(() => {
                     $("#pos_customer").val(res.customer_id);
                 }, 1000);

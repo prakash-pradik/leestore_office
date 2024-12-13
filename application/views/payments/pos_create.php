@@ -142,7 +142,7 @@
                         <div class="form-group">
                             <label class="col-md-5 control-label">Discount :</label>
                             <div class="col-md-5 text-right">
-                                <div class="input-group" style="width:60%; float:right;">
+                                <div class="input-group" style="float:right;">
                                     <input type="text" id="net_discount" name="net_discount" class="form-control numeric" maxlength="3">
                                     <span class="input-group-addon">%</span>
                                 </div>
@@ -157,17 +157,17 @@
                             </div>
                         </div> -->
                         <div class="form-group">
+                            <label class="col-md-5 control-label">Discount Amount :</label>
+                            <div class="col-md-5 text-right">
+                                <!--<p class="form-control-static discount_amount">0.00</p>-->
+                                <input type="text" id="discount_amount" class="form-control numeric text-right" >
+                            </div>
+                        </div>
+						<div class="form-group">
                             <label class="col-md-5 control-label">Gross Amount :</label>
                             <div class="col-md-5 text-right">
                                 <p class="form-control-static gross_amount">0.00</p>
                                 <input type="hidden" id="gross_amount" >
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-5 control-label">Discount Amount :</label>
-                            <div class="col-md-5 text-right">
-                                <p class="form-control-static discount_amount">0.00</p>
-                                <input type="hidden" id="discount_amount">
                             </div>
                         </div>
                         <div class="form-group">

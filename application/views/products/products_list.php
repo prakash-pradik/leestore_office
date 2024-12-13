@@ -30,8 +30,7 @@
                         <th>Product Name</th>
                         <th>Brand Name</th>
                         <th>Category Name</th>
-                        <th>Cost Price (₹)</th>
-                        <th>Sell Price (₹)</th>
+                        <th>Price (₹)</th>
                         <th>Qty</th>
                         <th class="text-center">Actions</th>
                     </tr>
@@ -46,7 +45,6 @@
                         <td class="text-capitalize"><a href="<?php echo base_url('product_view/'.$prod['id']); ?>" class="text-info" target="_blank"><?php echo $prod['product_name']; ?></a></td>
 						<td class="text-capitalize"><?php if(!empty($prod['brand_name'])) echo $prod['brand_name']; else echo '-'; ?></td>
                         <td class="text-capitalize"><?php echo $prod['category_name']; ?></td>
-                        <td class="text-capitalize">₹ <?php echo number_format($prod['cost_price'],2); ?></td>
                         <td class="text-capitalize">₹ <?php echo number_format($prod['sell_price'],2); ?></td>
                         <td class="text-capitalize"><?php if(!empty($prod['qnty'])) echo $prod['qnty']; else echo '0'; ?></td>
                         <td class="text-center">

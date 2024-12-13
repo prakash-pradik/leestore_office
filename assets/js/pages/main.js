@@ -442,3 +442,104 @@ function showSupplierBlock(show) {
     }
 }
 /***** End Godown Modal *****/
+
+/***** Booking Page *****/
+function fetchBookingDetails(mythis) {
+    var id = $(mythis).data('id');
+    $.ajax({
+        url: base_url + 'admin/fetch_data',
+        type: 'post',
+        data: { id: id, tbl_name: 'booking' },
+        dataType: "json",
+        success: function (res) {
+			
+			$('#booking_id').val(res.id);
+            $('#update_booking_name').val(res.name);
+            $('#update_booking_phone').val(res.phone_number);
+            $('#update_booking_details').val(res.details);
+			$('#update_booking_amount').val(res.amount);
+			$('#update_booking_pay').val(res.pay_type);
+			$('#update_booking_address').val(res.address);
+			
+			$('#view_booking_id').val(res.id);
+			$('#view_booking_name').text(res.name);
+            $('#view_booking_phone').text(res.phone_number);
+            $('#view_booking_details').text(res.details);
+			$('#view_booking_address').text(res.address);
+			$('#view_booking_amount').text(res.amount);
+			$('#view_booking_pay').text(res.pay_type);
+        }
+    });
+}
+
+function deleteBookingData(mythis) {
+    var id = $(mythis).data('id');
+	
+	Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: base_url + 'admin/delete_by_id',
+                type: 'post',
+                data: { id: id, tbl_name: 'booking' },
+                success: function (res) {
+
+                    $(mythis).parent().parent().parent().remove();
+
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+
+                    setTimeout(() => {
+                        location.reload();
+                    }, 3000);
+                }
+            });
+        }
+    });
+}
+
+function deliverBooking(){
+	var id = $('#view_booking_id').val();
+	Swal.fire({
+        title: "Are you sure?",
+        text: "Product deliver to this customer!",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delivery it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+			$("#modal-view-booking").modal('hide');
+            $.ajax({
+                url: base_url + 'booking/deliver_booking',
+                type: 'post',
+                data: { id: id, tbl_name: 'booking' },
+                success: function (res) {
+
+                    Swal.fire({
+                        title: "Delivered!",
+                        text: "Product successfully delivered.!",
+                        icon: "success"
+                    });
+
+                    setTimeout(() => {
+                        location.reload();
+                    }, 3000);
+                }
+            });
+        }
+    });
+	
+}
+/***** End Booking Page *****/

@@ -25,7 +25,7 @@ class Admin extends CI_Controller {
 	{
 		$data['session_user'] = $this->session->userdata('user_loggedin');
 		$data['users'] = $this->admin_model->get_all_users('users');
-		$data['employees'] = $this->admin_model->get_all_users('employees');
+		$data['employees'] = $this->admin_model->get_all_employees();
 		$data['today_stats'] = $this->admin_model->get_sales_stats();
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
 		$this->load->view('config/template_start');
@@ -216,8 +216,8 @@ class Admin extends CI_Controller {
 
 	public function daily_sales()
 	{
-		$data['session_user'] = $this->session->userdata('user_loggedin');
-		$data['employees'] = $this->admin_model->get_all_users('employees');
+		$data['session_user'] = $sessionUser = $this->session->userdata('user_loggedin');
+		$data['employees'] = $this->admin_model->get_all_employees();
 		$data['daily_sales'] = $this->admin_model->get_all_sales('today', 'desc');
 		$data['today_stats'] = $this->admin_model->get_sales_stats();
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
@@ -231,6 +231,9 @@ class Admin extends CI_Controller {
 	
 	public function insert_sales(){
 
+		$sessionUser = $this->session->userdata('user_loggedin');
+		$storeId = $sessionUser['store_id'];
+
 		if($this->input->post('amount_mode') == 'late_pay'){
 			$amt_type = 'late';
 		} else if($this->input->post('amount_mode') == 'card_pay'){
@@ -241,6 +244,7 @@ class Admin extends CI_Controller {
 
 		$data = array(
 				'emp_id' => $this->input->post('emp_id'),
+				'store_id' => $storeId,
 				'description' => $this->input->post('sale_desc'),
 				'amount' => $this->input->post('sale_amt'),
 				'amount_type' => $amt_type,
@@ -255,6 +259,9 @@ class Admin extends CI_Controller {
 	}
 
 	public function update_sales(){
+
+		$sessionUser = $this->session->userdata('user_loggedin');
+		$storeId = $sessionUser['store_id'];
 
 		$id = $this->input->post('sale_id');
 		$amtMode = $this->input->post('amount_mode');
@@ -271,6 +278,7 @@ class Admin extends CI_Controller {
 		
 		$data = array(
 				'emp_id' => $this->input->post('emp_id'),
+				'store_id' => $storeId,
 				'description' => $this->input->post('sale_desc'),
 				'amount' => $this->input->post('sale_amt'),
 				'amount_mode' => $this->input->post('amount_mode'),
@@ -303,8 +311,12 @@ class Admin extends CI_Controller {
 	}
 	
 	public function insert_expense(){
+		$sessionUser = $this->session->userdata('user_loggedin');
+		$storeId = $sessionUser['store_id'];
+
 		$data = array(
 				'emp_id' => $this->input->post('emp_id'),
+				'store_id' => $storeId,
 				'description' => $this->input->post('sale_desc'),
 				'amount' => $this->input->post('sale_amt'),
 				'amount_type' => $this->input->post('sale_type'),

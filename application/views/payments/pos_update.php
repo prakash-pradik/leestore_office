@@ -147,19 +147,20 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-md-5 control-label">Discount Amount :</label>
+                            <div class="col-md-5 text-right">
+                                <!--<p class="form-control-static discount_amount">0.00</p>-->
+                                <input type="text" id="discount_amount" class="form-control numeric text-right" value="<?php echo $order->discount_amount; ?>">
+                            </div>
+                        </div>
+						<div class="form-group">
                             <label class="col-md-5 control-label">Gross Amount :</label>
                             <div class="col-md-5 text-right">
                                 <p class="form-control-static gross_amount"><?php echo number_format($order->gross_amount,2); ?></p>
                                 <input type="hidden" id="gross_amount" value="<?php echo $order->gross_amount; ?>">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-5 control-label">Discount Amount :</label>
-                            <div class="col-md-5 text-right">
-                                <p class="form-control-static discount_amount">0.00</p>
-                                <input type="hidden" id="discount_amount">
-                            </div>
-                        </div>
+                        
                         <div class="form-group">
                             <label class="col-md-5 control-label">IGT Amount :</label>
                             <div class="col-md-5 text-right">

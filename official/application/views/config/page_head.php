@@ -9,6 +9,10 @@
                 </div>
             </div>
             <!-- END Preloader -->
+            <?php 
+                $sessionUser = $this->session->userdata('user_loggedin');
+                $storeId = $sessionUser['store_id'];
+            ?>
             
             <!-- Page Container -->
             <div id="page-container" class="sidebar-partial sidebar-visible-lg sidebar-no-animations">
@@ -21,7 +25,12 @@
                         <div class="sidebar-content">
                             <!-- Brand -->
                             <a href="<?php echo base_url('admin'); ?>" class="sidebar-brand" style="display:flex; justify-content:center;">
-                                <img src="<?php echo base_url(IMG); ?>/logo.png" style="padding: 3px 0px;"><!-- <span class="sidebar-nav-mini-hide"><strong>Lee</strong> Store</span> -->
+                            <?php if($storeId == 2) { ?>                          
+                                <img src="<?php echo base_url(IMG); ?>/leeq.png" style="padding: 3px 0px; width:100%;">
+                            <?php } else { ?>
+                                <img src="<?php echo base_url(IMG); ?>/logo.png" style="padding: 3px 0px;">
+                            <?php } ?>
+                                <!-- <span class="sidebar-nav-mini-hide"><strong>Lee</strong> Store</span> -->
                             </a>
                             <!-- END Brand -->
 
@@ -32,7 +41,7 @@
                                         <img src="<?php echo base_url(IMG); ?>/placeholders/avatars/avatar2.jpg" alt="avatar">
                                     </a>
                                 </div>
-                                <div class="sidebar-user-name"> <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') echo 'Admin'; else echo 'Seller'; ?></div>
+                                <div class="sidebar-user-name" style="text-transform: capitalize;"> <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') echo 'Admin'; else echo $session_user['name']; ?></div>
                                 <div class="sidebar-user-links">
                                     <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') { ?>
                                         <a href="javascript:void(0)" class="enable-tooltip" data-placement="bottom" title="Settings" onclick="$('#modal-user-settings').modal('show');"><i class="gi gi-cogwheel"></i></a>

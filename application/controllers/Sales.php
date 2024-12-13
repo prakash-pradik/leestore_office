@@ -89,7 +89,7 @@ class Sales extends CI_Controller {
 		$html = $this->load->view('sales/invoice_pdf', $data, true);
 		
 		$file_name = $order->invoice_no.'.pdf';
-		$bootUrl = "http://localhost/Git_projects/leestore_billing/assets/css/bootstrap.min.css";
+		$bootUrl = "http://billing.leestoreindia.com/assets/css/bootstrap.min.css";
 		$stylesheet = file_get_contents($bootUrl);
 
 		$mpdf = new \Mpdf\Mpdf([

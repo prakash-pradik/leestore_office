@@ -23,7 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://pos.leestoreindia.com/';
+
+//$config['base_url'] = 'http://localhost/Git_projects/leestore_pos/';
+$config['base_url'] = 'http://billing.leestoreindia.com/';
 
 /*
 |--------------------------------------------------------------------------

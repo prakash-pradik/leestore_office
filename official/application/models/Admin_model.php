@@ -14,8 +14,30 @@ class Admin_model extends CI_Model{
     */
     public function get_all_users($table_name)
     {
+
         $users = $this->db->get_where($table_name, array('status' => "1") )->result_array();
         return $users;
+    }
+
+    public function get_all_employees()
+    {
+
+        $sessionUser = $this->session->userdata('user_loggedin');
+        $storeId = $sessionUser['store_id'];
+		
+		if($sessionUser['admin_type'] == 'biller')
+			$where = 'AND store_id IN (0, '.$storeId.')';
+		else
+			$where = "";
+        
+        $sql = "SELECT * FROM employees WHERE status = 1 $where";
+
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->result_array();
+        else
+            return false;
     }
 
     public function get_all()
@@ -136,6 +158,14 @@ class Admin_model extends CI_Model{
 
     public function get_all_sales($all = '', $orderBy){
         
+        $sessionUser = $this->session->userdata('user_loggedin');
+		$storeId = $sessionUser['store_id'];
+		
+		if($sessionUser['admin_type'] == 'biller')
+			$where1 = "AND ds.store_id = '".$storeId."'";
+		else
+			$where1 = "";
+
         $today_date   = date("Y-m-d");
 
         $start_date = $this->input->post('example-daterange1');
@@ -157,7 +187,7 @@ class Admin_model extends CI_Model{
             $where = "";
         
         $sql = "SELECT e.name, ds.* FROM daily_sales as ds
-                JOIN employees as e  ON e.id = ds.emp_id AND ds.status = 1 $where
+                JOIN employees as e  ON e.id = ds.emp_id AND ds.status = 1 $where $where1
                 order by ds.date_added $orderBy";
 
         $query = $this->db->query($sql);
@@ -170,12 +200,21 @@ class Admin_model extends CI_Model{
     }
 	
 	public function get_sales_stats(){
+        $sessionUser = $this->session->userdata('user_loggedin');
+        $storeId = $sessionUser['store_id'];
+		
+		if($sessionUser['admin_type'] == 'biller')
+			$where = "store_id = '".$storeId."'";
+		else
+			$where = "1=1";
+		
+
         $today_date   = date("Y-m-d");
         $sql = "SELECT 
                     sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) as today_income,
                     sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as today_expense,
                     sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) - sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as today_available 
-                FROM daily_sales WHERE status = 1 AND amount_mode = 'cash' AND DATE(date_added) = '".$today_date."'";
+                FROM daily_sales WHERE status = 1 AND amount_mode = 'cash' AND $where AND DATE(date_added) = '".$today_date."'";
 
         $query = $this->db->query($sql);
 
@@ -186,12 +225,20 @@ class Admin_model extends CI_Model{
     }
 	
 	public function get_gpay_stats(){
+        $sessionUser = $this->session->userdata('user_loggedin');
+        $storeId = $sessionUser['store_id'];
+		
+		if($sessionUser['admin_type'] == 'biller')
+			$where = "store_id = '".$storeId."'";
+		else
+			$where = "1=1";
+
         $today_date   = date("Y-m-d");
         $sql = "SELECT 
                     sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) as gpay_income,
 					sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as gpay_expense,
 					sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) - sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as gpay_available
-                FROM daily_sales WHERE amount_mode = 'gpay' AND status = 1 AND DATE(date_added) = '".$today_date."'";
+                FROM daily_sales WHERE amount_mode = 'gpay' AND status = 1 AND $where AND DATE(date_added) = '".$today_date."'";
 
         $query = $this->db->query($sql);
 
@@ -222,6 +269,8 @@ class Admin_model extends CI_Model{
     }
 
     public function get_emp_advances($id){
+        $sessionUser = $this->session->userdata('user_loggedin');
+        $storeId = $sessionUser['store_id'];
 
         $sql = "SELECT * FROM employee_advance WHERE status = 1 AND emp_id = $id ORDER BY id desc";
 

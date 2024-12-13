@@ -116,7 +116,7 @@ class Admin extends CI_Controller {
 	public function fetch_data_array(){
 		$id = $this->input->post('id');
 		$tbl_name = $this->input->post('tbl_name');
-		$result = $this->admin_model->get_data('products', array('category_id'=>$id, 'status'=>'1'), 'result');
+		$result = $this->admin_model->get_data('products', array('category_id'=>$id, 'status'=>'1'), 'result', 'id', 'desc');
 		if($result){
 			$data['data'] = $result;
             $data['status'] = 1;

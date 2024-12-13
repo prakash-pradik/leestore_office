@@ -104,4 +104,7 @@ $route['pos_create'] = 'payments/pos_create';
 $route['pos_update/(:any)'] = 'payments/pos_update/$1';
 /**** End Sales Manage ****/
 
+$route['booking'] = 'booking/home';
+
+
 $route['print_test'] = 'admin/print_test';

@@ -53,7 +53,11 @@
     </style>
 </head>
 <body>
-    <?php header("Content-type: image"); ?>
+    <?php 
+        header("Content-type: image"); 
+        $sessionUser = $this->session->userdata('user_loggedin');
+        $storeId = $sessionUser['store_id'];
+    ?>
     <div class="container">
         <div class="card" style="padding-top:1rem;">
             <div class="card-body">
@@ -64,11 +68,19 @@
                                 <tr>
                                     <td>
                                         <a href="javascript:;">
-                                            <img src="http://pos.leestoreindia.com/assets/img/invoice/logo.jpg" width="100" alt="">
+                                            <?php if($storeId == 2) { ?>
+                                                <img src="https://unix-ifyx.onrender.com/assets/img/invoice/leeq_logo.png" width="150" alt="">
+                                            <?php } else { ?>
+                                                <img src="https://unix-ifyx.onrender.com/assets/img/invoice/logo.jpg" width="100" alt="">
+                                            <?php } ?>
                                         </a>
                                     </td>
                                     <td class="text-right">
-                                        <p># 4765/5, Ayyanarpuram 1st Street,</p>
+                                        <?php if($storeId == 2) { ?>
+                                            <p># 9952, AMA Nagar, Nizam Colony</p>
+                                        <?php } else { ?>
+                                            <p># 4765/5, Ayyanarpuram 1st Street,</p>
+                                        <?php } ?>
                                         <p>Alangudi Road, Pudukkottai,</p>
                                         <p>+91- 99945 78802</p>
                                         <p>+91- 96265 89922</p>
@@ -82,7 +94,7 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Sl.No</th>
+                                        <th class="text-center">#</th>
                                         <th width="20%">Details</th>
                                         <th width="20%" class="text-right">Debit Amt(₹)</th>
                                         <th width="20%" class="text-right">Credit Amt(₹)</th>

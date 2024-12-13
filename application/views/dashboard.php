@@ -20,7 +20,7 @@
 
     <div class="row">
         <?php if(!empty($session_user) && ($session_user['role_type'] === 'super_admin')) { ?>
-        <div class="col-md-6 col-lg-6">
+        <div class="col-md-12 col-lg-12">
             <div class="block">
                 <!-- eShop Overview Title -->
                 <div class="block-title">
@@ -112,42 +112,8 @@
             </div>
         </div>
         <?php } ?>
-        <div class="col-md-6 col-lg-6">
-            <!-- <div class="block">
-                <div class="block-title">
-                    <h2><strong>Sales</strong> Current Year</h2>
-                </div>
-                <div id="chart-overview" style="height: 350px; margin-bottom:15px;"></div>
-            </div> -->
-            <div class="block" style="min-height: 430px;">
-                <div class="block-title">
-                    <h2><strong>Top </strong> Re-Order Products</h2>
-                </div>
-                <table class="table table-borderless table-striped table-vcenter table-bordered">
-                    <thead>
-                        <tr>
-                            <th class="text-center">Id</th>
-                            <th >Name</th>
-                            <!-- <th class="hidden-xs">Phone Number</th> -->
-                            <th class="hidden-xs text-center">Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php //var_dump($customers); 
-                            if(isset($reorders) && $reorders != ""){
-                                foreach($reorders as $reo){
-                        ?>
-                        <tr>
-                            <td class="text-center"><a href="<?php echo base_url('product_view/'.$reo['id']); ?>" class="text-info"><small><?php echo 'PID.'.str_pad($reo['id'], 2, '0', STR_PAD_LEFT); ?></small></a></td>
-                            <td class=""><a href="<?php echo base_url('product_view/'.$reo['id']); ?>" class="text-info"><?php echo $reo['product_name']; ?></a></td>
-                            <td class="hidden-xs text-center text-danger"><strong><?php echo $reo['qnty']; ?></strong></td>
-                        </tr>
-                        <?php } } ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    
+        
+		<?php if(!empty($session_user) && ($session_user['role_type'] === 'super_admin' || $session_user['role_type'] === 'Manager')) { ?>
         <div class="col-md-6 col-lg-6">
             <div class="block" style="min-height: 430px;">
                 <div class="block-title">
@@ -174,7 +140,7 @@
                         ?>
                         <tr>
                             <td class="text-center"><a href="<?php echo base_url('customer/'.$cus['id']); ?>" class="text-info"><small><?php echo 'CUS.'.str_pad($cus['id'], 2, '0', STR_PAD_LEFT); ?></small></a></td>
-                            <td class=""><a href="<?php echo base_url('customer/'.$cus['id']); ?>" class="text-info"><?php echo $cus['name']; ?></a></td>
+                            <td class="text-capitalize"><a href="<?php echo base_url('customer/'.$cus['id']); ?>" class="text-info"><?php echo $cus['name']; ?></a></td>
                             <!-- <td class="hidden-xs"><?php echo '+91-'.$cus['phone_number']; ?></td> -->
                             <td class="hidden-xs text-center"><?php echo $cus['order_count']; ?></td>
                             <td class="text-right"><strong>₹<?php echo number_format($cus['order_total'],2); ?></strong></td>
@@ -220,5 +186,39 @@
                 </table>
             </div>
         </div>
+		<?php } ?>
+		
+		<?php if(!empty($session_user) && ($session_user['role_type'] === 'super_admin' || $session_user['role_type'] === 'Manager' || $session_user['role_type'] === 'Biller')) { ?>
+		<div class="col-md-12 col-lg-12">
+            <div class="block" style="min-height: 430px;">
+                <div class="block-title">
+                    <h2><strong>Top </strong> Re-Order Products</h2>
+                </div>
+				<table id="example-datatable" class="table table-vcenter table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Id</th>
+                            <th >Name</th>
+                            <!-- <th class="hidden-xs">Phone Number</th> -->
+                            <th class="hidden-xs text-center">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php //var_dump($customers); 
+                            if(isset($reorders) && $reorders != ""){
+                                foreach($reorders as $reo){
+                        ?>
+                        <tr>
+                            <td class="text-center"><a href="<?php echo base_url('product_view/'.$reo['id']); ?>" class="text-info"><small><?php echo 'PID.'.str_pad($reo['id'], 2, '0', STR_PAD_LEFT); ?></small></a></td>
+                            <td class=""><a href="<?php echo base_url('product_view/'.$reo['id']); ?>" class="text-info"><?php echo $reo['product_name']; ?></a></td>
+                            <td class="hidden-xs text-center text-danger"><strong><?php echo $reo['qnty']; ?></strong></td>
+                        </tr>
+                        <?php } } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+		<?php } ?>
+
     </div>
 </div>

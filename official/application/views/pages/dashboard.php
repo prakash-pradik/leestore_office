@@ -8,7 +8,7 @@
 				<div class="row">
 					<!-- Main Title (hidden on small devices for the statistics to fit) -->
 					<div class="col-md-4 col-lg-6 hidden-xs hidden-sm">
-						<h1>Welcome <strong>Admin</strong><br><small>You Look Awesome!</small></h1>
+						<h1 style="text-transform: capitalize;">Welcome <strong><?php if(isset($session_user)) echo $session_user['name']; ?></strong><br><small>You Look Awesome!</small></h1>
 					</div>
 					<!-- END Main Title -->
 				</div>

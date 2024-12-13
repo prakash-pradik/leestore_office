@@ -13,7 +13,7 @@
 
 		public function login_staff($email, $password)
 		{
-			$query = $this->db->get_where('employees', array('user_name'=>$email, 'password'=>$password));
+			$query = $this->db->get_where('employees_login', array('user_name'=>$email, 'password'=>$password));
 			return $query->row_array();
 		}
 

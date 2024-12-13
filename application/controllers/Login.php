@@ -46,7 +46,8 @@ class Login extends CI_Controller {
 				if($staffData['role_type'] === 'Manager'){
 					redirect(base_url('dashboard'));
 				} else{
-					redirect(base_url('sales_list/month'));
+					redirect(base_url('dashboard'));
+					//redirect(base_url('sales_list/month'));
 				}
 			}
 			else{

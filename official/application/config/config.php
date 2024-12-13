@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $root  = "http://".$_SERVER['HTTP_HOST'];
 $root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
-$config['base_url'] = 'http://pos.leestoreindia.com/official';
+$config['base_url'] = 'http://billing.leestoreindia.com/official/';
 
 date_default_timezone_set('Asia/Kolkata'); 
 /*

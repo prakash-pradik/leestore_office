@@ -67,6 +67,7 @@ class Customers extends CI_Controller {
 
 				$response = array(
 					'status' => 200,
+					'status_type' => 'success',
 					'customer_id' => $insert,
 					'message' => 'Customer successfully added.!'
 				);
@@ -74,6 +75,7 @@ class Customers extends CI_Controller {
 			} else {
 				$response = array(
 					'status' => 500,
+					'status_type' => 'failed',
 					'message' => 'Something went wrong.!'
 				);
 			}
@@ -81,6 +83,7 @@ class Customers extends CI_Controller {
 		else{
 			$response = array(
 				'status' => 200,
+				'status_type' => 'exists',
 				'message' => 'Customer already exists.!'
 			);
 		}

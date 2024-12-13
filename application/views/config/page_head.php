@@ -45,11 +45,15 @@
                             <!-- Sidebar Navigation -->
                             <ul class="sidebar-nav">
 
-                                <?php if(!empty($session_user) && ($session_user['role_type'] === 'super_admin' || $session_user['role_type'] === 'Manager')) { ?>
+                                <?php if(!empty($session_user) && ($session_user['role_type'] === 'super_admin' || $session_user['role_type'] === 'Manager' || $session_user['role_type'] === 'Biller' )) { ?>
+									<li>
+										<a href="<?php echo base_url('dashboard'); ?>" class="<?php if($this->uri->segment(1) == 'dashboard') echo 'active'; ?>"><i class="gi gi-home sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
+									</li>
+								
+								<?php } ?>
+								
+								<?php if(!empty($session_user) && ($session_user['role_type'] === 'super_admin' || $session_user['role_type'] === 'Manager' )) { ?>
                                 
-                                <li>
-                                    <a href="<?php echo base_url('dashboard'); ?>" class="<?php if($this->uri->segment(1) == 'dashboard') echo 'active'; ?>"><i class="gi gi-home sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
-                                </li>
                                 <?php if($session_user['role_type'] === 'super_admin') { ?>
                                 <li>
                                     <a href="<?php echo base_url('stores'); ?>" class="<?php if($this->uri->segment(1) == 'stores') echo 'active'; ?>"><i class="gi gi-shop sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Stores List</span></a>
@@ -107,12 +111,13 @@
                                 <li>
                                     <a href="<?php echo base_url('customers'); ?>" class="<?php if($this->uri->segment(1) == 'customers') echo 'active'; ?>"><i class="hi hi-user sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Customers List</span></a>
                                 </li>
-
+								<li>
+                                    <a href="<?php echo base_url('booking'); ?>" class="<?php if($this->uri->segment(1) == 'booking') echo 'active'; ?>" target="_blank"><i class="fa fa-book sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Booking</span></a>
+                                </li>
                                 <li>
                                     <a href="<?php echo base_url('payments'); ?>" class="<?php if($this->uri->segment(1) == 'payments') echo 'active'; ?>" target="_blank"><i class="fa fa-inr sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Payment Billing</span></a>
                                 </li>
 
-                                
                             </ul>
                             <!-- END Sidebar Navigation -->
                         </div>

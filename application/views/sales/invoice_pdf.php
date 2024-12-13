@@ -6,8 +6,17 @@
 <body>
 	<div id="page-content">
 		<div class="container" style="padding:0px;">
+			<?php 
+				if($order->store_id == 1){
+					$image = 'http://localhost/git_projects/leestore_pos/assets/img/invoice/bg_ls.jpg';
+					$width1 = '35%';
+				} else{
+					$image = 'http://localhost/git_projects/leestore_pos/assets/img/invoice/bg_leeq.jpg';
+					$width1 = '35%';
+				}
+			?>
 			
-			<div style="background-image: url('http://pos.leestoreindia.com/assets/img/invoice/bg.jpg'); background-size: contain; height:100%; width:100%">
+			<div style="background-image: url('<?php echo $image; ?>'); background-size: contain; height:100%; width:100%">
 				
 				<div class="invoice-content-block" style="padding-left: 55px; padding-right: 50px; padding-top: 3px;">
 					<div class="block-section" style="margin-top:145px; margin-left:290px;">
@@ -32,7 +41,7 @@
 								?>
 								<tr style="">
 									<td style="text-align:center; width:5%; background-color:rgba(255, 0, 0, 0);height:50px;"><p style="font-size:16px;"><?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?></p></td>
-									<td style="width:35%; background-color:rgba(255, 0, 0, 0); padding-left:28px;">
+									<td width="<?php echo $width1; ?>" style="background-color:rgba(255, 0, 0, 0); padding-left:28px;">
 										<h5>
 											<?php 
 												echo $items['product_name'];
@@ -57,8 +66,9 @@
 										</h5>
 									</td>
 									<td style="width:20%; background-color:rgba(255, 0, 0, 0);"></td>
-									<td style="width:10%; background-color:rgba(255, 0, 0, 0);"><strong><?php echo $items['quantity']; ?></strong></td>
-									<td style="width:10%; background-color:rgba(255, 0, 0, 0);"><?php echo number_format($items['price']); ?></td>
+									
+									<td width="10%" style="background-color:rgba(255, 0, 0, 0);"><strong><?php echo $items['quantity']; ?></strong></td>
+									<td width="10%" style="background-color:rgba(255, 0, 0, 0);"><?php echo number_format($items['price']); ?></td>
 									<td class="text-right" style="background-color:rgba(255, 0, 0, 0);"><strong><?php echo number_format($items['sub_total'],2); ?></strong></td>
 								</tr>
 								<?php $i++; 
