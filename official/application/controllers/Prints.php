@@ -32,7 +32,7 @@ class Prints extends CI_Controller {
 		}
 		
 		$data['base_url'] = base_url();
-		$data['daily_sales'] = $this->admin_model->get_all_sales($type, $orderBy);
+		$data['daily_sales'] = $this->admin_model->get_all_sales($type, $orderBy, '1');
 		$data['today_stats'] = $this->admin_model->get_sales_stats();
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
 
@@ -53,7 +53,7 @@ class Prints extends CI_Controller {
 
 	public function createExcel(){
 
-		$salesData = $this->admin_model->get_all_sales('all', 'desc');
+		$salesData = $this->admin_model->get_all_sales('all', 'desc', '1');
 		$i = 1;               
 		$name = "Daily Sales";
 
@@ -108,7 +108,7 @@ class Prints extends CI_Controller {
 		$orderBy = 'asc';
 		
 		
-		$salesData = $this->admin_model->get_all_sales($type, $orderBy);
+		$salesData = $this->admin_model->get_all_sales($type, $orderBy, '1');
 
 		$today_stats = $this->admin_model->get_sales_stats();
 		$gpay_stats = $this->admin_model->get_gpay_stats();

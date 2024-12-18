@@ -83,6 +83,10 @@
                                 <li>
                                     <a href="<?php echo base_url('outcomes'); ?>" class="<?php if($this->uri->segment(1) == 'outcomes') echo 'active'; ?>"><i class="hi hi-arrow-up sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Outcomes</span></a>
                                 </li>
+
+                                <li>
+                                    <a href="<?php echo base_url('commitment'); ?>" class="<?php if($this->uri->segment(1) == 'commitment') echo 'active'; ?>"><i class="hi hi-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Commitment</span></a>
+                                </li>
                                 
                                 <?php } ?>
                             </ul>

@@ -60,7 +60,6 @@
         </div>
     </div>
     <!-- END Datatables Content -->
-</div>
 
 <div id="modal-income" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
@@ -189,3 +188,5 @@
             })
     }    
 </script>
+
+</div>

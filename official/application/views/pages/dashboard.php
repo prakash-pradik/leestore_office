@@ -66,7 +66,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-6">
+			<!-- <div class="col-md-6">
 				<div class="block full">
 					<div class="block-title">
 						<h2><strong>Users</strong> Table</h2>
@@ -96,7 +96,7 @@
 									<td><?php echo $user['phone_number']; ?></td>
 									<td class="text-center">
 										<div class="btn-group">
-											<a href="#modal-user-update" data-toggle="modal" title="Update" data-placement="top" class="btn btn-default enable-tooltip" data-user_id="<?php echo $user['id']; ?>" data-name="<?php echo $user['name']; ?>" data-phone="<?php echo $user['phone_number']; ?>" onclick="fetchDetails(this)"><i class="fa fa-pencil"></i></a>
+											<a href="#modal-user-update" data-toggle="modal" title="Update" data-placement="top" class="btn btn-default enable-tooltip" data-user_id="<?php echo $user['id']; ?>" data-name="<?php echo $user['name']; ?>" data-phone="<?php echo $user['phone_number']; ?>" data-second="<?php echo $user['second_number']; ?>" onclick="fetchDetails(this)"><i class="fa fa-pencil"></i></a>
 											<a href="javascript:void(0)" data-user_id="<?php echo $user['id']; ?>" onclick="deleteData(this);" data-toggle="tooltip" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></a>
 										</div>
 									</td>
@@ -109,7 +109,7 @@
 						</table>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<?php }  else { ?>
 				<div class="col-md-12 text-center animation-pullDown">
 					<img src="<?php echo base_url(IMG); ?>/lee_store.png" alt="logo" style="width:150px; margin-top:5em;">

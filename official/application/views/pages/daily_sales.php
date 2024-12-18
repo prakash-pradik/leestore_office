@@ -78,6 +78,18 @@
 					</h3>
 				</div>
 			</a>
+			<form action="<?php echo base_url('admin/insert_notes'); ?>" id="income-validation" method="post" class="form-horizontal form-bordered">
+				<div class="form-group">
+					<div class="col-md-12">
+						<textarea id="daily_notes" name="daily_notes" rows="6" class="form-control" placeholder="Notes.." required="true"><?php if(!empty($daily_notes)) echo $daily_notes->notes; ?></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 text-right">
+						<button type="submit" class="btn btn-success">Save</button>
+					</div>
+				</div>
+			</form>
 		</div>
 		<div class="col-lg-9">
 			<div class="block full">
@@ -94,7 +106,7 @@
 
 						<a href="#modal-sales-income" class="btn btn-success " data-toggle="modal" title="Add Income"><i class="fa fa-plus"></i> Add New</a>
 
-						<a href="#modal-sales-expense" class="btn btn-info" data-toggle="modal" title="Add Expenses"><i class="fa fa-plus"></i> Add Expenses</a>
+						<a href="#modal-sales-expense" class="btn btn-danger" data-toggle="modal" title="Add Expenses"><i class="fa fa-minus"></i> Add Expenses</a>
 					</div>
 				</div>
 

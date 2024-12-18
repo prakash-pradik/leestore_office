@@ -60,6 +60,7 @@ $route['dashboard'] = 'admin/dashboard';
 $route['users'] = 'admin/users';
 $route['incomes'] = 'admin/incomes';
 $route['outcomes'] = 'admin/outcomes';
+$route['commitment'] = 'admin/commitments';
 $route['daily_sales'] = 'admin/daily_sales';
 $route['full_report/(:any)'] = 'admin/full_report/$1';
 $route['inactive_sales'] = 'admin/inactive_sales';

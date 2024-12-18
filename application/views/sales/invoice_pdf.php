@@ -8,10 +8,10 @@
 		<div class="container" style="padding:0px;">
 			<?php 
 				if($order->store_id == 1){
-					$image = 'http://localhost/git_projects/leestore_pos/assets/img/invoice/bg_ls.jpg';
+					$image = 'http://billing.leestoreindia.com/assets/img/invoice/bg_ls.jpg';
 					$width1 = '35%';
 				} else{
-					$image = 'http://localhost/git_projects/leestore_pos/assets/img/invoice/bg_leeq.jpg';
+					$image = 'http://billing.leestoreindia.com/assets/img/invoice/bg_leeq.jpg';
 					$width1 = '35%';
 				}
 			?>

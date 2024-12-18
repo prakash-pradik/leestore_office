@@ -41,6 +41,8 @@ class Admin extends CI_Controller {
 		$data['session_user'] = $this->session->userdata('user_loggedin');
 		$data['users'] = $this->admin_model->get_income_users();
 		$data['incomes'] = $this->admin_model->get_all_incomes();
+		$data['amount_stats'] = $this->admin_model->get_amount_stats('incomes');
+		
 		$this->load->view('config/template_start');
 		$this->load->view('config/page_head',$data);
 		$this->load->view('pages/income_list', $data);
@@ -56,7 +58,8 @@ class Admin extends CI_Controller {
 		if($type == 'new'){
 			$user_data = array(
 				'name' => $this->input->post('income_user_name'),
-				'phone_number' => $this->input->post('income_user_phone')
+				'phone_number' => $this->input->post('income_user_phone'),
+				'second_number' => $this->input->post('income_user_second')
 			);
 
 			$insertId = $this->admin_model->insert_row('users', $user_data);
@@ -64,6 +67,16 @@ class Admin extends CI_Controller {
 				'user_id' => $insertId,
 				'amount' => $this->input->post('income_amt_value'),
 				'amount_type' => 'DEB',
+				'notes' => $this->input->post('income_notes'),
+				'date_added' => date("Y-m-d H:i:s")
+			);
+		} else if($type == 'new_plus') {
+			$user_id = $this->input->post('old_user_id');
+			$data = array(
+				'user_id' => $user_id,
+				'amount' => $this->input->post('old_income_amt'),
+				'amount_type' => $this->input->post('old_amount_type'),
+				'notes' => $this->input->post('old_income_notes'),
 				'date_added' => date("Y-m-d H:i:s")
 			);
 		} else {
@@ -71,7 +84,8 @@ class Admin extends CI_Controller {
 			$data = array(
 				'user_id' => $user_id,
 				'amount' => $this->input->post('old_income_amt'),
-				'amount_type' => 'CRE',
+				'amount_type' => $this->input->post('old_amount_type'),
+				'notes' => $this->input->post('old_income_notes'),
 				'date_added' => date("Y-m-d H:i:s")
 			);
 		}
@@ -87,6 +101,7 @@ class Admin extends CI_Controller {
 		$data['session_user'] = $this->session->userdata('user_loggedin');
 		$data['users'] = $this->admin_model->get_outcome_users();
 		$data['outcomes'] = $this->admin_model->get_all_outcomes();
+		$data['amount_stats'] = $this->admin_model->get_amount_stats('outcomes');
 		$this->load->view('config/template_start');
 		$this->load->view('config/page_head',$data);
 		$this->load->view('pages/outcome_list', $data);
@@ -102,7 +117,8 @@ class Admin extends CI_Controller {
 		if($type == 'new'){
 			$user_data = array(
 				'name' => $this->input->post('income_user_name'),
-				'phone_number' => $this->input->post('income_user_phone')
+				'phone_number' => $this->input->post('income_user_phone'),
+				'second_number' => $this->input->post('income_user_second')
 			);
 
 			$insertId = $this->admin_model->insert_row('users', $user_data);
@@ -110,6 +126,16 @@ class Admin extends CI_Controller {
 				'user_id' => $insertId,
 				'amount' => $this->input->post('income_amt_value'),
 				'amount_type' => 'DEB',
+				'notes' => $this->input->post('income_notes'),
+				'date_added' => date("Y-m-d H:i:s")
+			);
+		} else if($type == 'new_plus') {
+			$user_id = $this->input->post('old_user_id');
+			$data = array(
+				'user_id' => $user_id,
+				'amount' => $this->input->post('old_income_amt'),
+				'amount_type' => $this->input->post('old_amount_type'),
+				'notes' => $this->input->post('old_income_notes'),
 				'date_added' => date("Y-m-d H:i:s")
 			);
 		} else {
@@ -117,7 +143,8 @@ class Admin extends CI_Controller {
 			$data = array(
 				'user_id' => $user_id,
 				'amount' => $this->input->post('old_income_amt'),
-				'amount_type' => 'CRE',
+				'amount_type' => $this->input->post('old_amount_type'),
+				'notes' => $this->input->post('old_income_notes'),
 				'date_added' => date("Y-m-d H:i:s")
 			);
 		}
@@ -189,12 +216,13 @@ class Admin extends CI_Controller {
 		$data = array(
 			'name' => $this->input->post('user_name'),
 			'phone_number' => $this->input->post('user_phone'),
+			'second_number' => $this->input->post('user_second'),
 			'date_modified' => date("Y-m-d H:i:s")
 		);
 		
 		$insert = $this->admin_model->update_row_data('users', $where, $data);
 		if($insert){
-			redirect(base_url('dashboard'));
+			redirect(base_url('user_details/'.$user_id));
 		}
 	}
 
@@ -218,9 +246,10 @@ class Admin extends CI_Controller {
 	{
 		$data['session_user'] = $sessionUser = $this->session->userdata('user_loggedin');
 		$data['employees'] = $this->admin_model->get_all_employees();
-		$data['daily_sales'] = $this->admin_model->get_all_sales('today', 'desc');
+		$data['daily_sales'] = $this->admin_model->get_all_sales('today', 'desc', '1');
 		$data['today_stats'] = $this->admin_model->get_sales_stats();
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
+		$data['daily_notes'] = $this->admin_model->get_daily_notes();
 		$this->load->view('config/template_start');
 		$this->load->view('config/page_head',$data);
 		$this->load->view('pages/daily_sales', $data);
@@ -330,6 +359,18 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	public function insert_notes(){
+		$user_data = array(
+			'notes' => $this->input->post('daily_notes'),
+			'date_added' => date("Y-m-d H:i:s")
+		);
+
+		$insert = $this->admin_model->insert_row('notes', $user_data);
+		if($insert){
+			redirect(base_url('daily_sales'));
+		}
+	}
+
 	public function delete_sales(){
 		
 		$user_id = $this->input->post('userId');
@@ -346,7 +387,7 @@ class Admin extends CI_Controller {
 	public function full_report($type)
 	{
 		$data['session_user'] = $this->session->userdata('user_loggedin');
-		$data['daily_sales'] = $this->admin_model->get_all_sales($type, 'desc');
+		$data['daily_sales'] = $this->admin_model->get_all_sales($type, 'desc', '1');
 		$this->load->view('config/template_start');
 		$this->load->view('config/page_head',$data);
 		$this->load->view('pages/full_report', $data);
@@ -381,7 +422,7 @@ class Admin extends CI_Controller {
 		}
 		$today_dt = date('d-M-y h:ia');
 		$data['base_url'] = base_url();
-		$data['daily_sales'] = $this->admin_model->get_all_sales($type, $orderBy);
+		$data['daily_sales'] = $this->admin_model->get_all_sales($type, $orderBy, '1');
 		$data['today_stats'] = $this->admin_model->get_sales_stats();
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
         
@@ -404,7 +445,7 @@ class Admin extends CI_Controller {
     {
 		$data['base_url'] = base_url();
 		$data['day_type'] = 'Overall';
-		$data['daily_sales'] = $this->admin_model->get_all_sales('all', 'asc');
+		$data['daily_sales'] = $this->admin_model->get_all_sales('all', 'asc', '1');
 		$data['today_stats'] = $this->admin_model->get_sales_stats();
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
         $this->load->view('pages/sales_pdf',$data);
@@ -492,7 +533,10 @@ class Admin extends CI_Controller {
 			$data['user'] = $this->admin_model->get_by_id($id, 'users');
 			if(!empty($data['user'])){
 				$data['emp_advance'] = $this->admin_model->get_user_advances($id);
-				$data['user_stats'] = $this->admin_model->user_income_stats($id);
+				$data['incomes'] = $this->admin_model->get_user_incomes($id);
+				$data['outcomes'] = $this->admin_model->get_user_outcomes($id);
+				$data['income_stats'] = $this->admin_model->user_income_stats($id);
+				$data['outcome_stats'] = $this->admin_model->user_outcome_stats($id);
 				
 				$this->load->view('config/template_start');
 				$this->load->view('config/page_head',$data);
@@ -505,6 +549,22 @@ class Admin extends CI_Controller {
 			}
 		} else {
 			redirect(base_url('dashboard'));
+		}
+	}
+
+	public function update_user_amount(){
+		$table = $this->input->post('edit_table');
+		$id = $this->input->post('edit_id');
+		$user_id = $this->input->post('edit_userId');
+		$data = array(
+			'amount' => $this->input->post('edit_amt'),
+			'notes' => $this->input->post('edit_notes'),
+			'date_modified' => date("Y-m-d H:i:s")
+		);
+		$where = array('id' => $id );
+		$update = $this->admin_model->update_row_data($table, $where, $data);
+		if($update){
+			redirect(base_url('user_details/'.$user_id));
 		}
 	}
 
@@ -632,6 +692,60 @@ class Admin extends CI_Controller {
 			$delete = $this->admin_model->delete_all($tbl_name, $where);
 			echo $delete;
 		}
+	}
+
+	public function commitments()
+	{
+		$data['session_user'] = $this->session->userdata('user_loggedin');
+		$data['users'] = $this->admin_model->get_income_users();
+		$data['dues'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'due'), 'result_array', '', '');
+		$data['interest'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'interest'), 'result_array', '', '');
+		$data['credit'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'credit'), 'result_array', '', '');
+		$data['jewel'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'jewel'), 'result_array', '', '');
+		
+		$this->load->view('config/template_start');
+		$this->load->view('config/page_head',$data);
+		$this->load->view('pages/commitments', $data);
+		$this->load->view('config/page_footer');
+		$this->load->view('config/template_scripts');
+		$this->load->view('config/template_end');
+	}
+
+	public function insert_due_data(){
+		
+		$type = $this->input->post('insert_type');
+
+		$data = array(
+			'monthly_date' => $this->input->post('due_date'),
+			'details' => $this->input->post('due_details'),
+			'amount' => $this->input->post('due_amount'),
+			'due_type' => $type,
+			'date_added' => date("Y-m-d H:i:s")
+		);
+	
+		$insert = $this->admin_model->insert_row('monthly_commitments', $data);
+		if($insert){
+			redirect(base_url('commitment'));
+		}
+	}
+
+	public function update_due_data(){
+		
+		$id = $this->input->post('due_id');
+		$where = array('id' => $id );
+
+		if($id){
+			$update = $this->admin_model->update_row_data('monthly_commitments', $where, array('status' => 1 ));
+			
+			if ($update) 
+				$status = 'success';
+			else
+				$status = 'failed';
+		}
+		else 
+			$status = 'failed';
+
+		echo $status;
 	}
 
 

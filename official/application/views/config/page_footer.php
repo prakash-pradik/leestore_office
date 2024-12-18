@@ -98,6 +98,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Second Number</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="user_second" name="user_second" class="form-control" placeholder="Phone Number..">
+                                <span class="input-group-addon"><i class="gi gi-earphone"></i></span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -301,7 +310,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
-            <div class="modal-header text-center bg-info">
+            <div class="modal-header text-center bg-danger">
                 <h2 class="modal-title"><i class="fa fa-angle-double-down"></i> Add New Expenses</h2>
             </div>
             <!-- END Modal Header -->
@@ -355,7 +364,7 @@
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-info">Save Expense</button>
+                            <button type="submit" class="btn btn-danger">Save Expense</button>
                         </div>
                     </div>
                 </form>
@@ -716,6 +725,7 @@
 		$('#user_id').val( $(mythis).data('user_id') );
 		$('#user_name').val( $(mythis).data('name') );
 		$('#user_phone').val( $(mythis).data('phone') );
+        $('#user_second').val( $(mythis).data('second') );
 	}
 
     function fetchEmpDetails(mythis){

@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="form-group form-actions">
                                     <div class="col-xs-7">
-                                        <h5 class="text-info"><a href="http://localhost/local_pos/" class="text-info"><strong>Login to Lee Store POS Panel</strong></a></h5>
+                                        <h5 class="text-info"><a href="http://billing.leestoreindia.com/" class="text-info"><strong>Login to Lee Store POS Panel</strong></a></h5>
                                     </div>
                                     <div class="col-xs-5 text-right">
                                         <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Login to Dashboard</button>

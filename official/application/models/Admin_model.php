@@ -106,9 +106,20 @@ class Admin_model extends CI_Model{
             return false;
     }
 
+    public function get_amount_stats($tableName){
+        $sql = "SELECT 
+                (SELECT SUM(amount) FROM $tableName WHERE amount_type = 'DEB' AND status = 1) as total_debit,
+                (SELECT SUM(amount) FROM $tableName WHERE amount_type = 'CRE' AND status = 1) as total_credit ";
+        $query = $this->db->query($sql);
+        if($query->num_rows() > 0 )
+            return $query->row();
+        else
+            return false;
+    }
+
     public function get_all_incomes(){
 
-        $sql = "select u.name, u.id,
+        $sql = "select u.name, u.id, inc.notes,
                     sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) as total_credit,
                     sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_debit,
                     sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_available 
@@ -116,7 +127,7 @@ class Admin_model extends CI_Model{
                 join users as u 
                     on u.id = inc.user_id
                     and inc.status = 1
-                group by inc.user_id";
+                group by inc.user_id order by total_available";
 
         $query = $this->db->query($sql);
 
@@ -138,7 +149,7 @@ class Admin_model extends CI_Model{
 
     public function get_all_outcomes(){
 
-        $sql = "select u.name, u.id,
+        $sql = "select u.name, u.id, inc.notes,
                     sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) as total_credit,
                     sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_debit,
                     sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_available 
@@ -146,7 +157,7 @@ class Admin_model extends CI_Model{
                 join users as u 
                     on u.id = inc.user_id
                     and inc.status = 1
-                group by inc.user_id";
+                group by inc.user_id order by total_available";
 
         $query = $this->db->query($sql);
 
@@ -156,7 +167,7 @@ class Admin_model extends CI_Model{
             return false;
     }
 
-    public function get_all_sales($all = '', $orderBy){
+    public function get_all_sales($all = '', $orderBy = '', $store_id = ''){
         
         $sessionUser = $this->session->userdata('user_loggedin');
 		$storeId = $sessionUser['store_id'];
@@ -329,7 +340,33 @@ class Admin_model extends CI_Model{
             
     }
 
-    public function user_income_stats($id){
+    public function get_user_incomes($id){
+
+        $sql = "SELECT *, 'incomes' as table_name FROM incomes WHERE status = 1 AND user_id = $id ORDER BY id desc";
+
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->result_array();
+        
+        else 
+            return false;
+    }
+
+    public function get_user_outcomes($id){
+
+        $sql = "SELECT *, 'outcomes' as table_name FROM outcomes WHERE status = 1 AND user_id = $id ORDER BY id desc";
+
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->result_array();
+        
+        else 
+            return false;
+    }
+
+    /* public function user_income_stats($id){
         $sql = "SELECT 
 					sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as balance_amt
                 FROM incomes WHERE status = 1 AND user_id = $id ";
@@ -356,6 +393,39 @@ class Admin_model extends CI_Model{
         }
         else
             return false;
+    } */
+
+    public function user_income_stats($id){
+        $sql = "SELECT 
+					sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as balance_amt
+                FROM incomes WHERE status = 1 AND user_id = $id ";
+
+        $query = $this->db->query($sql);
+        if($query->num_rows() > 0 ){
+            $row = $query->row();
+            if(!empty($row) && $row->balance_amt !== NULL)
+                return $query->row();
+            else 
+                return false;
+        }
+        else
+            return false;
+    }
+
+    public function user_outcome_stats($id){
+        
+        $sql2 = "SELECT 
+            sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as balance_amt
+        FROM outcomes WHERE status = 1 AND user_id = $id ";
+
+        $query2 = $this->db->query($sql2);
+
+        if($query2->num_rows() > 0 )
+            return $query2->row();
+        
+        else
+            return false;
+
     }
 
     public function get_all_buy_sell($type){
@@ -415,6 +485,16 @@ class Admin_model extends CI_Model{
 		echo json_encode($response);
 		return;
 	}
+
+    public function get_daily_notes(){
+        $sql = "SELECT * FROM `notes` ORDER BY id DESC LIMIT 1";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->row();
+        else
+            return false;
+    }
 
 }
 ?>

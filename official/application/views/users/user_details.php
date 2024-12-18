@@ -16,6 +16,10 @@
                 <!-- Customer Info Title -->
                 <div class="block-title">
                     <h2><i class="fa fa-file-o"></i> <strong>User</strong> Info</h2>
+
+                    <div class="block-options pull-right">
+                        <a href="#modal-user-update" class="btn btn-info" data-toggle="modal" title="Update" data-user_id="<?php echo $user->id; ?>" data-name="<?php echo $user->name; ?>" data-phone="<?php echo $user->phone_number; ?>" data-second="<?php echo $user->second_number; ?>" onclick="fetchDetails(this)"><i class="fa fa-pencil"></i></a>
+                    </div>
                 </div>
                 <!-- END Customer Info Title -->
 
@@ -41,9 +45,13 @@
                             <td><?php if(!empty($user)) echo $user->phone_number; ?></td>
                         </tr>
                         <tr>
+                            <td class="text-right"><strong>Second Number</strong></td>
+                            <td><?php if(!empty($user)) echo $user->second_number; ?></td>
+                        </tr>
+                        <!-- <tr>
                             <td class="text-right"><strong>Address</strong></td>
                             <td><?php if(!empty($user)) echo $user->address; ?></td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td class="text-right"><strong>Status</strong></td>
                             <td>
@@ -64,13 +72,11 @@
 
         </div>
         <div class="col-lg-8">
-            <!-- Orders Block -->
             <div class="block">
-                <!-- Orders Title -->
                 <div class="block-title">
                     <div class="block-options pull-right">
                         <span class="label label-success" style="font-size:20px;">
-                            <strong>₹ <?php if(!empty($user_stats)) if(!empty($user_stats->balance_amt)) echo $user_stats->balance_amt; else echo '0'; ?></strong>
+                            <strong>₹ <?php if(!empty($income_stats)) { if(!empty($income_stats->balance_amt)) echo $income_stats->balance_amt; else echo '0'; } else echo '0'; ?></strong>
                         </span>
                         <!-- <a href="#modal-add-advance" class="btn btn-alt btn-sm btn-success " data-toggle="modal" title="Add New User"><i class="fa fa-user-plus"></i> Add New Advance</a>
 
@@ -78,34 +84,32 @@
                     </div>
                     <h2><i class="fa fa-inr"></i> <strong>Income</strong> Table</h2>
                 </div>
-                <!-- END Orders Title -->
-
-                <!-- Orders Content -->
+                
                 <div class="table-responsive">
                     <table id="advance-datatable" class="table table-vcenter table-condensed table-bordered">
                         <thead>
                             <tr>
                                 <th class="text-center">Sl.No</th>
-                                <th>Details</th>
+                                <th>Notes</th>
                                 <th class="text-right">Amount (₹)</th>
                                 <th class="">Date & Time</th>
                                 <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if(!empty($emp_advance)) {
+                            <?php if(!empty($incomes)) {
                                 $i = 1; 
-                                foreach($emp_advance as $adv){
+                                foreach($incomes as $inc){
                             ?>
                             <tr>
                                 <td class="text-center" style="width: 10%;"><?php echo $i; ?></td>
-                                <td style="width: 30%;"><?php if(!empty($user)) echo $user->name.' Advance'; ?></td>
-                                <td class="text-right"><strong class="<?php if($adv['amount_type'] == 'DEB') echo 'text-success'; else echo 'text-danger'; ?>">₹ <?php echo $adv['amount']; ?></strong></td>
-                                <td><?php echo date('d-m-Y h:i a', strtotime($adv['date_added'])); ?></td>
+                                <td style="width: 30%;"><?php echo $inc['notes']; ?></td>
+                                <td class="text-right"><strong class="<?php if($inc['amount_type'] == 'DEB') echo 'text-success'; else echo 'text-danger'; ?>">₹ <?php echo $inc['amount']; ?></strong></td>
+                                <td><?php echo date('d-m-Y h:i a', strtotime($inc['date_added'])); ?></td>
                                 <td class="text-center">
                                     <div class="btn-group btn-group-xs">
-                                        <a href="#modal-edit-advance" data-toggle="modal" title="Edit" data-id="<?php echo $adv['id']; ?>" data-amount="<?php echo $adv['amount']; ?>" onclick="fetchEditData(this)" class="btn btn-default enable-tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                                        <a href="javascript:void(0)" data-id="<?php echo $adv['id']; ?>" onclick="deleteAdvanceData(this);" data-toggle="tooltip" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                                        <a href="javascript:void(0)" data-toggle="tooltip" title="Edit" data-id="<?php echo $inc['id']; ?>" data-user_id="<?php echo $inc['user_id']; ?>" data-amount="<?php echo $inc['amount']; ?>" data-notes="<?php echo $inc['notes']; ?>" onclick="fetchEditData(this, 'incomes')" class="btn btn-default enable-tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                        <a href="javascript:void(0)" data-id="<?php echo $inc['id']; ?>" onclick="deleteAmtData(this, 'incomes');" data-toggle="tooltip" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -117,128 +121,89 @@
                         </tbody>
                     </table><br/>
                 </div>
+            </div>
+
+            <div class="block">
+                <div class="block-title">
+                    <div class="block-options pull-right">
+                        <span class="label label-danger" style="font-size:20px;">
+                            <strong>₹ <?php if(!empty($outcome_stats)) { if(!empty($outcome_stats->balance_amt)) echo $outcome_stats->balance_amt; else echo '0'; } else echo '0'; ?></strong>
+                        </span>
+                    </div>
+                    <h2><i class="fa fa-inr"></i> <strong>Outcomes</strong> Table</h2>
+                </div>
                 
-                <!-- END Orders Content -->
+                <div class="table-responsive">
+                    <table id="advance-datatable" class="table table-vcenter table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Sl.No</th>
+                                <th>Notes</th>
+                                <th class="text-right">Amount (₹)</th>
+                                <th class="">Date & Time</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if(!empty($outcomes)) {
+                                $i = 1; 
+                                foreach($outcomes as $out){
+                            ?>
+                            <tr>
+                                <td class="text-center" style="width: 10%;"><?php echo $i; ?></td>
+                                <td style="width: 30%;"><?php echo $out['notes']; ?></td>
+                                <td class="text-right"><strong class="<?php if($out['amount_type'] == 'DEB') echo 'text-success'; else echo 'text-danger'; ?>">₹ <?php echo $out['amount']; ?></strong></td>
+                                <td><?php echo date('d-m-Y h:i a', strtotime($out['date_added'])); ?></td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-xs">
+                                        <a href="javascript:void(0)" data-toggle="tooltip" title="Edit" data-id="<?php echo $out['id']; ?>" data-user_id="<?php echo $out['user_id']; ?>" data-amount="<?php echo $out['amount']; ?>" data-notes="<?php echo $out['notes']; ?>" onclick="fetchEditData(this, 'outcomes')" class="btn btn-default enable-tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                        <a href="javascript:void(0)" data-id="<?php echo $out['id']; ?>" onclick="deleteAmtData(this, 'outcomes');" data-toggle="tooltip" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php
+                            $i++;
+                                }
+                            }?>
+                            
+                        </tbody>
+                    </table><br/>
+                </div>    
             </div>
-            <!-- END Orders Block -->
-
 
         </div>
     </div>
 </div>
 
-<div id="modal-add-advance" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-success">
-                <h2 class="modal-title"><i class="fa fa-inr"></i> Add New Advance</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_advance_data'); ?>" id="income-validation" method="post" class="form-horizontal form-bordered">
-                    <input type="hidden" id="insert_type" name="insert_type" value="new">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Employee Name</label>
-                        <div class="col-md-8">
-                            <input type="hidden" id="old_user_id" name="old_user_id" value="<?php if(!empty($user)) echo $user->id; ?>">
-                            <p class="form-control-static"><?php if(!empty($user)) echo $user->name; ?></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="income_amt_value" name="income_amt_value" class="form-control" placeholder="Enter Amount" require="true">
-                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
-<div id="modal-update-advance" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-info">
-                <h2 class="modal-title"><i class="fa fa-inr"></i> Update Advance</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_advance_data'); ?>" id="income-validation-old" method="post" class="form-horizontal form-bordered">
-                    <input type="hidden" id="insert_type" name="insert_type" value="old">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Employee Name</label>
-                        <div class="col-md-8">
-                            <input type="hidden" id="old_user_id" name="old_user_id" value="<?php if(!empty($user)) echo $user->id; ?>">
-                            <p class="form-control-static"><?php if(!empty($user)) echo $user->name; ?></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="old_income_amt" name="old_income_amt" class="form-control" placeholder="Enter Amount" require="true">
-                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-info">Update</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
-<div id="modal-edit-advance" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modal-edit-income" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header text-center bg-primary">
-                <h2 class="modal-title"><i class="fa fa-inr"></i> Edit Advance</h2>
+                <h2 class="modal-title"><i class="fa fa-inr"></i> Edit Income</h2>
             </div>
             <!-- END Modal Header -->
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_advance_data'); ?>" id="income-validation-old" method="post" class="form-horizontal form-bordered">
-                    <input type="hidden" id="insert_type" name="insert_type" value="edit">
+                <form action="<?php echo base_url('admin/update_user_amount'); ?>" id="income-validation-old" method="post" class="form-horizontal form-bordered">
+                    <input type="hidden" id="edit_id" name="edit_id" value="">
+                    <input type="hidden" id="edit_userId" name="edit_userId" value="">
                     <input type="hidden" id="edit_table" name="edit_table" value="">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Employee Name</label>
-                        <div class="col-md-8">
-                            <input type="hidden" id="edit_id" name="edit_id" value="">
-                            <p class="form-control-static"><?php if(!empty($user)) echo $user->name; ?></p>
-                        </div>
-                    </div>
+                    
                     <div class="form-group">
                         <label class="col-md-4 control-label">Amount</label>
                         <div class="col-md-8">
                             <div class="input-group">
-                                <input type="text" id="edit_amt" name="edit_amt" class="form-control" placeholder="Enter Amount" require="true">
+                                <input type="text" id="edit_amt" name="edit_amt" class="form-control" placeholder="Enter Amount" require="true" >
                                 <span class="input-group-addon"><i class="fa fa-inr"></i></span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Notes</label>
+                        <div class="col-md-8">
+                            <textarea id="edit_notes" name="edit_notes" rows="4" class="form-control" placeholder="Notes.."></textarea>
                         </div>
                     </div>
                     <div class="form-group form-actions">
@@ -257,7 +222,7 @@
     var base_url = document.getElementById("base_url").value; //$('#base_url').val();
     var empId = document.getElementById("emp_id").value;
 
-    function deleteAdvanceData(mythis){
+    function deleteAmtData(mythis, tbl_name){
         var id = $(mythis).data('id');
         swal({
             title: "Are you sure?", 
@@ -271,19 +236,25 @@
             if (result.value) {
 
                 $.ajax({
-                    url: base_url+'admin/delete_adv_row',
+                    url: base_url+'admin/delete_by_id',
                     type: 'post',
-                    data: {id : id, tbl_name : 'employee_advance'},
+                    data: {id : id, tbl_name : tbl_name},
                     success: function(res){
-                        window.location.href = base_url+'employee_details/'+empId;
+                        window.location.href = base_url+'user_details/'+empId;
                     }
                 });
 
             }
         })
     }
-    function fetchEditData(mythis){
-        document.getElementById("edit_id").value = $(mythis).data('id');
-        document.getElementById("edit_amt").value = $(mythis).data('amount');
+
+    function fetchEditData(mythis, tbl_name){
+        $("#edit_id").val($(mythis).data('id'));
+        $("#edit_userId").val($(mythis).data('user_id'));
+        $("#edit_amt").val($(mythis).data('amount'));
+        $("#edit_notes").val($(mythis).data('notes'));
+        $("#edit_table").val(tbl_name);
+
+        $('#modal-edit-income').modal('show');
     }
 </script>

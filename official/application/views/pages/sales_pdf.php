@@ -69,9 +69,9 @@
                                     <td>
                                         <a href="javascript:;">
                                             <?php if($storeId == 2) { ?>
-                                                <img src="https://unix-ifyx.onrender.com/assets/img/invoice/leeq_logo.png" width="150" alt="">
+                                                <img src="http://billing.leestoreindia.com/assets/img/invoice/leeq_logo.png" width="150" alt="">
                                             <?php } else { ?>
-                                                <img src="https://unix-ifyx.onrender.com/assets/img/invoice/logo.jpg" width="100" alt="">
+                                                <img src="http://billing.leestoreindia.com/assets/img/invoice/logo.jpg" width="100" alt="">
                                             <?php } ?>
                                         </a>
                                     </td>
