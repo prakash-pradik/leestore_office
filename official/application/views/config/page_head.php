@@ -38,7 +38,11 @@
                             <div class="sidebar-section sidebar-user clearfix sidebar-nav-mini-hide">
                                 <div class="sidebar-user-avatar">
                                     <a href="javascript:void(0)">
-                                        <img src="<?php echo base_url(IMG); ?>/placeholders/avatars/avatar2.jpg" alt="avatar">
+                                        <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin'){ ?>
+                                        <img src="<?php echo base_url(IMG); ?>/ceo.jpg" alt="avatar">
+                                        <?php } else { ?>
+                                        <img src="<?php echo base_url(IMG); ?>/store.jpg" alt="avatar"> 
+                                        <?php } ?>
                                     </a>
                                 </div>
                                 <div class="sidebar-user-name" style="text-transform: capitalize;"> <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') echo 'Admin'; else echo $session_user['name']; ?></div>

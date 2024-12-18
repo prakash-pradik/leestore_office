@@ -4,8 +4,15 @@
         <div class="header-section" style="padding-bottom: 0px; padding-top: 22px;">
             <h1 style="display:flex; justify-content: space-between;">
 				<span>Daily Sales</span>
-				<label class="text-center">Opening Balance(Cash)<br/><span>₹0.00</span></label>
-				<label class="text-center">Opening Balance(Gpay)<br/><span>₹0.00</span></label>
+				<?php
+					$cashBalance = 0; $gpayBalance = 0; 
+					if(isset($day_close) && !empty($day_close)){
+						$cashBalance = $day_close->balance_cash; 
+						$gpayBalance = $day_close->balance_gpay;
+					}
+				?>
+				<label class="text-center">Opening Balance(Cash)<br/><span>₹<?php echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $cashBalance); ?></span></label>
+				<label class="text-center">Opening Balance(Gpay)<br/><span>₹<?php echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $gpayBalance); ?></span></label>
 				<i class="fa fa-inr"></i>
             </h1>
 
@@ -170,6 +177,9 @@
 				
 			</div>
 			<?php 
+
+			if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') {
+
 				if(isset($day_close) && !empty($day_close)){ 
 					$curDate = date("Y-m-d"); 
 					$getDate = $day_close->closing_date;
@@ -180,7 +190,10 @@
 					<button type="button" class="btn btn-success" onClick="dayClose();">Day Closing</button>
 				</div>
 			</div>
-			<?php } } ?>
+			<?php } } 
+			
+				}
+			?>
 			
 		</div>
 	</div>
