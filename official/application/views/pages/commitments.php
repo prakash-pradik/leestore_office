@@ -47,7 +47,7 @@
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <?php if($due['status'] == 0) {  ?>
-                                            <a href="javascript:void(0)" data-id="<?php echo $due['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="" class="btn btn-sm btn-info">Done</a>
+                                            <a href="javascript:void(0)" data-id="<?php echo $due['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="" class="btn btn-sm btn-warning">Pending</a>
                                         <?php } else { ?>
                                             <a href="javascript:void(0)" class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>
                                         <?php } ?>
@@ -106,7 +106,7 @@
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <?php if($int['status'] == 0) {  ?>
-                                            <a href="javascript:void(0)" data-id="<?php echo $int['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="" class="btn btn-sm btn-info">Done</a>
+                                            <a href="javascript:void(0)" data-id="<?php echo $int['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="" class="btn btn-sm btn-warning">Pending</a>
                                         <?php } else { ?>
                                             <a href="javascript:void(0)" class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>
                                         <?php } ?>
@@ -142,7 +142,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table id="outcome-datatable" class="table table-vcenter table-condensed table-bordered">
+                    <table id="cc-datatable" class="table table-vcenter table-condensed table-bordered">
                         <thead>
                             <tr>
                                 <th class="text-center" width="15%">Date</th>
@@ -164,7 +164,7 @@
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <?php if($cre['status'] == 0) {  ?>
-                                            <a href="javascript:void(0)" data-id="<?php echo $cre['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="" class="btn btn-sm btn-info">Done</a>
+                                            <a href="javascript:void(0)" data-id="<?php echo $cre['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="" class="btn btn-sm btn-warning">Pending</a>
                                         <?php } else { ?>
                                             <a href="javascript:void(0)" class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>
                                         <?php } ?>
@@ -200,7 +200,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table id="outcome-datatable" class="table table-vcenter table-condensed table-bordered">
+                    <table id="jewel-datatable" class="table table-vcenter table-condensed table-bordered">
                         <thead>
                             <tr>
                                 <th class="text-center" width="15%">Date</th>
@@ -222,7 +222,7 @@
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <?php if($jw['status'] == 0) {  ?>
-                                            <a href="javascript:void(0)" data-id="<?php echo $jw['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="" class="btn btn-sm btn-info">Done</a>
+                                            <a href="javascript:void(0)" data-id="<?php echo $jw['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="" class="btn btn-sm btn-warning">Pending</a>
                                         <?php } else { ?>
                                             <a href="javascript:void(0)" class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>
                                         <?php } ?>
@@ -509,5 +509,9 @@
         
     }
 </script>
-
+<style>
+    .table-responsive {
+        min-height: 580px !important;
+    }
+</style>
 </div>

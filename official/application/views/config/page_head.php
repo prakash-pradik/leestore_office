@@ -57,7 +57,8 @@
                                     <a href="<?php echo base_url('dashboard'); ?>" class="<?php if($this->uri->segment(1) == 'dashboard') echo 'active'; ?>"><i class="gi gi-home sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url('daily_sales'); ?>" class="<?php if($this->uri->segment(1) == 'daily_sales') echo 'active'; ?>"><i class="hi hi-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Daily Sales</span></a>
+                                    <?php if(isset($session_user['store_id']) && $session_user['store_id'] !== '0') $sId = $session_user['store_id']; else $sId = 1; ?>
+                                    <a href="<?php echo base_url('daily_sales/'.$sId); ?>" class="<?php if($this->uri->segment(1) == 'daily_sales') echo 'active'; ?>"><i class="hi hi-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Daily Sales</span></a>
                                 </li>
                                 <li>
                                     <a href="<?php echo base_url('full_report/month'); ?>" class="<?php if($this->uri->segment(1) == 'full_report') echo 'active'; ?>"><i class="gi gi-table sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Full Report</span></a>
@@ -89,6 +90,20 @@
                                 </li>
                                 
                                 <?php } ?>
+
+                                <li>
+                                    <?php $daily_notes = get_notes(); ?>
+                                    <form action="<?php echo base_url('admin/insert_notes'); ?>" id="income-validation" method="post" class="form-horizontal" style="margin:0px 5px; padding:0px;">
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <textarea id="daily_notes" name="daily_notes" rows="8" class="form-control" placeholder="Notes.." required="true"><?php if(!empty($daily_notes)) echo $daily_notes->notes; ?></textarea>
+                                            </div>
+                                            <div class="col-xs-12 text-right">
+                                                <button type="submit" class="btn btn-success">Save</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </li>
                             </ul>
                             <!-- END Sidebar Navigation -->
                         </div>

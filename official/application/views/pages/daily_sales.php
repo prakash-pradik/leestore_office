@@ -1,10 +1,15 @@
 <div id="page-content">
     <!-- Daily Sales Header -->
     <div class="content-header">
-        <div class="header-section">
-            <h1>
-                <i class="fa fa-inr"></i>Daily Sales
+        <div class="header-section" style="padding-bottom: 0px; padding-top: 22px;">
+            <h1 style="display:flex; justify-content: space-between;">
+				<span>Daily Sales</span>
+				<label class="text-center">Opening Balance(Cash)<br/><span>₹0.00</span></label>
+				<label class="text-center">Opening Balance(Gpay)<br/><span>₹0.00</span></label>
+				<i class="fa fa-inr"></i>
             </h1>
+
+			
         </div>
     </div>
     <!-- END Daily Sales Header -->
@@ -42,6 +47,7 @@
 					<h3 class="widget-content text-right animation-pullDown">
 						₹ <strong><?php if(!empty($today_stats)) { if(!empty($today_stats->today_available)) echo $today_stats->today_available; else echo '0'; } ?></strong><br>
 						<small>Total Available</small>
+						<input type="hidden" id="cash_available" value="<?php if(!empty($today_stats)) { if(!empty($today_stats->today_available)) echo $today_stats->today_available; else echo '0'; } ?>">
 					</h3>
 				</div>
 			</a>
@@ -75,28 +81,30 @@
 					<h3 class="widget-content text-right animation-pullDown">
 						₹ <strong><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_available)) echo $gpay_stats->gpay_available; else echo '0'; } ?></strong><br>
 						<small>Gpay Available</small>
+						<input type="hidden" id="gpay_available" value="<?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_available)) echo $gpay_stats->gpay_available; else echo '0'; } ?>">
 					</h3>
 				</div>
 			</a>
-			<form action="<?php echo base_url('admin/insert_notes'); ?>" id="income-validation" method="post" class="form-horizontal form-bordered">
-				<div class="form-group">
-					<div class="col-md-12">
-						<textarea id="daily_notes" name="daily_notes" rows="6" class="form-control" placeholder="Notes.." required="true"><?php if(!empty($daily_notes)) echo $daily_notes->notes; ?></textarea>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-xs-12 text-right">
-						<button type="submit" class="btn btn-success">Save</button>
-					</div>
-				</div>
-			</form>
+			
 		</div>
 		<div class="col-lg-9">
 			<div class="block full">
-				<div class="block-title">
+				<div class="block-title" style="display:flex;justify-content:space-between;">
 					<h2><strong>Daily Sales</strong> Table</h2>
 
+					<?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') { ?>
+						<!-- <select id="store_id" name="store_id" class="form-control" size="1" require="true" style="width:200px;" onChange="onChangeStore(this);">
+							<option value="">Please select</option>
+							<?php if(!empty($stores)) {
+								$i = 1; 
+								foreach($stores as $store){
+									echo '<option value="'.$store['id'].'">'.$store['store_name'].'</option>';
+								}
+							}?>
+						</select> -->
+					<?php } ?>
 					<div class="block-options pull-right">
+						
 						<?php if(!empty($daily_sales)) { ?>
 						
 						<a href="<?php echo base_url('Prints/excelToday/today'); ?>" class="btn btn-alt btn-success" data-toggle="tooltip" title="Excel"><i class="fi fi-xls"></i></a>
@@ -159,9 +167,23 @@
 						</tbody>
 					</table>
 				</div>
+				
 			</div>
-		
+			<?php 
+				if(isset($day_close) && !empty($day_close)){ 
+					$curDate = date("Y-m-d"); 
+					$getDate = $day_close->closing_date;
+					if($curDate !== $getDate) { 
+			?>
+			<div class="form-group">
+				<div class="col-xs-12 text-right">
+					<button type="button" class="btn btn-success" onClick="dayClose();">Day Closing</button>
+				</div>
+			</div>
+			<?php } } ?>
+			
 		</div>
 	</div>
     <!-- END Daily Sales Content -->
+	
 </div>

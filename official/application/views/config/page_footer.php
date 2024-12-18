@@ -931,4 +931,47 @@
                 }
             })
     }
+
+    function onChangeStore(mythis){
+        var storeId = $(mythis).val();
+        window.location.href = base_url+'daily_sales/'+storeId;
+    }
+
+    function dayClose(){
+        var cashAvailable = $("#cash_available").val();
+        var gpayAvailable = $("#gpay_available").val();
+        swal({
+            title: "Are you sure?", 
+            text: "do you want close the today transaction!", 
+            type: "warning",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Yes, Confirm it!",
+            showCancelButton: true
+        })
+        .then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: base_url+'admin/day_close',
+                    type: 'post',
+                    dataType:'json',
+                    data: {cashAvailable : cashAvailable, gpayAvailable:gpayAvailable},
+                    success: function(res){
+                        console.log(res);
+                        if(res == 'success'){
+                            swal({
+                                title: "Deleted!",
+                                text: "Your file has been deleted."
+                            }).then((res1) => {
+                                if (res1.value) {
+                                    window.location.reload();
+                                }
+                            });
+                        } else {
+                            alert("Something Wrong..!");
+                        }
+                    }
+                });
+            }
+        })
+    }
 </script>

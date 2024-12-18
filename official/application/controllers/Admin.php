@@ -242,14 +242,17 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function daily_sales()
+	public function daily_sales($store_id)
 	{
 		$data['session_user'] = $sessionUser = $this->session->userdata('user_loggedin');
 		$data['employees'] = $this->admin_model->get_all_employees();
-		$data['daily_sales'] = $this->admin_model->get_all_sales('today', 'desc', '1');
+		$data['daily_sales'] = $this->admin_model->get_all_sales('today', 'desc', $store_id);
 		$data['today_stats'] = $this->admin_model->get_sales_stats();
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
 		$data['daily_notes'] = $this->admin_model->get_daily_notes();
+		$data['stores'] = $this->admin_model->get_data('stores', array('status'=>'1'), 'result_array', 'id', 'asc');
+		$data['day_close'] = $this->admin_model->get_day_close();
+
 		$this->load->view('config/template_start');
 		$this->load->view('config/page_head',$data);
 		$this->load->view('pages/daily_sales', $data);
@@ -283,7 +286,7 @@ class Admin extends CI_Controller {
 		
 		$insert = $this->admin_model->insert_row('daily_sales', $data);
 		if($insert){
-			redirect(base_url('daily_sales'));
+			redirect(base_url('daily_sales/'.$storeId));
 		}
 	}
 
@@ -336,7 +339,7 @@ class Admin extends CI_Controller {
 				$this->session->set_flashdata('officeMessage', 'Data Successfully Updated..!');
 			}
 		}
-		redirect(base_url('daily_sales'));
+		redirect(base_url('daily_sales/'.$storeId));
 	}
 	
 	public function insert_expense(){
@@ -355,11 +358,14 @@ class Admin extends CI_Controller {
 		
 		$insert = $this->admin_model->insert_row('daily_sales', $data);
 		if($insert){
-			redirect(base_url('daily_sales'));
+			redirect(base_url('daily_sales/'.$storeId));
 		}
 	}
 
 	public function insert_notes(){
+		$sessionUser = $this->session->userdata('user_loggedin');
+		$storeId = $sessionUser['store_id'];
+
 		$user_data = array(
 			'notes' => $this->input->post('daily_notes'),
 			'date_added' => date("Y-m-d H:i:s")
@@ -367,8 +373,29 @@ class Admin extends CI_Controller {
 
 		$insert = $this->admin_model->insert_row('notes', $user_data);
 		if($insert){
-			redirect(base_url('daily_sales'));
+			//redirect(base_url('daily_sales/'.$storeId));
+			redirect($_SERVER['HTTP_REFERER']);
 		}
+	}
+
+	public function day_close(){
+		$sessionUser = $this->session->userdata('user_loggedin');
+		$storeId = $sessionUser['store_id'];
+
+		$balance_data = array(
+			'balance_cash' => $this->input->post('cashAvailable'),
+			'balance_gpay' => $this->input->post('gpayAvailable'),
+			'closing_date' => date("Y-m-d"),
+			'date_added' => date("Y-m-d H:i:s")
+		);
+
+		$insert = $this->admin_model->insert_row('closing_balance', $balance_data);
+		if ($insert) 
+			$status = 'success';
+		else
+			$status = 'failed';
+
+		echo json_encode($status);
 	}
 
 	public function delete_sales(){
@@ -698,7 +725,7 @@ class Admin extends CI_Controller {
 	{
 		$data['session_user'] = $this->session->userdata('user_loggedin');
 		$data['users'] = $this->admin_model->get_income_users();
-		$data['dues'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'due'), 'result_array', '', '');
+		$data['dues'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'due'), 'result_array', 'monthly_date', 'asc');
 		$data['interest'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'interest'), 'result_array', '', '');
 		$data['credit'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'credit'), 'result_array', '', '');
 		$data['jewel'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'jewel'), 'result_array', '', '');

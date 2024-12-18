@@ -18,4 +18,20 @@
 		';
 	}
 
+	if ( ! function_exists('get_notes'))
+	{
+		function get_notes() {
+			$CI =&  get_instance();
+			$CI->load->database();
+			$sessionUser = $CI->session->userdata('user_loggedin');
+
+			$data = $CI->admin_model->get_daily_notes();
+			if ($data) {
+				return $data;
+			} else
+				return false;
+			
+		}
+	}
+
 ?>

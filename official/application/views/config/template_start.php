@@ -31,7 +31,7 @@
         <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
         <link rel="stylesheet" href="<?php echo base_url(CSS); ?>/themes.css">
 
-        <link rel="stylesheet" href="<?php echo base_url(CSS); ?>/themes/night.css">
+        <link rel="stylesheet" href="<?php echo base_url(CSS); ?>/themes/spring.css">
         <!-- END Stylesheets -->
 
         <!-- Modernizr (browser feature detection library) -->

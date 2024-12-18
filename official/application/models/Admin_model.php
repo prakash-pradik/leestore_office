@@ -175,7 +175,7 @@ class Admin_model extends CI_Model{
 		if($sessionUser['admin_type'] == 'biller')
 			$where1 = "AND ds.store_id = '".$storeId."'";
 		else
-			$where1 = "";
+            $where1 = ""; //$where1 = "AND ds.store_id = '".$store_id."'"; //$where1 = "";
 
         $today_date   = date("Y-m-d");
 
@@ -488,6 +488,16 @@ class Admin_model extends CI_Model{
 
     public function get_daily_notes(){
         $sql = "SELECT * FROM `notes` ORDER BY id DESC LIMIT 1";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->row();
+        else
+            return false;
+    }
+
+    public function get_day_close(){
+        $sql = "SELECT * FROM `closing_balance` ORDER BY id DESC LIMIT 1";
         $query = $this->db->query($sql);
 
         if($query->num_rows() > 0 )

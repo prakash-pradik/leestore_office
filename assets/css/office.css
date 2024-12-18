@@ -884,7 +884,7 @@ a.sidebar-title:focus {
     margin: 2px 0 0 10px;
     color: #eaedf1;
     margin: 0 0 0 10px;
-    line-height: 64px;
+    line-height: 30px;
 }
 
 .header-section {
@@ -4291,4 +4291,8 @@ table tbody>tr>td h4 {
 .fa-ul>li {
     font-size: 14px;
     padding-bottom: 2px;
+}
+
+.header-section h1 label.text-center {
+    font-size: 20px;
 }
