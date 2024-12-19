@@ -729,6 +729,8 @@ class Admin extends CI_Controller {
 		$data['interest'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'interest'), 'result_array', '', '');
 		$data['credit'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'credit'), 'result_array', '', '');
 		$data['jewel'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'jewel'), 'result_array', '', '');
+
+		$data['amount_stats'] = $this->admin_model->get_commitment_stats();
 		
 		$this->load->view('config/template_start');
 		$this->load->view('config/page_head',$data);

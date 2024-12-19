@@ -184,6 +184,31 @@ class Prints extends CI_Controller {
 		echo $html;
 	}
 
+	public function commitments($type)
+    {
+		
+		$today_dt = date('d-M-y h:ia');
+		$file_name = 'Commitments_'.$type.'.pdf';
+		
+		$data['base_url'] = base_url();
+		$data['due_type'] = $type;
+		$data['dues'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>$type), 'result_array', 'monthly_date', 'asc');
+
+		$html = $this->load->view('prints/commitments_pdf', $data, true);
+		
+        $mpdf = new \Mpdf\Mpdf([
+            'format'=>'A4',
+            'margin_top'=>10,
+            'margin_right'=>5,
+            'margin_left'=>5,
+            'margin_bottom'=>15,
+        ]);
+		$mpdf->SetHTMLFooter('<div style="display:flex; justify-content:space-between; padding-top:10px; margin-left:10px;"><span style="">Created at:'.$today_dt.'</span> <span style="color:#777;font-size:12px;">&nbsp;&nbsp;Receipt was created on a computer and is valid without the signature and seal.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Page {PAGENO} of {nbpg}</span></div>');
+        $mpdf->WriteHTML($html);
+		//$mpdf->Output();
+		$mpdf->Output($file_name, 'D'); 
+    }
+
 }
 
 ?>

@@ -114,7 +114,7 @@
 						
 						<?php if(!empty($daily_sales)) { ?>
 						
-						<a href="<?php echo base_url('Prints/excelToday/today'); ?>" class="btn btn-alt btn-success" data-toggle="tooltip" title="Excel"><i class="fi fi-xls"></i></a>
+						<!-- <a href="<?php echo base_url('Prints/excelToday/today'); ?>" class="btn btn-alt btn-success" data-toggle="tooltip" title="Excel"><i class="fi fi-xls"></i></a> -->
 
 						<a href="<?php echo base_url('Prints/print/today'); ?>" class="btn btn-alt btn-warning" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
 						<?php } ?>

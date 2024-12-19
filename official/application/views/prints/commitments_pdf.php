@@ -89,44 +89,43 @@
                                 </tr>
                             </table>
                         </header>
-                        <h3 class="text-center" style="padding-bottom:10px"><?php echo $day_type; ?> Sales Report <?php if($day_type == 'Today') { echo '('.date("d-M-Y").')'; } ?></h3>
+                        <?php 
+                            $dueType = 'Due'; 
+                            if($due_type == 'due')
+                                $dueType = 'Banking Due';
+                            else if($due_type == 'interest')
+                                $dueType = 'Interest';
+                            else if($due_type == 'credit')
+                                $dueType = 'Credit Cards';
+                            else
+                                $dueType = 'Jewels';
+                        ?>
+                        <h3 class="text-center" style="padding-bottom:10px"> <?php echo $dueType; ?> Reports </h3>
                         <div class="invoice">
                             <table>
                                 <thead>
                                     <tr>
-                                        <th class="text-center">#</th>
-                                        <th width="20%">Details</th>
-                                        <th width="20%" class="text-right">Debit Amt(₹)</th>
-                                        <th width="20%" class="text-right">Credit Amt(₹)</th>
-                                        <th width="18%">Sales Person</th>
-                                        <th width="18%">Date</th>
+                                        <th width="10%" class="text-center">#</th>
+                                        <th width="15%" class="text-center">Date</th>
+                                        <th width="25%">Details</th>
+                                        <th width="20%" class="text-right">Amount (₹)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if(!empty($daily_sales)) {
+                                    <?php if(!empty($dues)) {
                                         $i = 1; 
-                                        foreach($daily_sales as $sale){
+                                        foreach($dues as $due){
                                     ?>
                                     <tr>
                                         <td class="text-center"><?php echo $i; ?></td>
-                                        <td class="" style="text-transform:capitalize;"><?php echo $sale['description']; ?></td>
-                                        <td class="text-right">
-                                            <h4 class="text-danger">
-                                                <?php if($sale['amount_type'] == 'exp') echo '₹'.$sale['amount']; 
-                                                if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning" style="font-size:12px;"> (GPay)</small>'; ?>
-                                            </h4>
-                                        </td>
-                                        <td class="text-right">
-                                            <h4 class="text-success">
-                                                <?php if($sale['amount_type'] != 'exp') echo '₹'.$sale['amount']; 
-                                                if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning" style="font-size:12px;"> (GPay)</small>';
-                                                if($sale['amount_type'] == 'late') echo '<small class="text-bold text-warning" style="font-size:12px;"> (Late Pay)</small>'; 
-                                                if($sale['amount_type'] == 'card') echo '<small class="text-bold text-warning" style="font-size:12px;"> (Card Pay)</small>'; ?>
-                                            </h4>
-                                        </td>
-                                        <td class=""><?php echo $sale['name']; ?></td>
+                                        <td class="text-center"><?php echo $due['monthly_date']; ?></td>
                                         <td class="">
-                                            <?php echo date('d-m-y H:i', strtotime($sale['date_added'])); ?>
+                                            <h4 class="text-info" style="text-transform:capitalize;">
+                                              <?php echo $due['details']; ?>
+                                            </h4>
+                                        </td>
+                                        <td class="text-right">
+                                            <h4>₹ <?php echo $due['amount']; ?><h4>
                                         </td>
                                     </tr>
                                     <?php
@@ -136,33 +135,9 @@
                                     
                                 </tbody>
                             </table>
-							<br/>
-                            <?php if($day_type == 'Today') {  ?>
-							<table>
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Total Income (₹)</th>
-                                        <th class="text-center">Total Expenses (₹)</th>
-                                        <th class="text-center">Cash Available (₹)</th>
-										<th class="text-center">Gpay Income (₹)</th>
-                                        <th class="text-center">Gpay Expenses (₹)</th>
-                                        <th class="text-center">Gpay Available (₹)</th>
-                                    </tr>
-                                </thead>
-								<tbody>
-									<tr>
-										<td class="text-center"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_income)) echo $today_stats->today_income; else echo '0'; } ?></h3></td>
-										<td class="text-center"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_expense)) echo $today_stats->today_expense; else echo '0'; } ?></h3></td>
-										<td class="text-center"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_available)) echo $today_stats->today_available; else echo '0'; } ?></h3></td>
-										<td class="text-center"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_income)) echo $gpay_stats->gpay_income; else echo '0'; } ?></h3></td>
-										<td class="text-center"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_expense)) echo $gpay_stats->gpay_expense; else echo '0'; } ?></h3></td>
-										<td class="text-center"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_available)) echo $gpay_stats->gpay_available; else echo '0'; } ?></h3></td>
-									</tr>
-								</tbody>
-							</table>
-                            <?php } ?>
+							
                         </div>
-						<?php if($day_type == 'Today') {  ?>
+
                         <div style="width:200px; float:right;">
                             <div class="footer-sign" style="height:60px;text-align:center;" >
                             </div>
@@ -170,7 +145,7 @@
                                 <h4>Signature</h4>    
                             </div>
                         </div>
-						<?php } ?>
+
                     </div>
                     <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
                     <div></div>

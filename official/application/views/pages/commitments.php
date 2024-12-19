@@ -18,7 +18,22 @@
                     <h2><strong>Banking Due</strong> Table</h2>
 
                     <div class="block-options pull-right">
-            
+
+                        <span class="label label-success" style="font-size:20px;">
+                            <strong>₹ <?php 
+                                if(!empty($amount_stats)) { 
+                                    if(!empty($amount_stats->total_due)){
+                                        $amt = $amount_stats->total_due;
+                                        echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $amt);
+                                    }
+                                    else echo '0'; 
+                                } else echo '0'; ?></strong>
+                        </span>
+
+                        <?php if(!empty($dues)) { ?>
+                            <a href="<?php echo base_url('Prints/commitments/due'); ?>" class="btn btn-alt btn-warning" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
+                        <?php } ?> 
+                        
                         <a href="#modal-due" class="btn btn-success " data-toggle="modal" title="Add New"><i class="fa fa-plus"></i> Add New</a>
                     </div>
 
@@ -77,6 +92,21 @@
                     <h2><strong>Monthly Interest</strong> Table</h2>
 
                     <div class="block-options pull-right">
+
+                        <span class="label label-success" style="font-size:20px;">
+                            <strong>₹ <?php 
+                                if(!empty($amount_stats)) { 
+                                    if(!empty($amount_stats->total_interest)){
+                                        $amt = $amount_stats->total_interest;
+                                        echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $amt);
+                                    }
+                                    else echo '0'; 
+                                } else echo '0'; ?></strong>
+                        </span>
+
+                        <?php if(!empty($interest)) { ?>
+                            <a href="<?php echo base_url('Prints/commitments/interest'); ?>" class="btn btn-alt btn-warning" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
+                        <?php } ?>
             
                         <a href="#modal-interest" class="btn btn-success " data-toggle="modal" title="Add New"><i class="fa fa-plus"></i> Add New</a>
                     </div>
@@ -135,7 +165,21 @@
                     <h2><strong>Credit Card</strong> Table</h2>
 
                     <div class="block-options pull-right">
-            
+                        <span class="label label-success" style="font-size:20px;">
+                            <strong>₹ <?php 
+                                if(!empty($amount_stats)) { 
+                                    if(!empty($amount_stats->total_cc)){
+                                        $amt = $amount_stats->total_cc;
+                                        echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $amt);
+                                    }
+                                    else echo '0'; 
+                                } else echo '0'; ?></strong>
+                        </span>
+                        
+                        <?php if(!empty($credit)) { ?>
+                            <a href="<?php echo base_url('Prints/commitments/credit'); ?>" class="btn btn-alt btn-warning" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
+                        <?php } ?>
+
                         <a href="#modal-credit" class="btn btn-success " data-toggle="modal" title="Add New"><i class="fa fa-plus"></i> Add New</a>
                     </div>
 
@@ -193,7 +237,21 @@
                     <h2><strong>Jewel</strong> Table</h2>
 
                     <div class="block-options pull-right">
-            
+                        <span class="label label-success" style="font-size:20px;">
+                            <strong>₹ <?php 
+                                if(!empty($amount_stats)) { 
+                                    if(!empty($amount_stats->total_jewel)){
+                                        $amt = $amount_stats->total_jewel;
+                                        echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $amt);
+                                    }
+                                    else echo '0'; 
+                                } else echo '0'; ?></strong>
+                        </span>
+
+                        <?php if(!empty($jewel)) { ?>
+                            <a href="<?php echo base_url('Prints/commitments/jewel'); ?>" class="btn btn-alt btn-warning" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
+                        <?php } ?>
+
                         <a href="#modal-jewel" class="btn btn-success " data-toggle="modal" title="Add New"><i class="fa fa-plus"></i> Add New</a>
                     </div>
 

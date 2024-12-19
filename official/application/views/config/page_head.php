@@ -97,7 +97,7 @@
 
                                 <li>
                                     <?php $daily_notes = get_notes(); ?>
-                                    <form action="<?php echo base_url('admin/insert_notes'); ?>" id="income-validation" method="post" class="form-horizontal" style="margin:0px 5px; padding:0px;">
+                                    <form action="<?php echo base_url('admin/insert_notes'); ?>" id="income-validation" method="post" class="form-horizontal" style="margin:10px 5px 5px; padding:0px;">
                                         <div class="form-group">
                                             <div class="col-md-12">
                                                 <textarea id="daily_notes" name="daily_notes" rows="8" class="form-control" placeholder="Notes.." required="true"><?php if(!empty($daily_notes)) echo $daily_notes->notes; ?></textarea>

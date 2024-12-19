@@ -506,5 +506,18 @@ class Admin_model extends CI_Model{
             return false;
     }
 
+    public function get_commitment_stats(){
+        $sql = "SELECT 
+                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'due' AND status = 0) as total_due,
+                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'interest' AND status = 0) as total_interest,
+                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'credit' AND status = 0) as total_cc,
+                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'jewel' AND status = 0) as total_jewel";
+        $query = $this->db->query($sql);
+        if($query->num_rows() > 0 )
+            return $query->row();
+        else
+            return false;
+    }
+
 }
 ?>
