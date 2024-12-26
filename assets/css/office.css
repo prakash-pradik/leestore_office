@@ -4296,3 +4296,10 @@ table tbody>tr>td h4 {
 .header-section h1 label.text-center {
     font-size: 20px;
 }
+
+@media only screen and (max-width: 768px) {
+	#timerText{
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+}

@@ -400,7 +400,7 @@ class Admin_model extends CI_Model{
         else
             $storeWhere = "1=1";
 
-        $sql = "SELECT prod.* FROM `products` as prod WHERE $storeWhere AND qnty <= reorder_qnty ORDER BY id desc ";
+        $sql = "SELECT prod.*, (SELECT store_name FROM stores WHERE id = prod.store_id) as store_name FROM `products` as prod WHERE $storeWhere AND qnty <= reorder_qnty ORDER BY reorder_qnty asc";
         $query = $this->db->query($sql);
 
         if($query->num_rows() > 0 )

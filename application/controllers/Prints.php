@@ -228,6 +228,28 @@ class Prints extends CI_Controller {
 		header('Content-disposition: attachment; filename='.$fileName.'');
 		echo $html;
 	}
+	
+	public function reOrderPrint()
+    {
+		$today_dt = date('d-M-y h:ia');
+		$file_name = 'ReOrderReport_'.$today_dt.'.pdf';
+		
+		$data['reorders'] = $this->admin_model->get_reorder_products();
+		//$html = $this->load->view('prints/reorder_pdf', $data, true);
+		$this->load->view('prints/reorder_pdf', $data);
+		exit();
+        $mpdf = new \Mpdf\Mpdf([
+            'format'=>'A4',
+            'margin_top'=>10,
+            'margin_right'=>5,
+            'margin_left'=>5,
+            'margin_bottom'=>15,
+        ]);
+		$mpdf->SetHTMLFooter('<div style="display:flex; justify-content:space-between; padding-top:10px; margin-left:10px;"><span style="">Created at:'.$today_dt.'</span> <span style="color:#777;font-size:12px;">&nbsp;&nbsp;Receipt was created on a computer and is valid without the signature and seal.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Page {PAGENO} of {nbpg}</span></div>');
+        $mpdf->WriteHTML($html);
+		$mpdf->Output();
+		//$mpdf->Output($file_name, 'D'); 
+    }
 
 }
 

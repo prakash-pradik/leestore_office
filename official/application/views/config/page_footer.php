@@ -165,215 +165,6 @@
 </div>
 
 
-<div id="modal-sales-income" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-success">
-                <h2 class="modal-title"><i class="fa fa-angle-double-down"></i> Add New Sale</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_sales'); ?>" id="sale-income-validation" method="post" class="form-horizontal form-bordered">
-					<input type="hidden" id="sale_type" name="sale_type" class="form-control" value="inc">
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Sales Person</label>
-                        <div class="col-md-8">
-                            <select id="emp_id" name="emp_id" class="form-control" size="1" require="true">
-                            <option value="">Please select</option>
-                            <?php if(!empty($employees)) {
-                                $i = 1; 
-                                foreach($employees as $emp){
-                                    echo '<option value="'.$emp['id'].'">'.$emp['name'].'</option>';
-                                }
-                            }?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Description</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="sale_desc" name="sale_desc" class="form-control" placeholder="Description..">
-                                <span class="input-group-addon"><i class="gi gi-notes"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="sale_amt" name="sale_amt" class="form-control" placeholder="Enter Amount" require="true">
-                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
-                            </div>
-                        </div>
-                    </div>
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Amount Mode</label>
-                        <div class="col-md-8">
-                            <select id="amount_mode" name="amount_mode" class="form-control" size="1" require="true">
-								<option value="">Please select</option>
-								<option value="cash">Cash</option>
-								<option value="gpay">Gpay</option>
-                                <option value="card_pay">Card Pay</option>
-                                <option value="late_pay">Late Pay</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save Amount</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
-<div id="modal-sales-income-update" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-warning">
-                <h2 class="modal-title"><i class="fa fa-pencil"></i> Update Details</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/update_sales'); ?>" id="sale-income-validation" method="post" class="form-horizontal form-bordered">
-					<input type="hidden" id="update_sale_type" name="sale_type" class="form-control" value="">
-                    <input type="hidden" id="update_sale_id" name="sale_id" class="form-control" value="">
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Sales Person</label>
-                        <div class="col-md-8">
-                            <select id="update_emp_id" name="emp_id" class="form-control" size="1" require="true">
-                            <option value="">Please select</option>
-                            <?php if(!empty($employees)) {
-                                $i = 1; 
-                                foreach($employees as $emp){
-                                    echo '<option value="'.$emp['id'].'">'.$emp['name'].'</option>';
-                                }
-                            }?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Description</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="update_sale_desc" name="sale_desc" class="form-control" placeholder="Description..">
-                                <span class="input-group-addon"><i class="gi gi-notes"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="update_sale_amt" name="sale_amt" class="form-control" placeholder="Enter Amount" require="true">
-                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
-                            </div>
-                        </div>
-                    </div>
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Amount Mode</label>
-                        <div class="col-md-8">
-                            <select id="update_amount_mode" name="amount_mode" class="form-control" size="1" require="true">
-								<option value="">Please select</option>
-								<option value="cash">Cash</option>
-								<option value="gpay">Gpay</option>
-                                <option value="card_pay">Card Pay</option>
-                                <option value="late_pay">Late Pay</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-warning">Update Amount</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
-<div id="modal-sales-expense" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-danger">
-                <h2 class="modal-title"><i class="fa fa-angle-double-down"></i> Add New Expenses</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_sales'); ?>" id="sale-exp-validation" method="post" class="form-horizontal form-bordered">
-					<input type="hidden" id="sale_type" name="sale_type" class="form-control" value="exp">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Name</label>
-                        <div class="col-md-8">
-                            <select id="emp_id" name="emp_id" class="form-control" size="1" require="true">
-                            <option value="">Please select</option>
-                            <?php if(!empty($employees)) {
-                                $i = 1; 
-                                foreach($employees as $emp){
-                                    echo '<option value="'.$emp['id'].'">'.$emp['name'].'</option>';
-                                }
-                            }?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Description</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="sale_desc" name="sale_desc" class="form-control" placeholder="Description..">
-                                <span class="input-group-addon"><i class="gi gi-notes"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="sale_amt" name="sale_amt" class="form-control" placeholder="Enter Amount" require="true">
-                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
-                            </div>
-                        </div>
-                    </div>
-					<div class="form-group">
-                        <label class="col-md-4 control-label">Amount Mode</label>
-                        <div class="col-md-8">
-                            <select id="amount_mode" name="amount_mode" class="form-control" size="1" require="true">
-								<option value="">Please select</option>
-								<option value="cash">Cash</option>
-								<option value="gpay">Gpay</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-danger">Save Expense</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
 <div id="modal-custom-range" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -788,6 +579,7 @@
     
     function deleteSalesData(mythis){
         var userId = $(mythis).data('user_id');
+        var storeId = $("#store_id").val();
         swal({
             title: "Are you sure?", 
             text: "You won't be able to revert this!", 
@@ -803,7 +595,7 @@
                         type: 'post',
                         data: {userId : userId, tbl_name : 'daily_sales'},
                         success: function(res){
-                            window.location.href = base_url+'daily_sales';
+                            window.location.href = base_url+'daily_sales/'+storeId;
                         }
                     });
                 }
@@ -959,8 +751,8 @@
                         console.log(res);
                         if(res == 'success'){
                             swal({
-                                title: "Deleted!",
-                                text: "Your file has been deleted."
+                                title: "Day Closed!",
+                                text: "Your today account closed."
                             }).then((res1) => {
                                 if (res1.value) {
                                     window.location.reload();

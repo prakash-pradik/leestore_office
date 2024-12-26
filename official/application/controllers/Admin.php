@@ -249,9 +249,11 @@ class Admin extends CI_Controller {
 		$data['daily_sales'] = $this->admin_model->get_all_sales('today', 'desc', $store_id);
 		$data['today_stats'] = $this->admin_model->get_sales_stats();
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
+		$data['open_stats'] = $this->admin_model->get_opening_stats();
 		$data['daily_notes'] = $this->admin_model->get_daily_notes();
 		$data['stores'] = $this->admin_model->get_data('stores', array('status'=>'1'), 'result_array', 'id', 'asc');
 		$data['day_close'] = $this->admin_model->get_day_close();
+		$data['storeId'] = $store_id;
 
 		$this->load->view('config/template_start');
 		$this->load->view('config/page_head',$data);

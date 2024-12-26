@@ -129,8 +129,8 @@
                             <th width="5%" class="text-center">Id</th>
                             <th>Name</th>
                             <!-- <th class="hidden-xs">Phone Number</th> -->
-                            <th width="20%" class="hidden-xs text-center">Sales Count</th>
-                            <th width="27%" class="text-right">Sales Amount (₹)</th>
+                            <th width="25%" class="hidden-xs text-center">Sales Count</th>
+                            <th width="30%" class="text-right">Sales Amount (₹)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -155,7 +155,7 @@
             <div class="block" style="min-height: 430px;">
                 <div class="block-title">
                     <div class="block-options pull-right">
-                        <a href="<?php echo base_url('products_list'); ?>" class="btn btn-sm btn-success" data-toggle="tooltip" title="Show All"><i class="fa fa-eye"></i></a>
+						<a href="<?php echo base_url('products_list'); ?>" class="btn btn-sm btn-success" data-toggle="tooltip" title="Show All"><i class="fa fa-eye"></i></a>
                     </div>
                     <h2><strong>Top 10</strong> Products</h2>
                 </div>
@@ -164,9 +164,9 @@
                     <thead>
                         <tr>
                             <th width="5%" class="text-center">Id</th>
-                            <th >Name</th>
-                            <th width="20%" class="hidden-xs text-center">Sales Count</th>
-                            <th width="27%" class="text-right">Sales Amount (₹)</th>
+                            <th>Name</th>
+                            <th class="hidden-xs text-center">Sales Count</th>
+                            <!--<th width="27%" class="text-right">Sales Amount (₹)</th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -179,7 +179,7 @@
                             <td class="text-center" style="width: 100px;"><a href="<?php echo base_url('product_view/'.$prod['id']); ?>" class="text-info"><small>PID.<?php echo str_pad($prod['id'], 2, '0', STR_PAD_LEFT); ?></small></a></td>
                             <td><a href="<?php echo base_url('product_view/'.$prod['id']); ?>" class="text-info"><?php echo $prod['product_name']; ?></a></td>
                             <td class="text-center"><strong><?php echo $prod['order_count']; ?></strong></td>
-                            <td class="text-right"><strong>₹<?php echo number_format($prod['order_total'],2); ?></strong></td>
+                            <!--<td class="text-right"><strong>₹<?php echo number_format($prod['order_total'],2); ?></strong></td>-->
                         </tr>
                         <?php } } ?>
                     </tbody>
@@ -193,14 +193,18 @@
             <div class="block" style="min-height: 430px;">
                 <div class="block-title">
                     <h2><strong>Top </strong> Re-Order Products</h2>
+					<div class="block-options pull-right">
+						<a href="<?php echo base_url('Prints/reOrderPrint'); ?>" class="btn btn-alt btn-warning" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
+                    </div>
                 </div>
-				<table id="example-datatable" class="table table-vcenter table-bordered table-striped table-hover">
+				<table id="reorder-datatable" class="table table-vcenter table-bordered table-striped table-hover">
                     <thead>
                         <tr>
                             <th class="text-center">Id</th>
                             <th >Name</th>
                             <!-- <th class="hidden-xs">Phone Number</th> -->
-                            <th class="hidden-xs text-center">Quantity</th>
+                            <th class="text-center">Quantity</th>
+							<th class="">Store Name</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -212,6 +216,7 @@
                             <td class="text-center"><a href="<?php echo base_url('product_view/'.$reo['id']); ?>" class="text-info"><small><?php echo 'PID.'.str_pad($reo['id'], 2, '0', STR_PAD_LEFT); ?></small></a></td>
                             <td class=""><a href="<?php echo base_url('product_view/'.$reo['id']); ?>" class="text-info"><?php echo $reo['product_name']; ?></a></td>
                             <td class="hidden-xs text-center text-danger"><strong><?php echo $reo['qnty']; ?></strong></td>
+							<td><?php echo $reo['store_name']; ?></td>
                         </tr>
                         <?php } } ?>
                     </tbody>

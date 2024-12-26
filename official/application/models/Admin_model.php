@@ -228,7 +228,36 @@ class Admin_model extends CI_Model{
                 FROM daily_sales WHERE status = 1 AND amount_mode = 'cash' AND $where AND DATE(date_added) = '".$today_date."'";
 
         $query = $this->db->query($sql);
+        //echo $this->db->last_query();
+        if($query->num_rows() > 0 )
+            return $query->row();
+        else
+            return false;
+    }
 
+    public function get_opening_stats(){
+        $sessionUser = $this->session->userdata('user_loggedin');
+        $storeId = $sessionUser['store_id'];
+		
+		if($sessionUser['admin_type'] == 'biller')
+			$where = "store_id = '".$storeId."'";
+		else
+			$where = "1=1";
+		
+
+        $today_date   = date("Y-m-d");
+
+        $sql = "SELECT 
+                (SELECT sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as today_expense FROM daily_sales WHERE status = 1 AND amount_mode = 'open_cash' AND $where AND DATE(date_added) = '".$today_date."') as available_cash,
+                (SELECT sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as today_expense FROM daily_sales WHERE status = 1 AND amount_mode = 'open_gpay' AND $where AND DATE(date_added) = '".$today_date."') as available_gpay ";
+
+        /* $sql = "SELECT 
+            (SELECT sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) - sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) FROM daily_sales WHERE status = 1 AND amount_mode = 'open_cash' AND $where AND DATE(date_added) = '".$today_date."') as available_cash,
+            (SELECT sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) - sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) FROM daily_sales WHERE status = 1 AND amount_mode = 'open_gpay' AND $where AND DATE(date_added) = '".$today_date."') as available_gpay
+            " ; */
+
+        $query = $this->db->query($sql);
+        //echo $this->db->last_query();
         if($query->num_rows() > 0 )
             return $query->row();
         else
@@ -508,10 +537,10 @@ class Admin_model extends CI_Model{
 
     public function get_commitment_stats(){
         $sql = "SELECT 
-                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'due' AND status = 0) as total_due,
-                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'interest' AND status = 0) as total_interest,
-                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'credit' AND status = 0) as total_cc,
-                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'jewel' AND status = 0) as total_jewel";
+                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'due' AND status != 2) as total_due,
+                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'interest' AND status != 2) as total_interest,
+                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'credit' AND status != 2) as total_cc,
+                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'jewel' AND status != 2) as total_jewel";
         $query = $this->db->query($sql);
         if($query->num_rows() > 0 )
             return $query->row();

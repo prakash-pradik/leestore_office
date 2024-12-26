@@ -136,14 +136,19 @@
                         <!-- Right Header Navigation -->
                         <ul class="nav navbar-nav-custom pull-right">
                             <li>
-                                <h3 class="text-bold" style="margin-right:30px;">
+                                <h3 class="text-bold" id="timerText" style="margin-right:30px;">
                                     <span id="time_txt"></span>
                                 </h3>
                             </li>
                             <!-- User Dropdown -->
                             <li class="dropdown">
                                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="<?php echo base_url(IMG); ?>/placeholders/avatars/avatar2.jpg" alt="avatar"> <i class="fa fa-angle-down"></i>
+
+                                    <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin'){ ?>
+                                        <img src="<?php echo base_url(IMG); ?>/ceo.jpg" alt="avatar">
+                                    <?php } else { ?>
+                                        <img src="<?php echo base_url(IMG); ?>/store.jpg" alt="avatar"> 
+                                    <?php } ?> <i class="fa fa-angle-down"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
                                     <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') { ?>
