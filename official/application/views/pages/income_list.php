@@ -136,7 +136,7 @@
                     </div>
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-success">Save Amount</button>
                         </div>
                     </div>
@@ -193,7 +193,7 @@
                     </div>
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-info">Update Amount</button>
                         </div>
                     </div>

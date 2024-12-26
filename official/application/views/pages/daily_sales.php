@@ -153,6 +153,18 @@
 					</h3>
 				</div>
 			</a>
+
+			<a href="javascript:void(0)" class="widget widget-hover-effect1">
+				<div class="widget-simple">
+					<div class="widget-icon pull-left themed-background-amethyst">
+						<i class="fa fa-credit-card"></i>
+					</div>
+					<h3 class="widget-content text-right animation-pullDown text-amethyst">
+						₹ <strong> <?php if(!empty($today_stats)) {  if(!empty($today_stats->today_card)) echo $today_stats->today_card; else echo '0'; } ?></strong><br>
+						<small>Store Card Pay</small>
+					</h3>
+				</div>
+			</a>
 		</div>
 
 		<div class="col-lg-9 col-sm-12 order-first order-md-last">
@@ -346,7 +358,7 @@
 						</div>
 						<div class="form-group form-actions">
 							<div class="col-xs-12 text-right">
-								<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 								<button type="submit" class="btn btn-success">Save Amount</button>
 							</div>
 						</div>
@@ -420,7 +432,7 @@
 						</div>
 						<div class="form-group form-actions">
 							<div class="col-xs-12 text-right">
-								<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 								<button type="submit" class="btn btn-warning">Update Amount</button>
 							</div>
 						</div>
@@ -493,7 +505,7 @@
 						</div>
 						<div class="form-group form-actions">
 							<div class="col-xs-12 text-right">
-								<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 								<button type="submit" class="btn btn-danger">Save Expense</button>
 							</div>
 						</div>

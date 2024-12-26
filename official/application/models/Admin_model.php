@@ -127,7 +127,7 @@ class Admin_model extends CI_Model{
                 join users as u 
                     on u.id = inc.user_id
                     and inc.status = 1
-                group by inc.user_id order by total_available";
+                group by inc.user_id order by inc.date_added";
 
         $query = $this->db->query($sql);
 
@@ -157,7 +157,7 @@ class Admin_model extends CI_Model{
                 join users as u 
                     on u.id = inc.user_id
                     and inc.status = 1
-                group by inc.user_id order by total_available";
+                group by inc.user_id order by inc.date_added desc";
 
         $query = $this->db->query($sql);
 
@@ -224,7 +224,8 @@ class Admin_model extends CI_Model{
         $sql = "SELECT 
                     sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) as today_income,
                     sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as today_expense,
-                    sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) - sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as today_available 
+                    sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) - sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as today_available,
+                    (SELECT sum(COALESCE( case when amount_type = 'card' then amount END, 0)) as today_expense FROM daily_sales WHERE status = 1 AND amount_mode = 'card_pay' AND $where AND DATE(date_added) = '".$today_date."') as today_card 
                 FROM daily_sales WHERE status = 1 AND amount_mode = 'cash' AND $where AND DATE(date_added) = '".$today_date."'";
 
         $query = $this->db->query($sql);
