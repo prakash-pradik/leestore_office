@@ -194,7 +194,7 @@
                 <div class="block-title">
                     <h2><strong>Top </strong> Re-Order Products</h2>
 					<div class="block-options pull-right">
-						<a href="<?php echo base_url('Prints/reOrderPrint'); ?>" class="btn btn-alt btn-warning" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
+						<a href="<?php echo base_url('reOrderPrint'); ?>" target="_blank" class="btn btn-alt btn-warning" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
                     </div>
                 </div>
 				<table id="reorder-datatable" class="table table-vcenter table-bordered table-striped table-hover">

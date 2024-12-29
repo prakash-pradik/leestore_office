@@ -235,10 +235,9 @@ class Prints extends CI_Controller {
 		$file_name = 'ReOrderReport_'.$today_dt.'.pdf';
 		
 		$data['reorders'] = $this->admin_model->get_reorder_products();
-		//$html = $this->load->view('prints/reorder_pdf', $data, true);
-		$this->load->view('prints/reorder_pdf', $data);
-		exit();
-        $mpdf = new \Mpdf\Mpdf([
+		$html = $this->load->view('prints/reorder_pdf', $data, true);
+		
+		$mpdf = new \Mpdf\Mpdf([
             'format'=>'A4',
             'margin_top'=>10,
             'margin_right'=>5,

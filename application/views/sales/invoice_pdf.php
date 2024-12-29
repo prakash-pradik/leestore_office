@@ -81,22 +81,27 @@
 										echo "<tr><td colspan='5' style='background-color:rgba(255, 0, 0, 0);height:50px;'></td></tr>";
 									}
 								?>
-								<?php if($order->order_discount !== 0){ ?>
-									<tr class="discount_row">
-										<td colspan="4" style="background-color:rgba(255, 0, 0, 0);"></td>
-										<td class="text-left" style="background-color:rgba(255, 0, 0, 0);"> 
-											<h5>Discount : <?php echo $order->order_discount; ?>%</h5>
-										</td>
-										<td class="text-right" style="background-color:rgba(255, 0, 0, 0);">
-											<h5>
-												<?php 
+
+								<tr class="discount_row">
+									<td colspan="4" style="background-color:rgba(255, 0, 0, 0);"></td>
+									<td class="text-left" style="background-color:rgba(255, 0, 0, 0);"> 
+										<h5>Discount <?php if($order->order_discount !== "0") echo ": ".$order->order_discount."%"; else echo ': 0'; ?></h5>
+									</td>
+									<td class="text-right" style="background-color:rgba(255, 0, 0, 0);">
+										<h5>
+											<?php 
+												if($order->order_discount === "0") {
+													$disAmt = (int)$order->discount_amount;
+													echo number_format($disAmt,2);
+												} else{
 													$disAmt = ($order->order_discount / 100) * $order->gross_amount; 
 													echo number_format($disAmt,2);
-												?>
-											</h5>
-										</td>
-									</tr>
-								<?php  } ?>
+												}
+											?>
+										</h5>
+									</td>
+								</tr>
+								
 								<tr>
 									<td colspan="3" style="background-color:rgba(255, 0, 0, 0);"></td>
 									<td class="text-center" style="background-color:rgba(255, 0, 0, 0);height:20px;"></td>

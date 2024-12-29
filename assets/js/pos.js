@@ -422,7 +422,7 @@ function updateCash(saleType) {
             if (res.status == 200) {
                 alertify.success(res.message);
                 setTimeout(() => {
-                    window.location.href = base_url + 'sales_list';
+                    window.location.href = base_url + 'sales_list/week';
                 }, 3000);
             }
             else {

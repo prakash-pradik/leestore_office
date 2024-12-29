@@ -20,7 +20,7 @@ class Sales extends CI_Controller {
 	
 	public function index()
 	{
-		redirect(base_url('sales_list'));
+		redirect(base_url('sales_list/week'));
 	}
 
 	public function sales_list($type)
@@ -102,6 +102,25 @@ class Sales extends CI_Controller {
 
 		$mpdf->WriteHTML($html);
 		$mpdf->Output($file_name, 'I');	 		
+	}
+	
+	public function reOrderPrint(){
+		
+		$today_dt = date('d-M-y h:ia');
+		$file_name = 'ReOrderReport_'.$today_dt.'.pdf';
+		
+		$data['reorders'] = $this->admin_model->get_reorder_products();
+		$html = $this->load->view('prints/reorder_pdf', $data, true);
+		$mpdf = new \Mpdf\Mpdf([
+            'format'=>'A4',
+            'margin_top'=>10,
+            'margin_right'=>5,
+            'margin_left'=>5,
+            'margin_bottom'=>15,
+        ]);
+        $mpdf->WriteHTML($html);
+		$mpdf->Output($file_name, 'I');	
+		
 	}
 
 }

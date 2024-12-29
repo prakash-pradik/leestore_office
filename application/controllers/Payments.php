@@ -224,7 +224,7 @@ class Payments extends CI_Controller {
 			'order_date' 		=> date("Y-m-d H:i:s" , strtotime($this->input->post('billDate'))),
 			'order_status' 		=> $orderStatus,
 			'payment_mode' 		=> $payMode,
-			'date_added' 		=> date("Y-m-d H:i:s")
+			'date_modified' 	=> date("Y-m-d H:i:s")
 		);
 
 		$where = array('id' => $order_id );

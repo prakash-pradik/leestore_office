@@ -106,5 +106,6 @@ $route['pos_update/(:any)'] = 'payments/pos_update/$1';
 
 $route['booking'] = 'booking/home';
 
+$route['reOrderPrint'] = 'sales/reOrderPrint';
 
-$route['print_test'] = 'admin/print_test';
+$route['print_test'] = 'sales/print_test';

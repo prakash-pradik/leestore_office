@@ -107,24 +107,27 @@
                             } 
                         } 
                     ?>
-                    <?php if($order->order_discount !== 0){ ?>
-                        <tr class="discount_row">
-                            <td></td><td></td><td></td><td></td>
-                            <td class="text-left"> 
-                                <h5>Discount : <?php echo $order->order_discount; ?>%</h5>
-                            </td>
-                            <td class="text-right">
-                                <h5>
-                                    <strong>
-                                    <?php 
-                                        $disAmt = ($order->order_discount / 100) * $order->gross_amount; 
-                                        echo number_format($disAmt,2);
-                                    ?>
-                                    </strong>
-                                </h5>
-                            </td>
-                        </tr>
-                    <?php  } ?>
+					<tr class="discount_row" >
+						<td></td><td></td><td></td><td></td>
+						<td class="text-left"> 
+							<h5>Discount <?php if($order->order_discount !== "0") echo ": ".$order->order_discount."%"; ?></h5>
+						</td>
+						<td class="text-right">
+							<h5>
+								<strong>
+								<?php
+									if($order->order_discount === "0") {
+										$disAmt = (int)$order->discount_amount;
+										echo number_format($disAmt,2);
+									} else{
+										$disAmt = ($order->order_discount / 100) * $order->gross_amount; 
+										echo number_format($disAmt,2);
+									}
+								?>
+								</strong>
+							</h5>
+						</td>
+					</tr>
                     <tr>
                         <td colspan="2" style="max-height: 70px !important;">
                             <div class="alert alert-success alert-dismissable" style="margin-bottom:0px;">
