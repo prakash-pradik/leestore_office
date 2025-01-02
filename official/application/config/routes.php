@@ -74,3 +74,4 @@ $route['print_test'] = 'admin/print_test';
 $route['user_profile'] = 'admin/user_profile';
 
 $route['createExcel'] = 'prints/createExcel';
+$route['booking'] = 'booking/home';

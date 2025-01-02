@@ -249,8 +249,11 @@ class Admin_model extends CI_Model{
         $today_date   = date("Y-m-d");
 
         $sql = "SELECT 
-                (SELECT sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as today_expense FROM daily_sales WHERE status = 1 AND amount_mode = 'open_cash' AND $where AND DATE(date_added) = '".$today_date."') as available_cash,
-                (SELECT sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as today_expense FROM daily_sales WHERE status = 1 AND amount_mode = 'open_gpay' AND $where AND DATE(date_added) = '".$today_date."') as available_gpay ";
+                (SELECT sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) FROM daily_sales WHERE status = 1 AND amount_mode = 'open_cash' AND $where AND DATE(date_added) = '".$today_date."') as total_cash,
+                (SELECT sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) FROM daily_sales WHERE status = 1 AND amount_mode = 'open_cash' AND $where AND DATE(date_added) = '".$today_date."') as available_cash,
+
+                (SELECT sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) FROM daily_sales WHERE status = 1 AND amount_mode = 'open_gpay' AND $where AND DATE(date_added) = '".$today_date."') as total_gpay,
+                (SELECT sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) FROM daily_sales WHERE status = 1 AND amount_mode = 'open_gpay' AND $where AND DATE(date_added) = '".$today_date."') as available_gpay ";
 
         /* $sql = "SELECT 
             (SELECT sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) - sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) FROM daily_sales WHERE status = 1 AND amount_mode = 'open_cash' AND $where AND DATE(date_added) = '".$today_date."') as available_cash,

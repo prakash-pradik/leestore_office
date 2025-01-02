@@ -249,6 +249,7 @@ class Admin extends CI_Controller {
 		$data['daily_sales'] = $this->admin_model->get_all_sales('today', 'desc', $store_id);
 		$data['today_stats'] = $this->admin_model->get_sales_stats();
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
+		
 		$data['open_stats'] = $this->admin_model->get_opening_stats();
 		$data['daily_notes'] = $this->admin_model->get_daily_notes();
 		$data['stores'] = $this->admin_model->get_data('stores', array('status'=>'1'), 'result_array', 'id', 'asc');
@@ -368,16 +369,21 @@ class Admin extends CI_Controller {
 		$sessionUser = $this->session->userdata('user_loggedin');
 		$storeId = $sessionUser['store_id'];
 
-		$user_data = array(
+		$data = array(
 			'notes' => $this->input->post('daily_notes'),
 			'date_added' => date("Y-m-d H:i:s")
 		);
 
-		$insert = $this->admin_model->insert_row('notes', $user_data);
-		if($insert){
-			//redirect(base_url('daily_sales/'.$storeId));
+		$update = $this->admin_model->update_row_data('notes', array('id' => 1), $data);
+		/* if($insert){
 			redirect($_SERVER['HTTP_REFERER']);
-		}
+		} */
+		if ($update) 
+			$status = 'success';
+		else
+			$status = 'failed';
+
+		echo json_encode($status);
 	}
 
 	public function day_close(){

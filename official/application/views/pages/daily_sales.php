@@ -5,6 +5,7 @@
 			<?php
 				$cashBalance = 0; $gpayBalance = 0; 
 				$av_cash = 0; $av_gpay = 0;
+				$total_opc = 0; $total_opg = 0;
 				$store_cash = 0; $store_gpay = 0;
 
 				if(isset($day_close) && !empty($day_close)){
@@ -15,9 +16,15 @@
 				if(!empty($open_stats)) { 
 					if(!empty($open_stats->available_cash)) $av_cash = $open_stats->available_cash; 
 					else $av_cash = '0';
+
+					if(!empty($open_stats->total_cash)) $total_opc = $open_stats->total_cash; 
+					else $total_opc = '0';
 					
 					if(!empty($open_stats->available_gpay)) $av_gpay = $open_stats->available_gpay; 
 					else $av_gpay = '0';
+
+					if(!empty($open_stats->total_gpay)) $total_opg = $open_stats->total_gpay; 
+					else $total_opg = '0';
 				} 
 			?>
 
@@ -38,7 +45,7 @@
 					<h1>
 						<label class="text-center">Available Cash<br/><span class="text-success">₹
 						<?php 
-							$av_cash = $cashBalance - $av_cash;
+							$av_cash = ($cashBalance + $total_opc) - $av_cash;
 							echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $av_cash); 
 						?></span></label>
 					</h1>
@@ -51,7 +58,7 @@
 					<h1>
 						<label class="text-center">Available Gpay<br/><span class="text-info">₹
 						<?php
-							$av_gpay = $gpayBalance - $av_gpay; 
+							$av_gpay = ($gpayBalance + $total_opg) - $av_gpay; 
 							echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $av_gpay); 
 						?></span></label>
 					</h1>
@@ -343,16 +350,17 @@
 							<div class="col-md-8">
 								<select id="amount_mode" name="amount_mode" class="form-control" size="1" require="true">
 									<option value="">Please select</option>
-									<option value="cash">Cash</option>
-									<option value="gpay">Gpay</option>
-									<option value="card_pay">Card Pay</option>
-									<option value="late_pay">Late Pay</option>
 									<?php 
 										if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') {
 									?>
 									<option value="open_cash">Open Cash</option>
 									<option value="open_gpay">Open Gpay</option>
-									<?php } ?>
+									<?php } else { ?>
+									<option value="cash">Cash</option>
+									<option value="gpay">Gpay</option>
+									<option value="card_pay">Card Pay</option>
+									<option value="late_pay">Late Pay</option>
+									<?php }?>
 								</select>
 							</div>
 						</div>
@@ -416,16 +424,17 @@
 							<label class="col-md-4 control-label">Amount Mode</label>
 							<div class="col-md-8">
 								<select id="update_amount_mode" name="amount_mode" class="form-control" size="1" require="true">
-									<option value="">Please select</option>
-									<option value="cash">Cash</option>
-									<option value="gpay">Gpay</option>
-									<option value="card_pay">Card Pay</option>
-									<option value="late_pay">Late Pay</option>
+									<option value="">Please select</option>									
 									<?php 
 										if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') {
 									?>
 									<option value="open_cash">Open Cash</option>
 									<option value="open_gpay">Open Gpay</option>
+									<?php } else { ?>
+									<option value="cash">Cash</option>
+									<option value="gpay">Gpay</option>
+									<option value="card_pay">Card Pay</option>
+									<option value="late_pay">Late Pay</option>
 									<?php } ?>
 								</select>
 							</div>
@@ -492,13 +501,14 @@
 							<div class="col-md-8">
 								<select id="amount_mode" name="amount_mode" class="form-control" size="1" require="true">
 									<option value="">Please select</option>
-									<option value="cash">Cash</option>
-									<option value="gpay">Gpay</option>
 									<?php 
 										if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') {
 									?>
 									<option value="open_cash">Open Cash</option>
 									<option value="open_gpay">Open Gpay</option>
+									<?php } else { ?>
+									<option value="cash">Cash</option>
+									<option value="gpay">Gpay</option>
 									<?php } ?>
 								</select>
 							</div>

@@ -766,4 +766,26 @@
             }
         })
     }
+
+    function saveNotes(mythis){
+        var noteVal = $(mythis).val();
+        
+        if(noteVal.length >=5){
+            $.ajax({
+                url: base_url+'admin/insert_notes',
+                type: 'post',
+                dataType:'json',
+                data: {daily_notes : noteVal},
+                success: function(res){
+                    console.log(res);
+                    if(res == 'success'){
+                        
+                    } else {
+                        console.log("Something Wrong..!");
+                    }
+                }
+            });
+        }
+    }
+
 </script>
