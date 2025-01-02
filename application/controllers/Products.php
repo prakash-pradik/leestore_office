@@ -334,6 +334,8 @@ class Products extends CI_Controller {
 			'price' => $this->input->post('price'),
 			'cost_price' => $this->input->post('cost_price'),
 			'sell_price' => $this->input->post('sell_price'),
+			'qnty' => 1,
+			'reorder_qnty' => 3,
 			'date_added' => date("Y-m-d H:i:s")
 		);
 
