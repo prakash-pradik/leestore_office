@@ -8,9 +8,14 @@
 				$total_opc = 0; $total_opg = 0;
 				$store_cash = 0; $store_gpay = 0;
 
+				$curDate = date("Y-m-d");
+				$getDate = date("Y-m-d"); 
+
 				if(isset($day_close) && !empty($day_close)){
 					$cashBalance = $day_close->balance_cash; 
 					$gpayBalance = $day_close->balance_gpay;
+
+					$getDate = $day_close->closing_date;
 				}
 			
 				if(!empty($open_stats)) { 
@@ -45,8 +50,14 @@
 					<h1>
 						<label class="text-center">Available Cash<br/><span class="text-success">₹
 						<?php 
-							$av_cash = ($cashBalance + $total_opc) - $av_cash;
-							echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $av_cash); 
+							if($curDate !== $getDate){
+								$av_cash = ($cashBalance + $total_opc) - $av_cash;
+								echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $av_cash); 
+							}
+							else{
+								echo $cashBalance;
+							}
+							
 						?></span></label>
 					</h1>
 				</div>
@@ -58,8 +69,13 @@
 					<h1>
 						<label class="text-center">Available Gpay<br/><span class="text-info">₹
 						<?php
-							$av_gpay = ($gpayBalance + $total_opg) - $av_gpay; 
-							echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $av_gpay); 
+							if($curDate !== $getDate){
+								$av_gpay = ($gpayBalance + $total_opg) - $av_gpay; 
+								echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $av_gpay); 
+							}
+							else{
+								echo $gpayBalance;
+							}
 						?></span></label>
 					</h1>
 				</div>
@@ -261,7 +277,7 @@
 			if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') {
 
 				if(isset($day_close) && !empty($day_close)){ 
-					$curDate = date("Y-m-d"); 
+					
 					$getDate = $day_close->closing_date;
 					if($curDate !== $getDate) { 
 			?>
@@ -274,6 +290,7 @@
 								$overall_cash = $av_cash + $store_cash;
 								echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $overall_cash); 
 							?>
+							<input type="hidden" id="overall_cash" value="<?php echo $overall_cash; ?>">
 							</span></label>
 						</h4>
 					</div>
@@ -284,6 +301,7 @@
 								$overall_gpay = $av_gpay + $store_gpay;
 								echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $overall_gpay); 
 							?>
+							<input type="hidden" id="overall_gpay" value="<?php echo $overall_gpay; ?>">
 							</span></label>
 						</h4>
 					</div>

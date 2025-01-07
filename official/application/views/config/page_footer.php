@@ -730,8 +730,8 @@
     }
 
     function dayClose(){
-        var cashAvailable = $("#cash_available").val();
-        var gpayAvailable = $("#gpay_available").val();
+        var cashAvailable = $("#overall_cash").val();
+        var gpayAvailable = $("#overall_gpay").val();
         swal({
             title: "Are you sure?", 
             text: "do you want close the today transaction!", 

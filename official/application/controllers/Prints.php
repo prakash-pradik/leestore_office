@@ -209,6 +209,39 @@ class Prints extends CI_Controller {
 		$mpdf->Output($file_name, 'D'); 
     }
 
+	public function inoutPdf($type)
+    {
+		
+
+		$today_dt = date('d-M-y h:ia');
+		$file_name = $type.'_reports.pdf';
+		
+		$data['amount_type'] = $type;
+		$data['base_url'] = base_url();
+
+		if($type == 'incomes'){
+			$data['amounts'] = $this->admin_model->get_all_incomes();
+			$data['amount_stats'] = $this->admin_model->get_amount_stats('incomes');
+		} else{
+			$data['amounts'] = $this->admin_model->get_all_outcomes();
+			$data['amount_stats'] = $this->admin_model->get_amount_stats('outcomes');
+		}
+
+		$html = $this->load->view('prints/inout_pdf', $data, true);
+		
+        $mpdf = new \Mpdf\Mpdf([
+            'format'=>'A4',
+            'margin_top'=>10,
+            'margin_right'=>5,
+            'margin_left'=>5,
+            'margin_bottom'=>15,
+        ]);
+		$mpdf->SetHTMLFooter('<div style="display:flex; justify-content:space-between; padding-top:10px; margin-left:10px;"><span style="">Created at:'.$today_dt.'</span> <span style="color:#777;font-size:12px;">&nbsp;&nbsp;Receipt was created on a computer and is valid without the signature and seal.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Page {PAGENO} of {nbpg}</span></div>');
+        $mpdf->WriteHTML($html);
+		//$mpdf->Output();
+		$mpdf->Output($file_name, 'D'); 
+    }
+
 }
 
 ?>

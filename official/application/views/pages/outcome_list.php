@@ -29,6 +29,8 @@
             
                 <a href="#modal-outcome" class="btn btn-success" data-toggle="modal" title="Add New User"><i class="fa fa-user-plus"></i> Add New Amount</a>
 
+                <a href="<?php echo base_url('Prints/inoutPdf/outcomes'); ?>" class="btn btn-alt btn-warning" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
+
                 <!-- <a href="#modal-outcome-old" class="btn btn-alt btn-sm btn-info" data-toggle="modal" title="Update User"><i class="fa fa-user-plus"></i> Update Amount</a> -->
             </div>
         </div>
