@@ -688,10 +688,10 @@ class Admin extends CI_Controller {
 	{
 		$data['session_user'] = $this->session->userdata('user_loggedin');
 		$data['users'] = $this->admin_model->get_income_users();
-		$data['dues'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'due'), 'result_array', 'monthly_date', 'asc');
-		$data['interest'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'interest'), 'result_array', '', '');
-		$data['credit'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'credit'), 'result_array', '', '');
-		$data['jewel'] = $this->admin_model->get_data('monthly_commitments', array('due_type'=>'jewel'), 'result_array', '', '');
+		$data['dues'] = $this->admin_model->get_commitments('due');
+		$data['interest'] = $this->admin_model->get_commitments('interest');
+		$data['credit'] = $this->admin_model->get_commitments('credit');
+		$data['jewel'] = $this->admin_model->get_commitments('jewel');
 
 		$data['amount_stats'] = $this->admin_model->get_commitment_stats();
 		
@@ -726,6 +726,24 @@ class Admin extends CI_Controller {
 		$id = $this->input->post('due_id');
 		$where = array('id' => $id );
 
+		$data = array(
+			'monthly_date' => $this->input->post('due_date'),
+			'details' => $this->input->post('due_details'),
+			'amount' => $this->input->post('due_amount'),
+			'date_modified' => date("Y-m-d H:i:s")
+		);
+
+		$update = $this->admin_model->update_row_data('monthly_commitments', $where, $data);
+		
+		if ($update) 
+			redirect(base_url('commitment'));
+	}
+
+	public function status_due_data(){
+		
+		$id = $this->input->post('due_id');
+		$where = array('id' => $id );
+
 		if($id){
 			$update = $this->admin_model->update_row_data('monthly_commitments', $where, array('status' => 1 ));
 			
@@ -738,6 +756,47 @@ class Admin extends CI_Controller {
 			$status = 'failed';
 
 		echo $status;
+	}
+
+	public function wallet()
+	{
+		$data['session_user'] = $this->session->userdata('user_loggedin');		
+		$data['wallets'] = $this->admin_model->get_data('wallets', array('status'=>'1'), 'result_array', '', '');
+		$this->load->view('config/template_start');
+		$this->load->view('config/page_head',$data);
+		$this->load->view('pages/wallet', $data);
+		$this->load->view('config/page_footer');
+		$this->load->view('config/template_scripts');
+		$this->load->view('config/template_end');
+	}
+	public function insert_wallet_data()
+	{
+		$data = array(
+			'details' => $this->input->post('wallet_details'),
+			'amount' => $this->input->post('wallet_amount'),
+			'date_added' => date("Y-m-d H:i:s")
+		);
+	
+		$insert = $this->admin_model->insert_row('wallets', $data);
+		if($insert){
+			redirect(base_url('wallet'));
+		}
+	}
+	public function update_wallet_data(){
+		
+		$id = $this->input->post('update_wallet_id');
+		$where = array('id' => $id );
+
+		$data = array(
+			'details' => $this->input->post('wallet_details'),
+			'amount' => $this->input->post('wallet_amount'),
+			'date_modified' => date("Y-m-d H:i:s")
+		);
+		
+		$update = $this->admin_model->update_row_data('wallets', $where, $data);
+		if($update){
+			redirect(base_url('wallet'));
+		}
 	}
 
 

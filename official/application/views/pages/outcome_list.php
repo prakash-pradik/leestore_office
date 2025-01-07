@@ -56,9 +56,9 @@
                     <tr>
                         <td class="text-center"><?php echo $i; ?></td>
                         <td><a class="text-info" href="<?php echo base_url('user_details/'.$outcome['id']); ?>"><?php echo $outcome['name']; ?></a></td>
-                        <td>₹ <?php echo $outcome['total_credit']; ?></td>
+                        <td>₹ <?php echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $outcome['total_credit']); ?></td>
                         <!-- <td><?php echo $outcome['total_debit']; ?></td> -->
-                        <td><h4 class="text-danger">₹ <?php echo $outcome['total_available']; ?></h4></td>
+                        <td><h4 class="text-danger">₹ <?php echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $outcome['total_available']); ?></h4></td>
                         <td><?php echo $outcome['notes']; ?></td>
                         <td class="text-center">
                             <div class="btn-group">

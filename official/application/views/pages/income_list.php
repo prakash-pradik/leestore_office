@@ -56,9 +56,9 @@
                     <tr>
                         <td class="text-center"><?php echo $i; ?></td>
                         <td><a class="text-info" href="<?php echo base_url('user_details/'.$income['id']); ?>"><?php echo $income['name']; ?></a></td>
-                        <td>₹ <?php echo $income['total_credit']; ?></td>
-                        <!-- <td><?php echo $income['total_debit']; ?></td> -->
-                        <td><h4 class="text-success">₹ <?php echo $income['total_available']; ?></h4></td>
+                        <td>₹ <?php  echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $income['total_credit']); ?></td>
+                        <!-- <td><?php echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $income['total_debit']); ?></td> -->
+                        <td><h4 class="text-success">₹ <?php echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $income['total_available']); ?></h4></td>
                         <td><?php echo $income['notes']; ?></td>
                         <td class="text-center">
                             <div class="btn-group">

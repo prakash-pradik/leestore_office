@@ -47,7 +47,7 @@
                                 <th width="35%">Details</th>
                                 <th width="30%">Amount (₹)</th>
                                 <th>Status</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,7 +58,7 @@
                             <tr>
                                 <td class="text-center"><?php echo $due['monthly_date']; ?></td>
                                 <td><a class="text-info" href="javascript:void(0)"><?php echo $due['details']; ?></a></td>
-                                <td>₹ <?php echo $due['amount']; ?></td>
+                                <td>₹ <?php echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $due['amount']); ?></td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <?php if($due['status'] == 0) {  ?>
@@ -69,7 +69,8 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="btn-group">
+                                    <div class="btn-group btn-group-xs">
+                                        <a href="#modal-update-due" data-id="<?php echo $due['id']; ?>" data-date="<?php echo $due['monthly_date']; ?>" data-details="<?php echo $due['details']; ?>" data-amount="<?php echo $due['amount']; ?>" onclick="fetchDueData(this);" data-toggle="modal" title="Update" class="btn btn-info enable-tooltip"><i class="fa fa-pencil"></i></a>
                                         <a href="javascript:void(0)" data-id="<?php echo $due['id']; ?>" onclick="deleteDueData(this);" data-toggle="tooltip" title="Delete" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                     </div>
                                 </td>
@@ -121,7 +122,7 @@
                                 <th width="35%">Details</th>
                                 <th width="30%">Amount (₹)</th>
                                 <th>Status</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -132,7 +133,7 @@
                             <tr>
                                 <td class="text-center"><?php echo $int['monthly_date']; ?></td>
                                 <td><a class="text-info" href="javascript:void(0)"><?php echo $int['details']; ?></a></td>
-                                <td>₹ <?php echo $int['amount']; ?></td>
+                                <td>₹ <?php echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $int['amount']); ?></td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <?php if($int['status'] == 0) {  ?>
@@ -143,7 +144,8 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="btn-group">
+                                    <div class="btn-group btn-group-xs">
+                                        <a href="#modal-update-due" data-id="<?php echo $int['id']; ?>" data-date="<?php echo $int['monthly_date']; ?>" data-details="<?php echo $int['details']; ?>" data-amount="<?php echo $int['amount']; ?>" onclick="fetchDueData(this);" data-toggle="modal" title="Update" class="btn btn-info enable-tooltip"><i class="fa fa-pencil"></i></a>
                                         <a href="javascript:void(0)" data-id="<?php echo $int['id']; ?>" onclick="deleteDueData(this);" data-toggle="tooltip" title="Delete" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                     </div>
                                 </td>
@@ -193,7 +195,7 @@
                                 <th width="35%">Details</th>
                                 <th width="30%">Amount (₹)</th>
                                 <th>Status</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -204,7 +206,7 @@
                             <tr>
                                 <td class="text-center"><?php echo $cre['monthly_date']; ?></td>
                                 <td><a class="text-info" href="javascript:void(0)"><?php echo $cre['details']; ?></a></td>
-                                <td>₹ <?php echo $cre['amount']; ?></td>
+                                <td>₹ <?php echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $cre['amount']); ?></td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <?php if($cre['status'] == 0) {  ?>
@@ -215,7 +217,8 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="btn-group">
+                                    <div class="btn-group btn-group-xs">
+                                        <a href="#modal-update-due" data-id="<?php echo $cre['id']; ?>" data-date="<?php echo $cre['monthly_date']; ?>" data-details="<?php echo $cre['details']; ?>" data-amount="<?php echo $cre['amount']; ?>" onclick="fetchDueData(this);" data-toggle="modal" title="Update" class="btn btn-info enable-tooltip"><i class="fa fa-pencil"></i></a>
                                         <a href="javascript:void(0)" data-id="<?php echo $cre['id']; ?>" onclick="deleteDueData(this);" data-toggle="tooltip" title="Delete" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                     </div>
                                 </td>
@@ -265,7 +268,7 @@
                                 <th width="35%">Details</th>
                                 <th width="30%">Amount (₹)</th>
                                 <th>Status</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -276,7 +279,7 @@
                             <tr>
                                 <td class="text-center"><?php echo $jw['monthly_date']; ?></td>
                                 <td><a class="text-info" href="javascript:void(0)"><?php echo $jw['details']; ?></a></td>
-                                <td>₹ <?php echo $jw['amount']; ?></td>
+                                <td>₹ <?php echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $jw['amount']); ?></td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <?php if($jw['status'] == 0) {  ?>
@@ -287,7 +290,8 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="btn-group">
+                                    <div class="btn-group btn-group-xs">
+                                        <a href="#modal-update-due" data-id="<?php echo $jw['id']; ?>" data-date="<?php echo $jw['monthly_date']; ?>" data-details="<?php echo $jw['details']; ?>" data-amount="<?php echo $jw['amount']; ?>" onclick="fetchDueData(this);" data-toggle="modal" title="Update" class="btn btn-info enable-tooltip"><i class="fa fa-pencil"></i></a>
                                         <a href="javascript:void(0)" data-id="<?php echo $jw['id']; ?>" onclick="deleteDueData(this);" data-toggle="tooltip" title="Delete" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                     </div>
                                 </td>
@@ -305,197 +309,245 @@
 
     </div>
 
-<div id="modal-due" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-success">
-                <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Due</h2>
-            </div>
-            <!-- END Modal Header -->
+    <div id="modal-due" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header text-center bg-success">
+                    <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Due</h2>
+                </div>
+                <!-- END Modal Header -->
 
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_due_data'); ?>" id="due-validation" method="post" class="form-horizontal form-bordered">
-                    <input type="hidden" id="insert_type" name="insert_type" value="due">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Date</label>
-                        <div class="col-md-8">
-                            <input type="text" id="due_date" name="due_date" class="form-control" placeholder="Date..">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Details</label>
-                        <div class="col-md-8">
-                            <input type="text" id="due_details" name="due_details" class="form-control" placeholder="Details..">
-                        </div>
-                    </div>
-					
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="due_amount" name="due_amount" class="form-control" placeholder="Enter Amount" require="true">
-                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form action="<?php echo base_url('admin/insert_due_data'); ?>" id="due-validation" method="post" class="form-horizontal form-bordered">
+                        <input type="hidden" id="insert_type" name="insert_type" value="due">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Date</label>
+                            <div class="col-md-8">
+                                <input type="text" id="due_date" name="due_date" class="form-control" placeholder="Date..">
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save Amount</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
-<div id="modal-interest" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-success">
-                <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Interest</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_due_data'); ?>" id="due-validation" method="post" class="form-horizontal form-bordered">
-                    <input type="hidden" id="insert_type" name="insert_type" value="interest">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Date</label>
-                        <div class="col-md-8">
-                            <input type="text" id="due_date" name="due_date" class="form-control" placeholder="Date..">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Details</label>
-                        <div class="col-md-8">
-                            <input type="text" id="due_details" name="due_details" class="form-control" placeholder="Details..">
-                        </div>
-                    </div>
-					
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="due_amount" name="due_amount" class="form-control" placeholder="Enter Amount" require="true">
-                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Details</label>
+                            <div class="col-md-8">
+                                <input type="text" id="due_details" name="due_details" class="form-control" placeholder="Details..">
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save Amount</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
-<div id="modal-credit" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-success">
-                <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Credit Card</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_due_data'); ?>" id="due-validation" method="post" class="form-horizontal form-bordered">
-                    <input type="hidden" id="insert_type" name="insert_type" value="credit">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Date</label>
-                        <div class="col-md-8">
-                            <input type="text" id="due_date" name="due_date" class="form-control" placeholder="Date..">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Details</label>
-                        <div class="col-md-8">
-                            <input type="text" id="due_details" name="due_details" class="form-control" placeholder="Details..">
-                        </div>
-                    </div>
-					
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="due_amount" name="due_amount" class="form-control" placeholder="Enter Amount" require="true">
-                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                        
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input type="text" id="due_amount" name="due_amount" class="form-control" placeholder="Enter Amount" require="true">
+                                    <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save Amount</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- END Modal Body -->
-        </div>
-    </div>
-</div>
-
-<div id="modal-jewel" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center bg-success">
-                <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Jewel</h2>
-            </div>
-            <!-- END Modal Header -->
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form action="<?php echo base_url('admin/insert_due_data'); ?>" id="due-validation" method="post" class="form-horizontal form-bordered">
-                    <input type="hidden" id="insert_type" name="insert_type" value="jewel">
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Date</label>
-                        <div class="col-md-8">
-                            <input type="text" id="due_date" name="due_date" class="form-control" placeholder="Date..">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Details</label>
-                        <div class="col-md-8">
-                            <input type="text" id="due_details" name="due_details" class="form-control" placeholder="Details..">
-                        </div>
-                    </div>
-					
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input type="text" id="due_amount" name="due_amount" class="form-control" placeholder="Enter Amount" require="true">
-                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                        <div class="form-group form-actions">
+                            <div class="col-xs-12 text-right">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Save Amount</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save Amount</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <!-- END Modal Body -->
             </div>
-            <!-- END Modal Body -->
         </div>
     </div>
-</div>
+
+    <div id="modal-interest" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header text-center bg-success">
+                    <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Interest</h2>
+                </div>
+                <!-- END Modal Header -->
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form action="<?php echo base_url('admin/insert_due_data'); ?>" id="due-validation" method="post" class="form-horizontal form-bordered">
+                        <input type="hidden" id="insert_type" name="insert_type" value="interest">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Date</label>
+                            <div class="col-md-8">
+                                <input type="text" id="due_date" name="due_date" class="form-control" placeholder="Date..">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Details</label>
+                            <div class="col-md-8">
+                                <input type="text" id="due_details" name="due_details" class="form-control" placeholder="Details..">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input type="text" id="due_amount" name="due_amount" class="form-control" placeholder="Enter Amount" require="true">
+                                    <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-actions">
+                            <div class="col-xs-12 text-right">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Save Amount</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- END Modal Body -->
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-credit" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header text-center bg-success">
+                    <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Credit Card</h2>
+                </div>
+                <!-- END Modal Header -->
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form action="<?php echo base_url('admin/insert_due_data'); ?>" id="due-validation" method="post" class="form-horizontal form-bordered">
+                        <input type="hidden" id="insert_type" name="insert_type" value="credit">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Date</label>
+                            <div class="col-md-8">
+                                <input type="text" id="due_date" name="due_date" class="form-control" placeholder="Date..">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Details</label>
+                            <div class="col-md-8">
+                                <input type="text" id="due_details" name="due_details" class="form-control" placeholder="Details..">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input type="text" id="due_amount" name="due_amount" class="form-control" placeholder="Enter Amount" require="true">
+                                    <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-actions">
+                            <div class="col-xs-12 text-right">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Save Amount</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- END Modal Body -->
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-jewel" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header text-center bg-success">
+                    <h2 class="modal-title"><i class="fa fa-plus"></i> Add New Jewel</h2>
+                </div>
+                <!-- END Modal Header -->
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form action="<?php echo base_url('admin/insert_due_data'); ?>" id="due-validation" method="post" class="form-horizontal form-bordered">
+                        <input type="hidden" id="insert_type" name="insert_type" value="jewel">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Date</label>
+                            <div class="col-md-8">
+                                <input type="text" id="due_date" name="due_date" class="form-control" placeholder="Date..">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Details</label>
+                            <div class="col-md-8">
+                                <input type="text" id="due_details" name="due_details" class="form-control" placeholder="Details..">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input type="text" id="due_amount" name="due_amount" class="form-control" placeholder="Enter Amount" require="true">
+                                    <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-actions">
+                            <div class="col-xs-12 text-right">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Save Amount</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- END Modal Body -->
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-update-due" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header text-center bg-info">
+                    <h2 class="modal-title"><i class="fa fa-edit"></i> Update Data</h2>
+                </div>
+                <!-- END Modal Header -->
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form action="<?php echo base_url('admin/update_due_data'); ?>" id="due-validation" method="post" class="form-horizontal form-bordered">
+                        <input type="hidden" id="update_due_id" name="due_id" >
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Date</label>
+                            <div class="col-md-8">
+                                <input type="text" id="update_due_date" name="due_date" class="form-control" placeholder="Date..">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Details</label>
+                            <div class="col-md-8">
+                                <input type="text" id="update_due_details" name="due_details" class="form-control" placeholder="Details..">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input type="text" id="update_due_amount" name="due_amount" class="form-control" placeholder="Enter Amount" require="true">
+                                    <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-actions">
+                            <div class="col-xs-12 text-right">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-info">Update Amount</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- END Modal Body -->
+            </div>
+        </div>
+    </div>
 
 <script>
     var base_url = document.getElementById("base_url").value; //$('#base_url').val();
@@ -513,7 +565,7 @@
         .then((result) => {
             if (result.value) {
                 $.ajax({
-                    url: base_url+'admin/update_due_data',
+                    url: base_url+'admin/status_due_data',
                     type: 'post',
                     data: {due_id : id, due_type: 'due'},
                     success: function(res){
@@ -524,8 +576,8 @@
         })
     }
 
-    function deleteIncomeData(mythis){
-        var userId = $(mythis).data('user_id');
+    function deleteDueData(mythis){
+        var dueId = $(mythis).data('id');
         swal({
             title: "Are you sure?", 
             text: "You won't be able to revert this!", 
@@ -538,33 +590,23 @@
                 if (result.value) {
                     
                     $.ajax({
-                        url: base_url+'admin/delete_row',
+                        url: base_url+'admin/delete_by_id',
                         type: 'post',
-                        data: {userId : userId, tbl_name : 'incomes'},
+                        data: {id : dueId, tbl_name : 'monthly_commitments'},
                         success: function(res){
-                            window.location.href = base_url+'incomes';
+                            window.location.href = base_url+'commitment';
                         }
                     });
                 }
             })
     }
 
-    function fetchIncomeData(mythis){
-        var incType = $(mythis).data('inc_type');
-        var userId = $(mythis).data('user_id');
-
-        if(incType == 'plus'){
-            $("#insert_type").val('new_plus');
-            $("#old_amount_type").val('DEB');
-        }else{
-            $("#insert_type").val('old');
-            $("#old_amount_type").val('CRE');
-        }
-
-        $("#old_user_id").val(userId);
-        
-        $('#modal-income-old').modal('show');
-        
+    function fetchDueData(mythis)
+    {
+        $("#update_due_id").val( $(mythis).data('id'));
+        $("#update_due_date").val( $(mythis).data('date'));
+        $("#update_due_details").val( $(mythis).data('details'));
+        $("#update_due_amount").val( $(mythis).data('amount'));
     }
 </script>
 <style>

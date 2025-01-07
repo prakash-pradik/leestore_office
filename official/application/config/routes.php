@@ -57,21 +57,21 @@ $route['login'] = 'login/index';
 $route['logout'] = 'login/logout';
 
 $route['dashboard'] = 'admin/dashboard';
-$route['users'] = 'admin/users';
-$route['incomes'] = 'admin/incomes';
-$route['outcomes'] = 'admin/outcomes';
-$route['commitment'] = 'admin/commitments';
 $route['daily_sales/(:any)'] = 'admin/daily_sales/$1';
 $route['full_report/(:any)'] = 'admin/full_report/$1';
-$route['inactive_sales'] = 'admin/inactive_sales';
 $route['buy_sell'] = 'admin/buy_sell';
 $route['employee_advance'] = 'admin/employee_advance';
 $route['employee_details/(:any)'] = 'admin/employee_details/$1';
 $route['user_details/(:any)'] = 'admin/user_details/$1';
-
-$route['print_test'] = 'admin/print_test';
-
 $route['user_profile'] = 'admin/user_profile';
+
+$route['users'] = 'admin/users';
+$route['incomes'] = 'admin/incomes';
+$route['outcomes'] = 'admin/outcomes';
+$route['commitment'] = 'admin/commitments';
+$route['inactive_sales'] = 'admin/inactive_sales';
+$route['wallet'] = 'admin/wallet';
 
 $route['createExcel'] = 'prints/createExcel';
 $route['booking'] = 'booking/home';
+$route['print_test'] = 'admin/print_test';

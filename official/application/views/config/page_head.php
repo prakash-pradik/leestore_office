@@ -65,19 +65,17 @@
                                     <a href="<?php echo base_url('daily_sales/'.$sId); ?>" class="<?php if($this->uri->segment(1) == 'daily_sales') echo 'active'; ?>"><i class="hi hi-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Daily Sales</span></a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url('full_report/month'); ?>" class="<?php if($this->uri->segment(1) == 'full_report') echo 'active'; ?>"><i class="gi gi-table sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Full Report</span></a>
+                                    <a href="<?php echo base_url('wallet'); ?>" class="<?php if($this->uri->segment(1) == 'wallet') echo 'active'; ?>"><i class="gi gi-wallet sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Wallet</span></a>
                                 </li>
-                                <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') { ?>
-                                <li>
-                                    <a href="<?php echo base_url('inactive_sales'); ?>" class="<?php if($this->uri->segment(1) == 'inactive_sales') echo 'active'; ?>"><i class="gi gi-ban sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Inactive Sales</span></a>
-                                </li>
-                                <?php } ?>
                                 <li>
                                     <a href="<?php echo base_url('buy_sell'); ?>" class="<?php if($this->uri->segment(1) == 'buy_sell') echo 'active'; ?>"><i class="hi hi-shopping-cart sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Buy/Sell Mobiles</span></a>
                                 </li>
 
                                 <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') { ?>
-								
+                                <li>
+                                    <a href="<?php echo base_url('inactive_sales'); ?>" class="<?php if($this->uri->segment(1) == 'inactive_sales') echo 'active'; ?>"><i class="gi gi-ban sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Inactive Sales</span></a>
+                                </li>
+                                
 								<li>
                                     <a href="<?php echo base_url('employee_advance'); ?>" class="<?php if($this->uri->segment(1) == 'employee_advance') echo 'active'; ?>"><i class="hi hi-user sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Employee Advance</span></a>
                                 </li>
@@ -96,6 +94,9 @@
                                 <?php } ?>
                                 <li>
                                     <a href="<?php echo base_url('booking'); ?>" class="<?php if($this->uri->segment(1) == 'booking') echo 'active'; ?>"><i class="fa fa-book sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Booking</span></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url('full_report/month'); ?>" class="<?php if($this->uri->segment(1) == 'full_report') echo 'active'; ?>"><i class="gi gi-table sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Full Report</span></a>
                                 </li>
 
                                 <li>

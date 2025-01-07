@@ -559,13 +559,30 @@ class Admin_model extends CI_Model{
             return false;
     }
 
-    public function get_commitment_stats(){
-        $sql = "SELECT 
-                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'due' AND status != 2) as total_due,
-                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'interest' AND status != 2) as total_interest,
-                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'credit' AND status != 2) as total_cc,
-                (SELECT SUM(amount) FROM monthly_commitments WHERE due_type = 'jewel' AND status != 2) as total_jewel";
+    public function get_commitments($type = ''){
+        
+        $where = "AND due_type = '".$type."'";
+
+        $sql = "SELECT * FROM `monthly_commitments` WHERE status != 2 $where ORDER BY monthly_date ASC";
         $query = $this->db->query($sql);
+        
+        if($query->num_rows() > 0 )
+            return $query->result_array();
+        else
+            return false;
+    }
+
+    public function get_commitment_stats(){
+
+        $sql = "SELECT 
+                sum(COALESCE( case when due_type = 'due' then amount END, 0)) as total_due,
+                sum(COALESCE( case when due_type = 'interest' then amount END, 0)) as total_interest,
+                sum(COALESCE( case when due_type = 'credit' then amount END, 0)) as total_cc,
+                sum(COALESCE( case when due_type = 'jewel' then amount END, 0)) as total_jewel
+                FROM monthly_commitments WHERE status != 2 ORDER BY monthly_date ASC";
+
+        $query = $this->db->query($sql);
+        
         if($query->num_rows() > 0 )
             return $query->row();
         else
