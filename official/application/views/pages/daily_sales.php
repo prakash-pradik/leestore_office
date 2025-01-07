@@ -215,6 +215,8 @@
 						<a href="<?php echo base_url('Prints/print/today'); ?>" class="btn btn-alt btn-warning" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
 						<?php } ?>
 
+						<a href="<?php echo base_url('Prints/print/yesterday'); ?>" class="btn btn-alt btn-info" data-toggle="tooltip" title="Yesterday"><i class="fa fa-history"></i></a>
+
 						<a href="#modal-sales-income" class="btn btn-success " data-toggle="modal" title="Add Income"><i class="fa fa-plus"></i> Add New</a>
 
 						<a href="#modal-sales-expense" class="btn btn-danger" data-toggle="modal" title="Add Expenses"><i class="fa fa-minus"></i> Add Expenses</a>
@@ -242,14 +244,42 @@
 								<td class="text-center"><?php echo $i; ?></td>
 								<td class="text-capitalize"><?php echo $sale['description']; ?></td>
 								<td class="text-right">
-									<h4 class="text-danger"><?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'exp' && ($sale['amount_mode'] == 'gpay' || $sale['amount_mode'] == 'open_gpay')) echo '<small class="text-bold text-warning"> (GPay)</small>'; ?></h4>
+									<h4 class="text-danger">
+										<?php 
+											if($sale['amount_type'] == 'exp') 
+												echo '₹'.$sale['amount'];
+											
+											if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'open_cash') 
+												echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open Cash)</small>';
+											
+											if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') 
+												echo '<small class="text-bold text-warning" style="font-size:12px;"> (GPay)</small>';
+											
+											if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'open_gpay') 
+												echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open GPay)</small>';
+										?>
+									</h4>
 								</td>
 								<td class="text-right">
 									<h4 class="text-success">
-										<?php if($sale['amount_type'] != 'exp') echo $sale['amount'].' ₹'; 
-										if($sale['amount_type'] == 'late') echo '<small class="text-bold text-warning"> (Late Pay)</small>'; 
-										if($sale['amount_type'] != 'exp' && ($sale['amount_mode'] == 'gpay' || $sale['amount_mode'] == 'open_gpay')) echo '<small class="text-bold text-warning"> (GPay)</small>'; 
-										if($sale['amount_type'] == 'card') echo '<small class="text-bold text-warning"> (Card Pay)</small>'; ?> 
+										<?php 
+											if($sale['amount_type'] != 'exp') 
+												echo '₹'.$sale['amount']; 
+											
+											if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'open_cash') 
+												echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open Cash)</small>';
+
+											if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'open_gpay') 
+												echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open GPay)</small>';
+
+											if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') 
+												echo '<small class="text-bold text-warning" style="font-size:12px;"> (GPay)</small>';
+
+											if($sale['amount_type'] == 'late') 
+												echo '<small class="text-bold text-warning" style="font-size:12px;"> (Late Pay)</small>';
+
+											if($sale['amount_type'] == 'card') echo '<small class="text-bold text-warning" style="font-size:12px;"> (Card Pay)</small>'; 
+										?> 
 									</h4>
 								</td>
 								<td class=""><?php echo $sale['name']; ?></td>

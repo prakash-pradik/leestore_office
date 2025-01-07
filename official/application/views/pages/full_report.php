@@ -14,9 +14,9 @@
         <div class="block-title">
             <h2><strong>Full Reports</strong> Table</h2>
             <div class="block-options pull-right">
-				<a href="<?php echo base_url('Prints/print/'.$this->uri->segment(2)); ?>" class="btn btn-alt btn-info" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
+				<a href="<?php echo base_url('Prints/print/'.$this->uri->segment(2)); ?>" class="btn btn-alt btn-warning" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
 
-                <a href="<?php echo base_url('createExcel'); ?>" class="btn btn-alt btn-success" data-toggle="tooltip" title="Excel"><i class="fi fi-xls"></i></a>
+                <!-- <a href="<?php echo base_url('createExcel'); ?>" class="btn btn-alt btn-success" data-toggle="tooltip" title="Excel"><i class="fi fi-xls"></i></a> -->
 
                 <?php 
                     if($this->uri->segment(2) == 'all') $filter_name = 'Report All'; 

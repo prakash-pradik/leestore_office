@@ -89,17 +89,28 @@
                                 </tr>
                             </table>
                         </header>
-                        <h3 class="text-center" style="padding-bottom:10px"><?php echo $day_type; ?> Sales Report <?php if($day_type == 'Today') { echo '('.date("d-M-Y").')'; } ?></h3>
+                        <h3 class="text-center" style="padding-bottom:10px">
+                            
+                            <?php 
+                                if($day_type == 'Today'){
+                                    echo 'Today Sales Report ('.date("d-M-Y").')';
+                                } else if($day_type == 'Yesterday'){
+                                    echo 'Today Sales Report ('.date("d-M-Y", strtotime("yesterday")).')';
+                                } else {
+                                    echo 'Overall Sales Report';
+                                }
+                            ?>
+                        </h3>
                         <div class="invoice">
                             <table>
                                 <thead>
                                     <tr>
-                                        <th class="text-center">#</th>
-                                        <th width="20%">Details</th>
+                                        <th width="6%" class="text-center">#</th>
+                                        <th width="19%">Details</th>
                                         <th width="20%" class="text-right">Debit Amt(₹)</th>
                                         <th width="20%" class="text-right">Credit Amt(₹)</th>
                                         <th width="18%">Sales Person</th>
-                                        <th width="18%">Date</th>
+                                        <th width="17%">Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -108,20 +119,45 @@
                                         foreach($daily_sales as $sale){
                                     ?>
                                     <tr>
-                                        <td class="text-center"><?php echo $i; ?></td>
+                                        <td class="text-center"><?php echo sprintf("%02d", $i); ?></td>
                                         <td class="" style="text-transform:capitalize;"><?php echo $sale['description']; ?></td>
                                         <td class="text-right">
                                             <h4 class="text-danger">
-                                                <?php if($sale['amount_type'] == 'exp') echo '₹'.$sale['amount']; 
-                                                if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning" style="font-size:12px;"> (GPay)</small>'; ?>
+                                                <?php 
+                                                    if($sale['amount_type'] == 'exp') 
+                                                        echo '₹'.$sale['amount'];
+                                                    
+                                                    if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'open_cash') 
+                                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open Cash)</small>';
+                                                    
+                                                    if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') 
+                                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (GPay)</small>';
+                                                    
+                                                    if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'open_gpay') 
+                                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open GPay)</small>';
+                                                ?>
                                             </h4>
                                         </td>
                                         <td class="text-right">
                                             <h4 class="text-success">
-                                                <?php if($sale['amount_type'] != 'exp') echo '₹'.$sale['amount']; 
-                                                if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning" style="font-size:12px;"> (GPay)</small>';
-                                                if($sale['amount_type'] == 'late') echo '<small class="text-bold text-warning" style="font-size:12px;"> (Late Pay)</small>'; 
-                                                if($sale['amount_type'] == 'card') echo '<small class="text-bold text-warning" style="font-size:12px;"> (Card Pay)</small>'; ?>
+                                                <?php 
+                                                    if($sale['amount_type'] != 'exp') 
+                                                        echo '₹'.$sale['amount']; 
+                                                    
+                                                    if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'open_cash') 
+                                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open Cash)</small>';
+
+                                                    if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'open_gpay') 
+                                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open GPay)</small>';
+
+                                                    if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') 
+                                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (GPay)</small>';
+
+                                                    if($sale['amount_type'] == 'late') 
+                                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (Late Pay)</small>';
+
+                                                    if($sale['amount_type'] == 'card') echo '<small class="text-bold text-warning" style="font-size:12px;"> (Card Pay)</small>'; 
+                                                ?>
                                             </h4>
                                         </td>
                                         <td class=""><?php echo $sale['name']; ?></td>
@@ -137,12 +173,12 @@
                                 </tbody>
                             </table>
 							<br/>
-                            <?php if($day_type == 'Today') {  ?>
+                            <?php if($day_type == 'Today' || $day_type == 'Yesterday') {  ?>
 							<table>
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Total Income (₹)</th>
-                                        <th class="text-center">Total Expenses (₹)</th>
+                                        <th class="text-center">Cash Income (₹)</th>
+                                        <th class="text-center">Cash Expenses (₹)</th>
                                         <th class="text-center">Cash Available (₹)</th>
 										<th class="text-center">Gpay Income (₹)</th>
                                         <th class="text-center">Gpay Expenses (₹)</th>
@@ -151,12 +187,13 @@
                                 </thead>
 								<tbody>
 									<tr>
-										<td class="text-center"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_income)) echo $today_stats->today_income; else echo '0'; } ?></h3></td>
-										<td class="text-center"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_expense)) echo $today_stats->today_expense; else echo '0'; } ?></h3></td>
-										<td class="text-center"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_available)) echo $today_stats->today_available; else echo '0'; } ?></h3></td>
-										<td class="text-center"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_income)) echo $gpay_stats->gpay_income; else echo '0'; } ?></h3></td>
-										<td class="text-center"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_expense)) echo $gpay_stats->gpay_expense; else echo '0'; } ?></h3></td>
-										<td class="text-center"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_available)) echo $gpay_stats->gpay_available; else echo '0'; } ?></h3></td>
+										<td class="text-center text-info"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_income)) echo $today_stats->today_income; else echo '0'; } ?></h3></td>
+										<td class="text-center text-danger"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_expense)) echo $today_stats->today_expense; else echo '0'; } ?></h3></td>
+										<td class="text-center text-success"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_available)) echo $today_stats->today_available; else echo '0'; } ?></h3></td>
+										
+                                        <td class="text-center text-info"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_income)) echo $gpay_stats->gpay_income; else echo '0'; } ?></h3></td>
+										<td class="text-center text-warning"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_expense)) echo $gpay_stats->gpay_expense; else echo '0'; } ?></h3></td>
+										<td class="text-center text-success"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_available)) echo $gpay_stats->gpay_available; else echo '0'; } ?></h3></td>
 									</tr>
 								</tbody>
 							</table>

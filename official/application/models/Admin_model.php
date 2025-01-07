@@ -178,9 +178,10 @@ class Admin_model extends CI_Model{
             $where1 = ""; //$where1 = "AND ds.store_id = '".$store_id."'"; //$where1 = "";
 
         $today_date   = date("Y-m-d");
+        $yesterday = date("Y-m-d", strtotime("yesterday"));
 
         $start_date = $this->input->post('example-daterange1');
-        $end_date = $this->input->post('example-daterange2'); 
+        $end_date = $this->input->post('example-daterange2');
 
         if($all == 'today')
             $where = "AND DATE(ds.date_added) = '".$today_date."'";
@@ -194,6 +195,8 @@ class Admin_model extends CI_Model{
             $where = "AND MONTH(ds.date_added) = MONTH(now())-1 ";
         else if($all == 'custom')
             $where = "AND DATE(ds.date_added) BETWEEN '$start_date' AND '$end_date'";
+        else if($all == 'yesterday')
+            $where = "AND DATE(ds.date_added) = '".$yesterday."'";
         else
             $where = "";
         
@@ -210,26 +213,67 @@ class Admin_model extends CI_Model{
             return false;
     }
 	
-	public function get_sales_stats(){
+	public function get_sales_stats($all = ''){
         $sessionUser = $this->session->userdata('user_loggedin');
         $storeId = $sessionUser['store_id'];
+
+        $today_date   = date("Y-m-d");
+        $yesterday = date("Y-m-d", strtotime("yesterday"));
 		
 		if($sessionUser['admin_type'] == 'biller')
 			$where = "store_id = '".$storeId."'";
 		else
 			$where = "1=1";
-		
 
-        $today_date   = date("Y-m-d");
+        if($all == 'today')
+            $where1 = "AND DATE(date_added) = '".$today_date."'";
+        else if($all == 'yesterday')
+            $where1 = "AND DATE(date_added) = '".$yesterday."'";
+        else
+            $where1 = "";
+		
         $sql = "SELECT 
                     sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) as today_income,
                     sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as today_expense,
                     sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) - sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as today_available,
                     (SELECT sum(COALESCE( case when amount_type = 'card' then amount END, 0)) as today_expense FROM daily_sales WHERE status = 1 AND amount_mode = 'card_pay' AND $where AND DATE(date_added) = '".$today_date."') as today_card 
-                FROM daily_sales WHERE status = 1 AND amount_mode = 'cash' AND $where AND DATE(date_added) = '".$today_date."'";
+                FROM daily_sales WHERE status = 1 AND amount_mode = 'cash' AND $where $where1";
 
         $query = $this->db->query($sql);
         //echo $this->db->last_query();
+        if($query->num_rows() > 0 )
+            return $query->row();
+        else
+            return false;
+    }
+
+    public function get_gpay_stats($all = ''){
+        $sessionUser = $this->session->userdata('user_loggedin');
+        $storeId = $sessionUser['store_id'];
+
+        $today_date   = date("Y-m-d");
+        $yesterday = date("Y-m-d", strtotime("yesterday"));
+		
+		if($sessionUser['admin_type'] == 'biller')
+			$where = "store_id = '".$storeId."'";
+		else
+			$where = "1=1";
+
+        if($all == 'today')
+            $where1 = "AND DATE(date_added) = '".$today_date."'";
+        else if($all == 'yesterday')
+            $where1 = "AND DATE(date_added) = '".$yesterday."'";
+        else
+            $where1 = "";
+
+        $sql = "SELECT 
+                    sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) as gpay_income,
+					sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as gpay_expense,
+					sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) - sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as gpay_available
+                FROM daily_sales WHERE amount_mode = 'gpay' AND status = 1 AND $where $where1";
+
+        $query = $this->db->query($sql);
+
         if($query->num_rows() > 0 )
             return $query->row();
         else
@@ -262,30 +306,6 @@ class Admin_model extends CI_Model{
 
         $query = $this->db->query($sql);
         //echo $this->db->last_query();
-        if($query->num_rows() > 0 )
-            return $query->row();
-        else
-            return false;
-    }
-	
-	public function get_gpay_stats(){
-        $sessionUser = $this->session->userdata('user_loggedin');
-        $storeId = $sessionUser['store_id'];
-		
-		if($sessionUser['admin_type'] == 'biller')
-			$where = "store_id = '".$storeId."'";
-		else
-			$where = "1=1";
-
-        $today_date   = date("Y-m-d");
-        $sql = "SELECT 
-                    sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) as gpay_income,
-					sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as gpay_expense,
-					sum(COALESCE( case when amount_type = 'inc' then amount END, 0)) - sum(COALESCE( case when amount_type = 'exp' then amount END, 0)) as gpay_available
-                FROM daily_sales WHERE amount_mode = 'gpay' AND status = 1 AND $where AND DATE(date_added) = '".$today_date."'";
-
-        $query = $this->db->query($sql);
-
         if($query->num_rows() > 0 )
             return $query->row();
         else

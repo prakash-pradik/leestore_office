@@ -26,8 +26,6 @@ class Admin extends CI_Controller {
 		$data['session_user'] = $this->session->userdata('user_loggedin');
 		$data['users'] = $this->admin_model->get_all_users('users');
 		$data['employees'] = $this->admin_model->get_all_employees();
-		$data['today_stats'] = $this->admin_model->get_sales_stats();
-		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
 		$this->load->view('config/template_start');
 		$this->load->view('config/page_head',$data);
 		$this->load->view('pages/dashboard', $data);
@@ -247,8 +245,8 @@ class Admin extends CI_Controller {
 		$data['session_user'] = $sessionUser = $this->session->userdata('user_loggedin');
 		$data['employees'] = $this->admin_model->get_all_employees();
 		$data['daily_sales'] = $this->admin_model->get_all_sales('today', 'desc', $store_id);
-		$data['today_stats'] = $this->admin_model->get_sales_stats();
-		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
+		$data['today_stats'] = $this->admin_model->get_sales_stats('today');
+		$data['gpay_stats'] = $this->admin_model->get_gpay_stats('today');
 		
 		$data['open_stats'] = $this->admin_model->get_opening_stats();
 		$data['daily_notes'] = $this->admin_model->get_daily_notes();
@@ -442,49 +440,6 @@ class Admin extends CI_Controller {
 		$this->load->view('config/template_scripts');
 		$this->load->view('config/template_end');
 	}
-
-	public function print($type)
-    {
-		if($type == 'today'){
-			$file_name = 'DailySalesReport.pdf';
-			$data['day_type'] = 'Today';
-			$orderBy = 'asc';
-		}
-		else{
-			$file_name = 'OverallSalesReport.pdf';
-			$data['day_type'] = 'Overall';
-			$orderBy = 'asc';
-		}
-		$today_dt = date('d-M-y h:ia');
-		$data['base_url'] = base_url();
-		$data['daily_sales'] = $this->admin_model->get_all_sales($type, $orderBy, '1');
-		$data['today_stats'] = $this->admin_model->get_sales_stats();
-		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
-        
-		$html = $this->load->view('pages/sales_pdf', $data, true);
-        $mpdf = new \Mpdf\Mpdf([
-            'format'=>'A4',
-            'margin_top'=>10,
-            'margin_right'=>5,
-            'margin_left'=>5,
-            'margin_bottom'=>15,
-        ]);
-		$mpdf->curlAllowUnsafeSslRequests = true;
-		$mpdf->SetHTMLFooter('<div style="display:flex; justify-content:space-between; padding-top:10px; margin-left:10px;"><span style="">Created at:'.$today_dt.'</span> <span style="color:#777;font-size:12px;">&nbsp;&nbsp;Receipt was created on a computer and is valid without the signature and seal.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Page {PAGENO} of {nbpg}</span></div>');
-        $mpdf->WriteHTML($html);
-		//$mpdf->Output();
-		ob_end_clean();
-		$mpdf->Output($file_name, 'D');  
-    }
-	public function print_test()
-    {
-		$data['base_url'] = base_url();
-		$data['day_type'] = 'Overall';
-		$data['daily_sales'] = $this->admin_model->get_all_sales('all', 'asc', '1');
-		$data['today_stats'] = $this->admin_model->get_sales_stats();
-		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
-        $this->load->view('pages/sales_pdf',$data);
-    }
 	
 	public function employee_advance()
 	{

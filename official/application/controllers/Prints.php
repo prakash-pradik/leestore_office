@@ -25,6 +25,12 @@ class Prints extends CI_Controller {
 			$data['day_type'] = 'Today';
 			$orderBy = 'asc';
 		}
+		else if($type == 'yesterday'){
+			$yesterday = date("Y-m-d", strtotime("yesterday"));
+			$file_name = 'DailySalesReport_'.$yesterday.'.pdf';
+			$data['day_type'] = 'Yesterday';
+			$orderBy = 'asc';
+		}
 		else{
 			$file_name = 'OverallSalesReport_'.$today_dt.'.pdf';
 			$data['day_type'] = 'Overall';
@@ -33,8 +39,8 @@ class Prints extends CI_Controller {
 		
 		$data['base_url'] = base_url();
 		$data['daily_sales'] = $this->admin_model->get_all_sales($type, $orderBy, '1');
-		$data['today_stats'] = $this->admin_model->get_sales_stats();
-		$data['gpay_stats'] = $this->admin_model->get_gpay_stats();
+		$data['today_stats'] = $this->admin_model->get_sales_stats($type);
+		$data['gpay_stats'] = $this->admin_model->get_gpay_stats($type);
 
 		$html = $this->load->view('pages/sales_pdf', $data, true);
 		
@@ -110,8 +116,8 @@ class Prints extends CI_Controller {
 		
 		$salesData = $this->admin_model->get_all_sales($type, $orderBy, '1');
 
-		$today_stats = $this->admin_model->get_sales_stats();
-		$gpay_stats = $this->admin_model->get_gpay_stats();
+		$today_stats = $this->admin_model->get_sales_stats($type);
+		$gpay_stats = $this->admin_model->get_gpay_stats($type);
 
 		$i = 1;               
 		$name = "Daily Sales";
@@ -240,6 +246,16 @@ class Prints extends CI_Controller {
         $mpdf->WriteHTML($html);
 		//$mpdf->Output();
 		$mpdf->Output($file_name, 'D'); 
+    }
+
+	public function print_test()
+    {
+		$data['base_url'] = base_url();
+		$data['day_type'] = 'Overall';
+		$data['daily_sales'] = $this->admin_model->get_all_sales('all', 'asc', '1');
+		$data['today_stats'] = $this->admin_model->get_sales_stats('today');
+		$data['gpay_stats'] = $this->admin_model->get_gpay_stats('today');
+        $this->load->view('pages/sales_pdf',$data);
     }
 
 }
