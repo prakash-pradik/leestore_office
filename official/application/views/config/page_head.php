@@ -95,9 +95,9 @@
                                 
                                 <?php } ?>
                                 <li>
-                                    <a href="<?php echo base_url('booking'); ?>" class="<?php if($this->uri->segment(1) == 'booking') echo 'active'; ?>" target="_blank"><i class="fa fa-book sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Booking</span></a>
+                                    <a href="<?php echo base_url('booking'); ?>" class="<?php if($this->uri->segment(1) == 'booking') echo 'active'; ?>"><i class="fa fa-book sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Booking</span></a>
                                 </li>
-                                
+
                                 <li>
                                     <?php $daily_notes = get_notes(); ?>
                                     <form action="<?php echo base_url('admin/insert_notes'); ?>" id="income-validation" method="post" class="form-horizontal" style="margin:10px 5px 5px; padding:0px;">

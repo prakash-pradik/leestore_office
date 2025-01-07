@@ -210,7 +210,7 @@
 						<thead>
 							<tr>
 								<th width="5%" class="text-center">Sl.No</th>
-								<th >Details</th>
+								<th>Details</th>
 								<th width="18%" class="text-right">Today Debit (₹)</th>
 								<th width="18%" class="text-right">Today Credit (₹)</th>
 								<th width="18%">Sales Person</th>
@@ -226,13 +226,13 @@
 								<td class="text-center"><?php echo $i; ?></td>
 								<td class="text-capitalize"><?php echo $sale['description']; ?></td>
 								<td class="text-right">
-									<h4 class="text-danger"><?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning"> (GPay)</small>'; ?></h4>
+									<h4 class="text-danger"><?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'exp' && ($sale['amount_mode'] == 'gpay' || $sale['amount_mode'] == 'open_gpay')) echo '<small class="text-bold text-warning"> (GPay)</small>'; ?></h4>
 								</td>
 								<td class="text-right">
 									<h4 class="text-success">
 										<?php if($sale['amount_type'] != 'exp') echo $sale['amount'].' ₹'; 
 										if($sale['amount_type'] == 'late') echo '<small class="text-bold text-warning"> (Late Pay)</small>'; 
-										if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning"> (GPay)</small>'; 
+										if($sale['amount_type'] != 'exp' && ($sale['amount_mode'] == 'gpay' || $sale['amount_mode'] == 'open_gpay')) echo '<small class="text-bold text-warning"> (GPay)</small>'; 
 										if($sale['amount_type'] == 'card') echo '<small class="text-bold text-warning"> (Card Pay)</small>'; ?> 
 									</h4>
 								</td>
