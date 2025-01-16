@@ -91,7 +91,7 @@
 
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <form action="<?php echo base_url('admin/update_wallet_data'); ?>" id="wallet-update-validation" method="post" class="form-horizontal form-bordered">
+                    <form action="<?php echo base_url('admin/insert_wallet_data'); ?>" id="wallet-update-validation" method="post" class="form-horizontal form-bordered">
                         <input type="hidden" id="update_wallet_id" name="update_wallet_id">
                         <div class="form-group">
                             <label class="col-md-4 control-label">Details</label>

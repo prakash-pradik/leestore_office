@@ -761,7 +761,7 @@ class Admin extends CI_Controller {
 	public function wallet()
 	{
 		$data['session_user'] = $this->session->userdata('user_loggedin');		
-		$data['wallets'] = $this->admin_model->get_data('wallets', array('status'=>'1'), 'result_array', '', '');
+		$data['wallets'] = $this->admin_model->get_wallets();
 		$this->load->view('config/template_start');
 		$this->load->view('config/page_head',$data);
 		$this->load->view('pages/wallet', $data);

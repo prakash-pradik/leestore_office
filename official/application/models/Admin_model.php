@@ -119,15 +119,15 @@ class Admin_model extends CI_Model{
 
     public function get_all_incomes(){
 
-        $sql = "select u.name, u.id, inc.notes,
+        $sql = "SELECT u.name, u.id, inc.notes,
                     sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) as total_credit,
                     sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_debit,
                     sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_available 
-                from incomes as inc
-                join users as u 
-                    on u.id = inc.user_id
-                    and inc.status = 1
-                group by inc.user_id order by inc.date_added";
+                FROM incomes as inc
+                JOIN users as u 
+                    ON u.id = inc.user_id
+                    AND inc.status = 1
+                GROUP BY inc.user_id ORDER BY inc.date_added DESC, total_available ASC";
 
         $query = $this->db->query($sql);
 
@@ -149,15 +149,15 @@ class Admin_model extends CI_Model{
 
     public function get_all_outcomes(){
 
-        $sql = "select u.name, u.id, inc.notes,
+        $sql = "SELECT u.name, u.id, inc.notes,
                     sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) as total_credit,
                     sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_debit,
                     sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_available 
-                from outcomes as inc
-                join users as u 
-                    on u.id = inc.user_id
-                    and inc.status = 1
-                group by inc.user_id order by inc.date_added desc";
+                FROM outcomes as inc
+                JOIN users as u 
+                    ON u.id = inc.user_id
+                    AND inc.status = 1
+                GROUP BY inc.user_id ORDER BY inc.date_added ASC, total_available DESC";
 
         $query = $this->db->query($sql);
 
@@ -585,6 +585,17 @@ class Admin_model extends CI_Model{
         
         if($query->num_rows() > 0 )
             return $query->row();
+        else
+            return false;
+    }
+
+    public function get_wallets(){
+
+        $sql = "SELECT * FROM `wallets` WHERE status != 2 AND id IN ( SELECT MAX(id) FROM wallets GROUP BY details) ORDER BY details ASC";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->result_array();
         else
             return false;
     }

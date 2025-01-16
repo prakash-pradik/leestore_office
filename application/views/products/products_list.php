@@ -18,6 +18,7 @@
         <div class="block-title">
             <h2><strong>Product</strong> Table</h2>
             <div class="block-options pull-right">
+				<a href="<?php echo base_url('Prints/productsPdf'); ?>" class="btn btn-alt btn-warning" data-toggle="tooltip" title="Print"><i class="gi gi-print"></i></a>
                 <a href="<?php echo base_url('product_create'); ?>" class="btn btn-success" data-toggle="tooltop" title="Add New"><i class="fa fa-plus"></i> Add New</a>
             </div>
         </div>
