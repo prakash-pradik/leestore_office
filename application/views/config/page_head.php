@@ -70,7 +70,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <?php } ?>
+                                <?php } } ?>
                                 <li>
                                     <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-cargo sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Product Manage</span></a>
                                     <ul>
@@ -83,13 +83,15 @@
                                         <li>
                                             <a href="<?php echo base_url('products') ?>">Product list</a>
                                         </li>
+										<?php if(!empty($session_user) && $session_user['role_type'] === 'Manager' ) { ?>
                                         <li>
                                             <a href="<?php echo base_url('godown') ?>">Godown Manage</a>
                                         </li>
+										<?php } ?>
                                     </ul>
                                 </li>
-                                <?php } ?>
-                                <li>
+								
+								<li>
                                     <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-inr sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Sales Manage</span></a>
                                     <ul>
                                         <li>
@@ -110,9 +112,6 @@
                                 <?php }  ?>
                                 <li>
                                     <a href="<?php echo base_url('customers'); ?>" class="<?php if($this->uri->segment(1) == 'customers') echo 'active'; ?>"><i class="hi hi-user sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Customers List</span></a>
-                                </li>
-								<li>
-                                    <a href="<?php echo base_url('booking'); ?>" class="<?php if($this->uri->segment(1) == 'booking') echo 'active'; ?>" target="_blank"><i class="fa fa-book sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Booking</span></a>
                                 </li>
                                 <li>
                                     <a href="<?php echo base_url('payments'); ?>" class="<?php if($this->uri->segment(1) == 'payments') echo 'active'; ?>" target="_blank"><i class="fa fa-inr sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Payment Billing</span></a>

@@ -54,8 +54,8 @@ class Products extends CI_Controller {
 		$this->load->view('config/template_end');
 	}
 	
-	public function insert_product(){
-
+	public function insert_product()
+	{
 		$data = array(
 			'store_id' => $this->input->post('product_store'),
 			'product_type' => $this->input->post('product_type'),
@@ -109,6 +109,8 @@ class Products extends CI_Controller {
 		$data['categories'] = $this->admin_model->get_data('categories', array('status'=>'1'), 'result_array');
 		$data['brands'] = $this->admin_model->get_data('brands', array('status'=>'1'), 'result_array');
 		$data['product'] = $this->admin_model->get_product_data($id);
+		$data['orders'] = $this->product_model->get_all_orders_by_products($id);
+		
 		$this->load->view('config/template_start');
 		$this->load->view('config/page_head',$data);
 		$this->load->view('products/product_view', $data);
@@ -132,8 +134,8 @@ class Products extends CI_Controller {
 		$this->load->view('config/template_end');
 	}
 
-	public function update_product(){
-
+	public function update_product()
+	{
 		$id = $this->input->post('product_id');
 
 		$data = array(
@@ -169,7 +171,27 @@ class Products extends CI_Controller {
 			$this->session->set_flashdata('message', 'Data Successfully Updated..!');
 			redirect(base_url('products_list'));
 		}
+	}
+	
+	public function update_quantity()
+	{
+		$id = $this->input->post('update_product_id');
+		$qntyOld = $this->input->post('update_qnty_old');
+		$qntyNew = $this->input->post('update_qnty_new');
 
+		$qnty = ($qntyOld + $qntyNew);
+		
+		$data = array(
+			'qnty' => $qnty,
+			'date_modified' => date("Y-m-d H:i:s")
+		);
+
+		$where = array('id' => $id );
+		$update = $this->admin_model->update_row_data('products', $where, $data);
+		if($update){
+			$this->session->set_flashdata('message', 'Data Successfully Updated..!');
+			redirect(base_url('products_list'));
+		}
 	}
 
 	public function categories()

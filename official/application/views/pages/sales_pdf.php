@@ -125,7 +125,7 @@
                                             <h4 class="text-danger">
                                                 <?php 
                                                     if($sale['amount_type'] == 'exp') 
-                                                        echo '₹'.$sale['amount'];
+                                                        echo '₹'.preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $sale['amount']);
                                                     
                                                     if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'open_cash') 
                                                         echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open Cash)</small>';
@@ -142,7 +142,7 @@
                                             <h4 class="text-success">
                                                 <?php 
                                                     if($sale['amount_type'] != 'exp') 
-                                                        echo '₹'.$sale['amount']; 
+                                                        echo '₹'.preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $sale['amount']); 
                                                     
                                                     if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'open_cash') 
                                                         echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open Cash)</small>';
@@ -187,13 +187,13 @@
                                 </thead>
 								<tbody>
 									<tr>
-										<td class="text-center text-info"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_income)) echo $today_stats->today_income; else echo '0'; } ?></h3></td>
-										<td class="text-center text-danger"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_expense)) echo $today_stats->today_expense; else echo '0'; } ?></h3></td>
-										<td class="text-center text-success"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_available)) echo $today_stats->today_available; else echo '0'; } ?></h3></td>
+										<td class="text-center text-info"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_income)) echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $today_stats->today_income); else echo '0'; } ?></h3></td>
+										<td class="text-center text-danger"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_expense)) echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $today_stats->today_expense); else echo '0'; } ?></h3></td>
+										<td class="text-center text-success"><h3><?php if(!empty($today_stats)) { if(!empty($today_stats->today_available)) echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $today_stats->today_available); else echo '0'; } ?></h3></td>
 										
-                                        <td class="text-center text-info"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_income)) echo $gpay_stats->gpay_income; else echo '0'; } ?></h3></td>
-										<td class="text-center text-warning"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_expense)) echo $gpay_stats->gpay_expense; else echo '0'; } ?></h3></td>
-										<td class="text-center text-success"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_available)) echo $gpay_stats->gpay_available; else echo '0'; } ?></h3></td>
+                                        <td class="text-center text-info"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_income)) echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $gpay_stats->gpay_income); else echo '0'; } ?></h3></td>
+										<td class="text-center text-warning"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_expense)) echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $gpay_stats->gpay_expense); else echo '0'; } ?></h3></td>
+										<td class="text-center text-success"><h3><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_available)) echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $gpay_stats->gpay_available); else echo '0'; } ?></h3></td>
 									</tr>
 								</tbody>
 							</table>

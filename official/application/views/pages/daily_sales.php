@@ -17,20 +17,30 @@
 
 					$getDate = $day_close->closing_date;
 				}
-			
+
 				if(!empty($open_stats)) { 
-					if(!empty($open_stats->available_cash)) $av_cash = $open_stats->available_cash; 
+					if(!empty($open_stats->available_cash)) $av_cash = $open_stats->available_cash;
 					else $av_cash = '0';
 
-					if(!empty($open_stats->total_cash)) $total_opc = $open_stats->total_cash; 
+					if(!empty($open_stats->total_cash)) $total_opc = $open_stats->total_cash;
 					else $total_opc = '0';
 					
-					if(!empty($open_stats->available_gpay)) $av_gpay = $open_stats->available_gpay; 
+					if(!empty($open_stats->available_gpay)) $av_gpay = $open_stats->available_gpay;
 					else $av_gpay = '0';
 
-					if(!empty($open_stats->total_gpay)) $total_opg = $open_stats->total_gpay; 
+					if(!empty($open_stats->total_gpay)) $total_opg = $open_stats->total_gpay;
 					else $total_opg = '0';
-				} 
+				}
+				
+				if(!empty($today_stats)) {
+					if(!empty($today_stats->today_available))
+						$store_cash = $today_stats->today_available;
+				}
+
+				if(!empty($gpay_stats)) {
+					if(!empty($gpay_stats->gpay_available))
+						$store_gpay = $gpay_stats->gpay_available;
+				}
 			?>
 
 			<div class="row">
@@ -77,6 +87,29 @@
 								echo $gpayBalance;
 							}
 						?></span></label>
+					</h1>
+				</div>
+				<?php } else { ?>
+				<div class="col-md-2 text-center">
+					<h1>
+						<label class="text-center">Total Cash<br/><span class="text-success">₹
+						<?php 
+							echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $store_cash); 
+						?></span></label>
+					</h1>
+				</div>
+				<div class="col-md-2 text-center">
+					<h1>
+						<label class="text-center">Total GPay<br/><span class="text-info">₹
+						<?php 
+							echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $store_gpay); 
+						?></span></label>
+					</h1>
+				</div>
+				<div class="col-md-2 text-center">
+					<h1>
+						<label class="text-center">Total Card Pay<br/><span class="text-amethyst">₹
+						<?php if(!empty($today_stats)) {  if(!empty($today_stats->today_card)) echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $today_stats->today_card); else echo '0'; } ?></span></label>
 					</h1>
 				</div>
 				<?php } ?>
@@ -140,7 +173,7 @@
 					</div>
 					<h3 class="widget-content text-right animation-pullDown text-info">
 						₹ <strong><?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_income)) echo $gpay_stats->gpay_income; else echo '0'; } ?></strong><br>
-						<small>Store Gpay Income</small>
+						<small>Store GPay Income</small>
 					</h3>
 				</div>
 			</a>
@@ -151,7 +184,7 @@
 					</div>
 					<h3 class="widget-content text-right animation-pullDown text-danger">
 						₹ <strong> <?php if(!empty($gpay_stats)) {  if(!empty($gpay_stats->gpay_expense)) echo $gpay_stats->gpay_expense; else echo '0'; } ?></strong><br>
-						<small>Store Gpay Expenses</small>
+						<small>Store GPay Expenses</small>
 					</h3>
 				</div>
 			</a>
@@ -161,16 +194,8 @@
 						<i class="fa fa-credit-card"></i>
 					</div>
 					<h3 class="widget-content text-right animation-pullDown">
-						₹ <strong>
-						<?php 
-							if(!empty($gpay_stats)) { 
-								if(!empty($gpay_stats->gpay_available)) 
-									$store_gpay = $gpay_stats->gpay_available; 
-								else $store_gpay = 0;
-								
-								echo $store_gpay;
-						} ?></strong><br>
-						<small>Store Gpay Available</small>
+						₹ <strong> <?php echo $store_gpay; ?></strong><br>
+						<small>Store GPay Available</small>
 
 						<input type="hidden" id="gpay_available" value="<?php if(!empty($gpay_stats)) { if(!empty($gpay_stats->gpay_available)) echo $gpay_stats->gpay_available; else echo '0'; } ?>">
 					</h3>
@@ -241,13 +266,13 @@
 								foreach($daily_sales as $sale){
 							?>
 							<tr>
-								<td class="text-center"><?php echo $i; ?></td>
+								<td class="text-center"><?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?></td>
 								<td class="text-capitalize"><?php echo $sale['description']; ?></td>
 								<td class="text-right">
 									<h4 class="text-danger">
 										<?php 
 											if($sale['amount_type'] == 'exp') 
-												echo '₹'.$sale['amount'];
+												echo '₹'.preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $sale['amount']);
 											
 											if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'open_cash') 
 												echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open Cash)</small>';
@@ -264,7 +289,7 @@
 									<h4 class="text-success">
 										<?php 
 											if($sale['amount_type'] != 'exp') 
-												echo '₹'.$sale['amount']; 
+												echo '₹'.preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $sale['amount']); 
 											
 											if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'open_cash') 
 												echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open Cash)</small>';

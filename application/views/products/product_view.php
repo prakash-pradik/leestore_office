@@ -14,8 +14,9 @@
     
     <div class="row">
         <form action="<?php echo base_url('products/update_product'); ?>" id="product-update-validation" method="post" class="form-horizontal form-bordered product-form" enctype="multipart/form-data">
-            <div class="col-md-7">
-                <div class="block">
+            <div class="col-md-6">
+                
+				<div class="block">
                     <div class="block-title">
                         <h2><strong>Product</strong> Details</h2>
                     </div>
@@ -88,10 +89,7 @@
                             
                         </div>
                 </div>
-            </div>
-
-            <div class="col-md-5">
-                <!------ Price Block ----->
+				<!------ Price Block ----->
                 <div class="block">
                     <div class="block-title">
                         <h2><strong>Price</strong> Detail</h2>
@@ -124,8 +122,7 @@
                     </div>
                 </div>
                 <!------ Price Block ----->
-
-                <!------ Stock Block ----->
+				<!------ Stock Block ----->
                 <div class="block">
                     <div class="block-title">
                         <h2><strong>Stock</strong> Detail</h2>
@@ -146,8 +143,47 @@
                     </div>
                 </div>
                 <!------ Stock Block ----->
+				
             </div>
 
+            <div class="col-md-6">        
+				<div class="block">
+                    <div class="block-title">
+                        <h2><strong>Sales</strong> List</h2>
+                    </div>
+                    
+					<div class="table-responsive">
+						<table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+							<thead>
+								<tr>
+									<th class="text-center">Sl.No</th>
+									<th class="">Invoice #</th>
+									<th class="">Customer Name</th>
+									<th class="">Date & Time</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php if(!empty($orders)) {
+									$i = 1; 
+									foreach($orders as $order){
+								?>
+								<tr>
+									<td class="text-center" style="width: 10%;"><?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?></td>
+									<td style="width:20%;"><a href="<?php echo base_url('invoice/'.$order['ord_id']); ?>" class="text-info"><?php echo $order['invoice_no']; ?></a></td>
+									<td class=""><?php echo $order['customer_name']; ?></td>
+									<td><?php echo date('d-m-Y h:i a', strtotime($order['date_added'])); ?></td>
+								</tr>
+								<?php
+								$i++;
+									}
+								}?>
+								
+							</tbody>
+						</table><br/>
+					</div>
+				
+                </div>
+            </div>
 
         </form>
 

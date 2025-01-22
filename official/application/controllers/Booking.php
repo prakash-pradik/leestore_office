@@ -60,6 +60,7 @@ class Booking extends CI_Controller {
 			'phone_number' => $this->input->post('booking_phone'),
 			'details' => $this->input->post('booking_details'),
 			'amount' => $this->input->post('booking_amount'),
+			'pay_type' => $this->input->post('booking_pay'),
 			'address' => $this->input->post('booking_address'),
 			'date_modified' => date("Y-m-d H:i:s")
 		);

@@ -788,4 +788,65 @@
         }
     }
 
+    /***** Supplier Page *****/
+    function fetchSupplierDetails(mythis) {
+        var id = $(mythis).data('id');
+        $.ajax({
+            url: base_url + 'admin/fetch_data',
+            type: 'post',
+            data: { id: id, tbl_name: 'suppliers' },
+            dataType: "json",
+            success: function (res) {
+                $('.supplier_id').val(res.id);
+                $('.new_supplier_name').val(res.supplier_name);
+                $('.new_supplier_phone').val(res.phone_number);
+                $('.new_supplier_gst').val(res.gst_number);
+                $('.new_supplier_address').val(res.supplier_address);
+                $('.new_supplier_city').val(res.city);
+
+                $("#view_supplier_name").text(res.supplier_name);
+                $("#view_supplier_phone").text(res.phone_number);
+                $("#view_supplier_gst").text(res.gst_number);
+                $("#view_supplier_address").text(res.supplier_address);
+                $("#view_supplier_city").text(res.city);
+            }
+        });
+    }
+
+    function deleteSupplierData(mythis) {
+        var id = $(mythis).data('id');
+
+        swal({
+            title: "Are you sure?", 
+            text: "You won't be able to revert this!", 
+            type: "warning",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!",
+            showCancelButton: true
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: base_url + 'admin/delete_by_id',
+                    type: 'post',
+                    data: { id: id, tbl_name: 'suppliers' },
+                    success: function (res) {
+
+                        $(mythis).parent().parent().parent().remove();
+
+                        swal({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });
+
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000);
+                    }
+                });
+            }
+        });
+    }
+    /***** End Supplier Page *****/
+
 </script>

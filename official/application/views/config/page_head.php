@@ -95,6 +95,9 @@
                                 <li>
                                     <a href="<?php echo base_url('booking'); ?>" class="<?php if($this->uri->segment(1) == 'booking') echo 'active'; ?>"><i class="fa fa-book sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Booking</span></a>
                                 </li>
+								<li>
+                                    <a href="<?php echo base_url('suppliers'); ?>" class="<?php if($this->uri->segment(1) == 'suppliers') echo 'active'; ?>"><i class="gi gi-cart_in sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Suppliers List</span></a>
+                                </li>
                                 <li>
                                     <a href="<?php echo base_url('full_report/month'); ?>" class="<?php if($this->uri->segment(1) == 'full_report') echo 'active'; ?>"><i class="gi gi-table sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Full Report</span></a>
                                 </li>

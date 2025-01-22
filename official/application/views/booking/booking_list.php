@@ -26,12 +26,13 @@
             <table id="example-datatable" class="table table-vcenter table-bordered table-striped table-hover">
                 <thead>
                     <tr>
-                        <th class="text-center">Sl.No</th>
+                        <th class="text-center">#</th>
                         <th>Customer Name</th>
                         <th>Phone Number</th>
                         <th class="text-left">Details</th>
 						<th class="text-left">Amount</th>
 						<th class="">Pay Status</th>
+						<th class="">Order Date</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -42,18 +43,21 @@
 							
 							if($book['pay_type'] == 'paid')
                                 $bookStatus = '<a href="javascript:void(0)" class="label label-success">Paid</a>';
-                            else
+                            else if($book['pay_type'] == 'advance')
                                 $bookStatus = '<a href="javascript:void(0)" class="label label-warning">Advance</a>';
+							else
+                                $bookStatus = '<a href="javascript:void(0)" class="label label-info">Just Book</a>';
 							
                     ?>
                     <tr>
-                        <td class="text-center" width="10%"><a href="<?php echo base_url('booking/'.$book['id']); ?>" class="text-info"><?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?></a></td>
-                        <td class="text-capitalize" width="20%"><a href="<?php echo base_url('booking/'.$book['id']); ?>" class="text-info"><?php echo $book['name']; ?></a></td>
-						<td class="text-capitalize" width="15%">+91-<?php echo $book['phone_number']; ?></td>
+                        <td class="text-center" width="5%"><a href="javascript:void(0)" class="text-info"><?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?></a></td>
+                        <td class="text-capitalize" width="16%"><a href="javascript:void(0)" class="text-info"><?php echo $book['name']; ?></a></td>
+						<td class="text-capitalize" width="13%">+91-<?php echo $book['phone_number']; ?></td>
                         <td class="text-capitalize"><?php echo $book['details']; ?></td>
-						<td class="text-capitalize"><?php echo $book['amount']; ?></td>
-						<td class="text-capitalize"><?php echo $bookStatus; ?></td>
-                        <td class="text-center" width="15%">
+						<td class="text-capitalize"><?php if($book['amount'] !== '') echo '₹ '.preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $book['amount']) ?></td>
+						<td class="text-capitalize" width="10%"><?php echo $bookStatus; ?></td>
+						<td class="text-capitalize" width="10%"><?php echo date('d-m-Y', strtotime($book['date_added'])); ?></td>
+                        <td class="text-center" width="10%">
                             <div class="btn-group btn-group-xs">
                                 <a href="#modal-view-booking" data-id="<?php echo $book['id']; ?>" onclick="fetchBookingDetails(this);" data-toggle="modal" title="View" class="btn btn-warning enable-tooltip"><i class="fa fa-eye"></i></a>
 
@@ -117,6 +121,7 @@
 									<option value="">Please select</option>
 									<option value="paid">Full Paid</option>
 									<option value="advance">Advance</option>
+									<option value="just">Just Book</option>
 								</select>
 							</div>
 						</div>
@@ -179,10 +184,11 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Pay Status</label>
 							<div class="col-md-8">
-								<select id="update_booking_pay" name="update_booking_pay" class="form-control">
+								<select id="update_booking_pay" name="booking_pay" class="form-control">
 									<option value="">Please select</option>
 									<option value="paid">Full Paid</option>
 									<option value="advance">Advance</option>
+									<option value="just">Just Book</option>
 								</select>
 							</div>
 						</div>
