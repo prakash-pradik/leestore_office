@@ -389,9 +389,14 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Sales Person</label>
 							<div class="col-md-8">
-								<select id="emp_id" name="emp_id" class="form-control" size="1" require="true">
+
+								<select id="emp_id" name="emp_id" class="form-control" size="1" require="true" >
 								<option value="">Please select</option>
-								<?php if(!empty($employees)) {
+								<?php 
+								if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') {
+									echo '<option value="1" selected>Lee</option>';
+								}
+								else if(!empty($employees)) {
 									$i = 1; 
 									foreach($employees as $emp){
 										echo '<option value="'.$emp['id'].'">'.$emp['name'].'</option>';
@@ -404,7 +409,7 @@
 							<label class="col-md-4 control-label">Description</label>
 							<div class="col-md-8">
 								<div class="input-group">
-									<input type="text" id="sale_desc" name="sale_desc" class="form-control" placeholder="Description..">
+									<input type="text" id="sale_desc" name="sale_desc" class="form-control" placeholder="Description.." autofocus="autofocus">
 									<span class="input-group-addon"><i class="gi gi-notes"></i></span>
 								</div>
 							</div>
@@ -464,9 +469,13 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Sales Person</label>
 							<div class="col-md-8">
-								<select id="update_emp_id" name="emp_id" class="form-control" size="1" require="true">
+								<select id="update_emp_id" name="emp_id" class="form-control" size="1" require="true" >
 								<option value="">Please select</option>
-								<?php if(!empty($employees)) {
+								<?php 
+								if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') {
+									echo '<option value="1" selected>Lee</option>';
+								}
+								else if(!empty($employees)) {
 									$i = 1; 
 									foreach($employees as $emp){
 										echo '<option value="'.$emp['id'].'">'.$emp['name'].'</option>';
@@ -540,9 +549,13 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Name</label>
 							<div class="col-md-8">
-								<select id="emp_id" name="emp_id" class="form-control" size="1" require="true">
+								<select id="emp_id" name="emp_id" class="form-control" size="1" require="true" >
 								<option value="">Please select</option>
-								<?php if(!empty($employees)) {
+								<?php 
+								if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') {
+									echo '<option value="1" selected>Lee</option>';
+								}
+								else if(!empty($employees)) {
 									$i = 1; 
 									foreach($employees as $emp){
 										echo '<option value="'.$emp['id'].'">'.$emp['name'].'</option>';

@@ -73,10 +73,10 @@
         <div class="col-md-5">
             <?php 
                 $storeId = $selected = $disabled = '';
-                if(isset($session_user) && $session_user['role_type'] === 'Manager'){
+                if(isset($session_user)){
                     $storeId = $session_user['store_id'];
                     $disabled = 'disabled';
-                } 
+                }
             ?>
             <div class="block full" id="category_new_block" style="display:none;">
                 <div class="block-title">
@@ -116,6 +116,8 @@
 
                                         if($store['id'] == $storeId)
                                             $selected = 'selected';
+                                        else
+                                            $selected = "";
                                 ?>
                                     <option value="<?php echo $store['id']; ?>" <?php echo $selected; ?>><?php echo $store['store_name']; ?></option>
                                 <?php } } ?>

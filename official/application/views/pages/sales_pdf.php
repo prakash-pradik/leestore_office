@@ -93,9 +93,9 @@
                             
                             <?php 
                                 if($day_type == 'Today'){
-                                    echo 'Today Sales Report ('.date("d-M-Y").')';
+                                    echo 'Today Sales Report ('.date("d-M-Y l").')';
                                 } else if($day_type == 'Yesterday'){
-                                    echo 'Today Sales Report ('.date("d-M-Y", strtotime("yesterday")).')';
+                                    echo 'Today Sales Report ('.date("d-M-Y l", strtotime("yesterday")).')';
                                 } else {
                                     echo 'Overall Sales Report';
                                 }

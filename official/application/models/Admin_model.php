@@ -119,7 +119,7 @@ class Admin_model extends CI_Model{
 
     public function get_all_incomes(){
 
-        $sql = "SELECT u.name, u.id, inc.notes,
+        $sql = "SELECT u.name, u.id, inc.notes, MAX(inc.id) as lastId,
                     sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) as total_credit,
                     sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_debit,
                     sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_available 
@@ -127,7 +127,7 @@ class Admin_model extends CI_Model{
                 JOIN users as u 
                     ON u.id = inc.user_id
                     AND inc.status = 1
-                GROUP BY inc.user_id ORDER BY inc.date_added DESC, total_available ASC";
+                GROUP BY inc.user_id ORDER BY lastId DESC";
 
         $query = $this->db->query($sql);
 
@@ -149,7 +149,7 @@ class Admin_model extends CI_Model{
 
     public function get_all_outcomes(){
 
-        $sql = "SELECT u.name, u.id, inc.notes,
+        $sql = "SELECT u.name, u.id, inc.notes, MAX(inc.id) as lastId,
                     sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) as total_credit,
                     sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_debit,
                     sum(COALESCE( case when amount_type = 'DEB' then amount END, 0)) - sum(COALESCE( case when amount_type = 'CRE' then amount END, 0)) as total_available 
@@ -157,7 +157,7 @@ class Admin_model extends CI_Model{
                 JOIN users as u 
                     ON u.id = inc.user_id
                     AND inc.status = 1
-                GROUP BY inc.user_id ORDER BY inc.date_added ASC, total_available DESC";
+                GROUP BY inc.user_id ORDER BY lastId DESC";
 
         $query = $this->db->query($sql);
 

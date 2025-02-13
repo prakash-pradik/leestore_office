@@ -80,7 +80,7 @@ class Admin_model extends CI_Model{
         $sql = "SELECT prod.*, 
         (SELECT category_name FROM categories WHERE id = prod.category_id) as category_name, 
         (SELECT brand_name FROM brands WHERE id = prod.brand_id) as brand_name 
-        FROM `products` as prod WHERE status = '1' $storeWhere order by id desc";
+        FROM `products` as prod WHERE status = '1' AND prod.category_id != 2 $storeWhere order by id desc";
         $query = $this->db->query($sql);
 
         if($query->num_rows() > 0 )
@@ -160,7 +160,11 @@ class Admin_model extends CI_Model{
         else
             $where2 = "";
 
-        $sql = "SELECT ord.*, (SELECT name FROM customers WHERE id = ord.customer_id) as customer_name, (SELECT phone_number FROM customers WHERE id = ord.customer_id) as customer_phone FROM `orders` as ord WHERE status = '1' $where $where1 $where2 $storeWhere order by id desc";
+        $sql = "SELECT ord.*, 
+				(SELECT name FROM customers WHERE id = ord.customer_id) as customer_name, 
+				(SELECT phone_number FROM customers WHERE id = ord.customer_id) as customer_phone,
+				(SELECT full_name FROM employees WHERE id = ord.emp_id) as emp_name
+				FROM `orders` as ord WHERE status = '1' $where $where1 $where2 $storeWhere order by id desc";
         $query = $this->db->query($sql);
 
         if($query->num_rows() > 0 )
@@ -229,7 +233,8 @@ class Admin_model extends CI_Model{
             $sql = "SELECT ord.*, 
                     (SELECT name FROM customers WHERE id = ord.customer_id) as customer_name, 
                     (SELECT phone_number FROM customers WHERE id = ord.customer_id) as customer_phone,
-                    (SELECT address FROM customers WHERE id = ord.customer_id) as customer_address 
+                    (SELECT address FROM customers WHERE id = ord.customer_id) as customer_address,
+                    (SELECT full_name FROM employees WHERE id = ord.emp_id) as emp_name
                     FROM `orders` as ord WHERE ord.id = $id ";
             $query = $this->db->query($sql);
 

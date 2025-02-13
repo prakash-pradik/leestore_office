@@ -24,7 +24,7 @@
         <!-- Invoice Content -->
         <div class="row block-section">
             <!-- Company Info -->
-            <div class="col-md-9 customer-details">
+            <div class="col-md-8 customer-details">
                 <h4><?php echo $order->customer_name; ?> </h4>
                 <address>
                     <?php echo $order->customer_address; ?><br>
@@ -34,7 +34,7 @@
             <!-- END Company Info -->
 
             <!-- Client Info -->
-            <div class="col-md-3 text-right">
+            <div class="col-md-4 text-right">
                 <table class="invoice-block" style="width:80%; float:right;"> 
                     <tr>
                         <td class="text-right"><h5>Invoice No: </h5></td>
@@ -43,6 +43,10 @@
                     <tr>
                         <td class="text-right"><h5>Invoice Date: </h5></td>
                         <td><h5><?php echo date('d-m-Y', strtotime($order->order_date)); ?></h5></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"><h5>Staff Name: </h5></td>
+                        <td><h5><?php echo $order->emp_name; ?></h5></td>
                     </tr>
                 </table>
             </div>

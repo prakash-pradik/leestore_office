@@ -30,7 +30,6 @@
                         <th>Staff Name</th>
                         <th>Store Name</th>
                         <th>Phone Number</th>
-                        <th>User Name</th>
                         <th>Staff Role</th>
                         <th class="text-center">Actions</th>
                     </tr>
@@ -45,7 +44,6 @@
                         <td class="text-capitalize"><a href="javascript:void(0);" class="text-info"><?php echo $staf['full_name']; ?></a></td>
                         <td class="text-capitalize"><?php echo $staf['store_name']; ?></td>
 						<td class="text-capitalize">+91-<?php echo $staf['phone_number']; ?></td>
-                        <td class=""><?php echo $staf['user_name']; ?></td>
                         <td class="text-capitalize"><?php echo $staf['role_type']; ?></td>
                         <td class="text-center">
                             <a href="#modal-assign-staff" data-id="<?php echo $staf['id']; ?>" onclick="fetchStaffDetails(this);" data-toggle="modal" title="Assign" class="btn btn-warning enable-tooltip"><i class="fa fa-chain-broken"></i></a>

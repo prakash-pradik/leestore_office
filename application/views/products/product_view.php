@@ -153,7 +153,7 @@
                     </div>
                     
 					<div class="table-responsive">
-						<table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+						<table id="orders-datatable" class="table table-vcenter table-condensed table-bordered">
 							<thead>
 								<tr>
 									<th class="text-center">Sl.No</th>

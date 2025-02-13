@@ -24,7 +24,7 @@ class Payments extends CI_Controller {
 	public function pos_create()
 	{
 		$data['session_user'] = $sessionUser = $this->session->userdata('admin_loggedin');
-
+		
 		if(isset($sessionUser) && isset($sessionUser['store_id'])){
 			$where = array('store_id' => $sessionUser['store_id'],  'status'=>'1');
 		} else {
@@ -59,8 +59,10 @@ class Payments extends CI_Controller {
 		$sessionUser = $this->session->userdata('admin_loggedin');
 		if(isset($sessionUser) && isset($sessionUser['store_id'])){
 			$storeId = $sessionUser['store_id'];
+			$empId = $sessionUser['emp_id'];
 		} else {
 			$storeId = 0;
+			$empId = 0;
 		}
 
 		$customerId = $this->input->post('customerId');
@@ -111,6 +113,7 @@ class Payments extends CI_Controller {
 		$orderData = array(
 			'store_id' 		=> $storeId,
 			'customer_id' 	=> $this->input->post('customerId'),
+			'emp_id' 		=> $empId,
 			'invoice_no' 	=> time(),
 			'gross_amount' 	=> $grossVal,
 			'order_discount'=> $discountVal,
@@ -181,8 +184,10 @@ class Payments extends CI_Controller {
 		$sessionUser = $this->session->userdata('admin_loggedin');
 		if(isset($sessionUser) && isset($sessionUser['store_id'])){
 			$storeId = $sessionUser['store_id'];
+			$empId = $sessionUser['emp_id'];
 		} else {
 			$storeId = 0;
+			$empId = 0;
 		}
 
 		$order_id = $this->input->post('orderId');
@@ -215,6 +220,7 @@ class Payments extends CI_Controller {
 		$orderData = array(
 			'store_id' 			=> $storeId,
 			'customer_id' 		=> $this->input->post('customerId'),
+			'emp_id'			=> $empId,
 			'invoice_no' 		=> time(),
 			'gross_amount' 		=> $grossVal,
 			'order_discount'	=> $discountVal,

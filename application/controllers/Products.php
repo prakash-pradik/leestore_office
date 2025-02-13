@@ -197,12 +197,7 @@ class Products extends CI_Controller {
 	public function categories()
 	{
 		$data['session_user'] = $sessionUser = $this->session->userdata('admin_loggedin');
-
-		if(isset($sessionUser) && $sessionUser['role_type'] === 'Manager')
-			$where = array('store_id' => $sessionUser['store_id'], 'status'=>'1');
-		else
-			$where = array('status'=>'1');
-
+		$where = array('store_id' => $sessionUser['store_id'], 'status'=>'1');
 		$data['stores'] = $this->admin_model->get_data('stores', array('status'=>'1'), 'result_array');
 		$data['categories'] = $this->admin_model->get_data('categories', $where, 'result_array', 'id', 'desc');
 		$this->load->view('config/template_start');
@@ -249,11 +244,7 @@ class Products extends CI_Controller {
 	public function brands()
 	{
 		$data['session_user'] = $sessionUser = $this->session->userdata('admin_loggedin');
-		if(isset($sessionUser) && $sessionUser['role_type'] === 'Manager')
-			$where = array('store_id' => $sessionUser['store_id'], 'status'=>'1');
-		else
-			$where = array('status'=>'1');
-
+		$where = array('store_id' => $sessionUser['store_id'], 'status'=>'1');
 		$data['stores'] = $this->admin_model->get_data('stores', array('status'=>'1'), 'result_array');
 		$data['brands'] = $this->admin_model->get_data('brands', $where, 'result_array', 'id', 'desc');
 		$this->load->view('config/template_start');
