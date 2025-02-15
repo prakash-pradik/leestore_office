@@ -32,7 +32,7 @@
                                         <img src="<?php echo base_url(IMG); ?>/placeholders/avatars/avatar2.jpg" alt="avatar">
                                     </a>
                                 </div>
-                                <div class="sidebar-user-name"> <?php if(!empty($session_user) && $session_user['role_type'] === 'super_admin') echo $session_user['name']; else echo $session_user['role_type']; ?></div>
+                                <div class="sidebar-user-name"> <?php if(!empty($session_user) && $session_user['role_type'] === 'super_admin') echo $session_user['name']; else echo $session_user['first_name'].' ('.$session_user['last_name'].')'; ?></div>
                                 <div class="sidebar-user-links">
                                     <?php if(!empty($session_user) && $session_user['role_type'] === 'super_admin') { ?>
                                         <a href="javascript:void(0)" class="enable-tooltip" data-placement="bottom" title="Settings" onclick="$('#modal-user-settings').modal('show');"><i class="gi gi-cogwheel"></i></a>

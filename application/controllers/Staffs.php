@@ -50,10 +50,17 @@ class Staffs extends CI_Controller {
 
 		$empId = $this->admin_model->insert_row('employees', $data);
 		if($empId){
-
+			
+			if($this->input->post('staff_store') == 3)
+				$firstName = 'LEEQ';
+			else
+				$firstName = 'LEE Store '.$this->input->post('staff_store');
+			
 			$empData = array(
 				'emp_id' => $empId,
 				'store_id' => $this->input->post('staff_store'),
+				'first_name' => $firstName,
+				'last_name' => $this->input->post('staff_full_name'),
 				'user_name' => $this->input->post('staff_user_name'),
 				'password' => $this->input->post('staff_password'),
 				'date_added' => date("Y-m-d H:i:s")
@@ -71,8 +78,6 @@ class Staffs extends CI_Controller {
 			'store_id' => $this->input->post('staff_store'),
 			'full_name' => $this->input->post('staff_full_name'),
 			'phone_number' => $this->input->post('staff_phone_number'),
-			'user_name' => $this->input->post('staff_user_name'),
-			'password' => $this->input->post('staff_password'),
 			'email' => $this->input->post('staff_email'),
 			'birthdate' => $this->input->post('staff_dob'),
 			'gender' => $this->input->post('staff_gender'),
@@ -83,6 +88,14 @@ class Staffs extends CI_Controller {
 		$where = array('id' => $id );
 		$update = $this->admin_model->update_row_data('employees', $where, $data);
 		if($update){
+			
+			$empData = array(
+				'last_name' => $this->input->post('staff_full_name'),
+				'date_modified' => date("Y-m-d H:i:s")
+			);
+			$whereEmp = array('emp_id' => $id );
+			$updateEmp = $this->admin_model->update_row_data('employees_login', $whereEmp, $empData);
+			
 			$this->session->set_flashdata('message', 'Data Successfully Updated..!');
 			redirect(base_url('staffs'));
 		}

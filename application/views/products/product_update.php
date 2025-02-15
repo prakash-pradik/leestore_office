@@ -209,6 +209,11 @@
                                 <input type="text" id="reorder_qnty" name="reorder_qnty" class="form-control" placeholder="" value="<?php echo $product->reorder_qnty; ?>">
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <label class="checkbox-inline" for="is_remain">
+                                <input type="checkbox" id="is_remain" name="is_remain" value="1"> May i remain reorder quantity?
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <!------ Stock Block ----->

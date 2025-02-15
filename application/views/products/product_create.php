@@ -20,7 +20,7 @@
                     </div>
                         <?php 
                             $storeId = $selected = $disabled = '';
-                            if(isset($session_user) && $session_user['role_type'] === 'Manager'){
+                            if(isset($session_user) ){
                                 $storeId = $session_user['store_id'];
                                 $disabled = 'disabled';
                             } 
@@ -31,7 +31,7 @@
                                     <label class="control-label">Store<span class="text-danger">*</span></label>
                                     <?php if(isset($session_user) && $session_user['role_type'] === 'Manager'){ ?>
                                         <input type="hidden" name="product_store" class="form-control" placeholder="Name.." value="<?php echo $session_user['store_id']; ?>" readonly>
-                                        <select class="form-control" <?php echo $disabled; ?>>
+                                        <select class="form-control">
                                             <option value="">Please select</option>
                                             <?php if(!empty($stores)) {
                                                 $i = 1; 
@@ -48,7 +48,7 @@
 
                                     <?php } else { ?>
                                         
-                                    <select id="new_product_store" name="product_store" class="form-control" <?php echo $disabled; ?>>
+                                    <select id="new_product_store" name="product_store" class="form-control" >
                                         <option value="">Please select</option>
                                         <?php if(!empty($stores)) {
                                             $i = 1; 
@@ -56,6 +56,8 @@
 
                                                 if($store['id'] == $storeId)
                                                     $selected = 'selected';
+                                                else
+                                                    $selected = '';
                                         ?>
                                             <option value="<?php echo $store['id']; ?>" <?php echo $selected; ?> ><?php echo $store['store_name']; ?></option>
                                         <?php } } ?>
@@ -196,6 +198,11 @@
                                 <label class="control-label">Re-order Quantity</label>
                                 <input type="text" id="reorder_qnty" name="reorder_qnty" class="form-control" placeholder="">
                             </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="checkbox-inline" for="is_remain">
+                                <input type="checkbox" id="is_remain" name="is_remain" value="1"> May i remain reorder quantity?
+                            </label>
                         </div>
                     </div>
                 </div>

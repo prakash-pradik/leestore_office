@@ -36,11 +36,7 @@ class Products extends CI_Controller {
 	public function product_create()
 	{
 		$data['session_user'] =  $sessionUser = $this->session->userdata('admin_loggedin');
-		if(isset($sessionUser) && $sessionUser['role_type'] === 'Manager')
-			$where = array('store_id' => $sessionUser['store_id'], 'status'=>'1');
-		else
-			$where = array('status'=>'1');
-		
+		$where = array('store_id' => $sessionUser['store_id'], 'status'=>'1');
 
 		$data['stores'] = $this->admin_model->get_data('stores', array('status'=>'1'), 'result_array');
 		$data['products'] = $this->admin_model->get_all_products();
@@ -56,6 +52,13 @@ class Products extends CI_Controller {
 	
 	public function insert_product()
 	{
+		
+		$isRemain = $this->input->post('is_remain');
+		if($isRemain == "")
+			$isRemain = 0;
+		else
+			$isRemain = 1;
+
 		$data = array(
 			'store_id' => $this->input->post('product_store'),
 			'product_type' => $this->input->post('product_type'),
@@ -71,6 +74,7 @@ class Products extends CI_Controller {
 			'margin' => $this->input->post('margin_val'),
 			'qnty' => $this->input->post('qnty'),
 			'reorder_qnty' => $this->input->post('reorder_qnty'),
+			'is_remain' => $isRemain,
 			'date_added' => date("Y-m-d H:i:s")
 		);
 
@@ -121,9 +125,11 @@ class Products extends CI_Controller {
 
 	public function product_update($id)
 	{
-		$data['session_user'] = $this->session->userdata('admin_loggedin');
+		$data['session_user'] = $sessionUser = $this->session->userdata('admin_loggedin');
+		$where = array('store_id' => $sessionUser['store_id'], 'status'=>'1');
+
 		$data['stores'] = $this->admin_model->get_data('stores', array('status'=>'1'), 'result_array');
-		$data['categories'] = $this->admin_model->get_data('categories', array('status'=>'1'), 'result_array');
+		$data['categories'] = $this->admin_model->get_data('categories', $where, 'result_array');
 		$data['brands'] = $this->admin_model->get_data('brands', array('status'=>'1'), 'result_array');
 		$data['product'] = $this->admin_model->get_data('products', array('id'=> $id), 'row');
 		$this->load->view('config/template_start');
@@ -137,6 +143,12 @@ class Products extends CI_Controller {
 	public function update_product()
 	{
 		$id = $this->input->post('product_id');
+
+		$isRemain = $this->input->post('is_remain');
+		if($isRemain == "")
+			$isRemain = 0;
+		else
+			$isRemain = 1;
 
 		$data = array(
 			'store_id' => $this->input->post('product_store'),
@@ -154,6 +166,7 @@ class Products extends CI_Controller {
 			'margin' => $this->input->post('margin_val'),
 			'qnty' => $this->input->post('qnty'),
 			'reorder_qnty' => $this->input->post('reorder_qnty'),
+			'is_remain' => $isRemain,
 			'date_modified' => date("Y-m-d H:i:s")
 		);
 

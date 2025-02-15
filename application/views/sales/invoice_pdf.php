@@ -7,11 +7,12 @@
 	<div id="page-content">
 		<div class="container" style="padding:0px;">
 			<?php 
-				if($order->store_id == 1){
-					$image = 'http://billing.leestoreindia.com/assets/img/invoice/bg_ls.jpg';
+				if($order->store_id == 3){
+					$image = 'http://billing.leestoreindia.com/assets/img/invoice/bg_leeq.jpg';
 					$width1 = '35%';
 				} else{
-					$image = 'http://billing.leestoreindia.com/assets/img/invoice/bg_leeq.jpg';
+					$image = 'http://billing.leestoreindia.com/assets/img/invoice/bg_ls.jpg';
+					
 					$width1 = '35%';
 				}
 			?>
@@ -124,6 +125,11 @@
 							</tbody>
 						</table>
 					</div>
+
+					<div class="" style="width:100%; margin-top: 130px; margin-left:523px;">
+						<h4><?php if(!empty($session_user)) echo $session_user['last_name']; ?></h4>
+					</div>
+
 				</div>
 			</div>
 		</div>

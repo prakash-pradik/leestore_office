@@ -44,8 +44,8 @@ class Admin_model extends CI_Model{
     public function update_row_data($table_name, $condition, $array) 
     {
         $this->db->where($condition);
-        if($this->db->update($table_name, $array)){
-            return true;}
+        if($this->db->update($table_name, $array))
+            return true;
         else
             return false;
     }
