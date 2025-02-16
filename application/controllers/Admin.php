@@ -125,6 +125,21 @@ class Admin extends CI_Controller {
 		}
 		echo json_encode($data);
 	}
+
+	public function fetch_product_data(){
+		$id = $this->input->post('id');
+		$categoryId = $this->input->post('categoryId');
+		$tbl_name = $this->input->post('tbl_name');
+
+		$result = $this->admin_model->get_data('products', array('category_id'=>$categoryId, 'brand_id'=>$id, 'status'=>'1'), 'result', 'id', 'desc');
+		if($result){
+			$data['data'] = $result;
+            $data['status'] = 1;
+		} else {
+			$data['status'] = 2;
+		}
+		echo json_encode($data);
+	}
 	
 	public function update_stock($supplierId){
 		
@@ -151,15 +166,21 @@ class Admin extends CI_Controller {
 			'password' => $this->input->post('password')
 		);
 
-		$where = array('id' => $user_id );
-		$update = $this->admin_model->update_row_data('admin', $where, $data);
-
+		if($sessionUser['role_type'] == "Biller"){
+			$where = array('emp_id' => $sessionUser['emp_id'] );
+			$update = $this->admin_model->update_row_data('employees_login', $where, $data);
+		}
+		else{
+			$where = array('id' => $user_id );
+			$update = $this->admin_model->update_row_data('admin', $where, $data);
+		}
+		
 		if($update){
 			$this->jsonResponse(200, 'success', 'Password Successfully Updated!', '');
 		} else {
 			$this->jsonResponse(500, 'failed', 'Something Went Wrong!', '');
 		}
-		echo json_encode($data);
+		//echo json_encode($data);
 	}
 
 	public function jsonResponse($status, $statusType, $msg, $resData){

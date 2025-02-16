@@ -211,7 +211,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="checkbox-inline" for="is_remain">
-                                <input type="checkbox" id="is_remain" name="is_remain" value="1"> May i remain reorder quantity?
+                                <input type="checkbox" id="is_remain" name="is_remain" value="1" <?php if($product->is_remain == 1) echo 'checked'; ?> > May i remain reorder quantity?
                             </label>
                         </div>
                     </div>

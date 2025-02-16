@@ -97,7 +97,7 @@ function updatePassword() {
         data: { password: passwrd },
         dataType: "json",
         success: function (res) {
-
+			$("#modal-user-settings").modal('hide');
             if (res.status == 200) {
                 alertify.success(res.message);
             } else {

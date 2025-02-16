@@ -164,7 +164,7 @@ class Admin_model extends CI_Model{
 				(SELECT name FROM customers WHERE id = ord.customer_id) as customer_name, 
 				(SELECT phone_number FROM customers WHERE id = ord.customer_id) as customer_phone,
 				(SELECT full_name FROM employees WHERE id = ord.emp_id) as emp_name
-				FROM `orders` as ord WHERE status = '1' $where $where1 $where2 $storeWhere order by id desc";
+				FROM `orders` as ord WHERE status = '1' $where $where1 $where2  order by id desc";
         $query = $this->db->query($sql);
 
         if($query->num_rows() > 0 )
@@ -405,7 +405,7 @@ class Admin_model extends CI_Model{
         else
             $storeWhere = "1=1";
 
-        $sql = "SELECT prod.*, (SELECT store_name FROM stores WHERE id = prod.store_id) as store_name FROM `products` as prod WHERE $storeWhere AND qnty <= reorder_qnty ORDER BY prod.qnty asc";
+        $sql = "SELECT prod.*, (SELECT store_name FROM stores WHERE id = prod.store_id) as store_name FROM `products` as prod WHERE $storeWhere AND qnty <= reorder_qnty AND is_remain = 1 ORDER BY prod.qnty asc";
         $query = $this->db->query($sql);
 
         if($query->num_rows() > 0 )

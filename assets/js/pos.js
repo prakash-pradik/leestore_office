@@ -62,6 +62,38 @@ $('#pos_category').change(function () {
 
 });
 
+$('#pos_brand').change(function () {
+    var SelectedValue = $('option:selected', this).val();
+    var prodOptions = '<option value="">Please select</option>';
+	
+	var categoryId = $('#pos_category :selected').val();
+
+    /* if (SelectedValue == "") {
+        $('#pos_product').html('<option value="">Select category first</option>');
+        return false;
+    } */
+
+    $.ajax({
+        url: base_url + 'admin/fetch_product_data',
+        type: 'post',
+        data: { id: SelectedValue, categoryId: categoryId, tbl_name: 'products' },
+        dataType: 'json',
+        success: function (res) {
+            console.log(res);
+            if (res.status == 1) {
+                $.each(res.data, function (key, value) {
+                    prodOptions += '<option value="' + value.id + '">' + value.product_name + '</option>';
+                });
+                $('#pos_product').html(prodOptions);
+            } else {
+                prodOptions = '<option value="">Please select</option>';
+                $('#pos_product').html(prodOptions);
+            }
+        }
+    });
+
+});
+
 $("#pos_product").change(function () {
     var SelectedValue = $('option:selected', this).val();
 
