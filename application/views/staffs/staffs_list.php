@@ -41,7 +41,7 @@
                     ?>
                     <tr>
                         <td class="text-center"><a href="javascript:void(0);" class="text-info"><?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?></a></td>
-                        <td class="text-capitalize"><a href="javascript:void(0);" class="text-info"><?php echo $staf['full_name']; ?></a></td>
+                        <td class="text-capitalize"><a href="<?php echo base_url('staff_details/'.$staf['id']); ?>" class="text-info"><?php echo $staf['full_name']; ?></a></td>
                         <td class="text-capitalize"><?php echo $staf['store_name']; ?></td>
 						<td class="text-capitalize">+91-<?php echo $staf['phone_number']; ?></td>
                         <td class="text-capitalize"><?php echo $staf['role_type']; ?></td>

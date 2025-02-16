@@ -194,4 +194,10 @@ class Admin extends CI_Controller {
 		echo json_encode($response);
 		return;
 	}
+
+	public function page404(){
+		$data['heading'] = '404 Page Not Found';
+		$data['message'] = 'The page you requested was not found.';
+		$this->load->view('errors/html/error_404', $data);
+	}
 }

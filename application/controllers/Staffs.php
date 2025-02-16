@@ -159,4 +159,25 @@ class Staffs extends CI_Controller {
 		}
 	}
 
+	public function staff_details($id)
+	{
+		if(!empty($id)){
+			$data['session_user'] = $this->session->userdata('admin_loggedin');
+			$data['employee'] = $this->admin_model->get_by_id($id, 'employees');
+			if(!empty($data['employee'])){
+				$data['emp_sales'] = $this->admin_model->get_emp_sales($id);
+				$this->load->view('config/template_start');
+				$this->load->view('config/page_head',$data);
+				$this->load->view('staffs/staff_details', $data);
+				$this->load->view('config/page_footer');
+				$this->load->view('config/template_scripts');
+				$this->load->view('config/template_end');
+			} else {
+				redirect(base_url('admin/page404'));
+			}
+		} else {
+			redirect(base_url('admin/page404'));
+		}
+	}
+
 }

@@ -86,7 +86,7 @@
                         <td class="text-capitalize">+91-<?php echo $order['customer_phone']; ?></td>
                         <td class="text-capitalize"><?php echo '₹ '.number_format($order['net_amount'],2); ?></td>
                         <td class="text-center"><?php echo $order['quantity']; ?></td>
-                        <td class="text-capitalize"><?php echo $order['emp_name']; ?></td>
+                        <td class="text-capitalize"><a href="<?php echo base_url('staff_details/'.$order['emp_id']); ?>" class="text-info" target="_blank"><?php echo $order['emp_name']; ?></a></td>
                         <td class="text-capitalize"><?php echo date('d-m-Y', strtotime($order['order_date'])); ?></td>
                         <td class="text-center">
                             <div class="btn-group">

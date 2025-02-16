@@ -63,6 +63,7 @@ $route['stores'] = 'stores/stores_list';
 
 /**** Admin Manage ****/
 $route['staffs_list'] = 'staffs/staffs_list';
+$route['staff_details/(:any)'] = 'staffs/staff_details/$1';
 $route['roles_list'] = 'staffs/roles_list';
 $route['insert_role'] = 'staffs/insert_role';
 $route['update_role'] = 'staffs/update_role';
