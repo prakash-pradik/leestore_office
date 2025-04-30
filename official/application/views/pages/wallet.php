@@ -99,6 +99,12 @@
                                 <input type="text" id="update_wallet_details" name="wallet_details" class="form-control" placeholder="Details..">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Order By</label>
+                            <div class="col-md-8">
+                                <input type="text" id="update_wallet_order" name="wallet_order" class="form-control" placeholder="Order By..">
+                            </div>
+                        </div>
                         
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="user-settings-email">Amount</label>

@@ -44,8 +44,8 @@
                         <thead>
                             <tr>
                                 <th class="text-center" width="15%">Date</th>
-                                <th width="35%">Details</th>
-                                <th width="30%">Amount (₹)</th>
+                                <th width="45%">Details</th>
+                                <th width="25%">Amount (₹)</th>
                                 <th>Status</th>
                                 <th class="text-center">Actions</th>
                             </tr>
@@ -62,7 +62,7 @@
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <?php if($due['status'] == 0) {  ?>
-                                            <a href="javascript:void(0)" data-id="<?php echo $due['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="" class="btn btn-sm btn-warning">Pending</a>
+                                            <a href="javascript:void(0)" data-id="<?php echo $due['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="Pending" class="btn btn-sm btn-warning"><i class="fa fa-clock-o"></i></a>
                                         <?php } else { ?>
                                             <a href="javascript:void(0)" class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>
                                         <?php } ?>
@@ -119,8 +119,8 @@
                         <thead>
                             <tr>
                                 <th class="text-center" width="15%">Date</th>
-                                <th width="35%">Details</th>
-                                <th width="30%">Amount (₹)</th>
+                                <th width="45%">Details</th>
+                                <th width="25%">Amount (₹)</th>
                                 <th>Status</th>
                                 <th class="text-center">Actions</th>
                             </tr>
@@ -137,7 +137,7 @@
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <?php if($int['status'] == 0) {  ?>
-                                            <a href="javascript:void(0)" data-id="<?php echo $int['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="" class="btn btn-sm btn-warning">Pending</a>
+                                            <a href="javascript:void(0)" data-id="<?php echo $int['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="Pending" class="btn btn-sm btn-warning"><i class="fa fa-clock-o"></i></a>
                                         <?php } else { ?>
                                             <a href="javascript:void(0)" class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>
                                         <?php } ?>
@@ -171,7 +171,7 @@
                             <strong>₹ <?php 
                                 if(!empty($amount_stats)) { 
                                     if(!empty($amount_stats->total_cc)){
-                                        $amt = $amount_stats->total_cc;
+                                        $amt = round($amount_stats->total_cc, 2);
                                         echo preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $amt);
                                     }
                                     else echo '0'; 
@@ -192,8 +192,8 @@
                         <thead>
                             <tr>
                                 <th class="text-center" width="15%">Date</th>
-                                <th width="35%">Details</th>
-                                <th width="30%">Amount (₹)</th>
+                                <th width="45%">Details</th>
+                                <th width="25%">Amount (₹)</th>
                                 <th>Status</th>
                                 <th class="text-center">Actions</th>
                             </tr>
@@ -210,7 +210,7 @@
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <?php if($cre['status'] == 0) {  ?>
-                                            <a href="javascript:void(0)" data-id="<?php echo $cre['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="" class="btn btn-sm btn-warning">Pending</a>
+                                            <a href="javascript:void(0)" data-id="<?php echo $cre['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="Pending" class="btn btn-sm btn-warning"><i class="fa fa-clock-o"></i></a>
                                         <?php } else { ?>
                                             <a href="javascript:void(0)" class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>
                                         <?php } ?>
@@ -265,8 +265,8 @@
                         <thead>
                             <tr>
                                 <th class="text-center" width="15%">Date</th>
-                                <th width="35%">Details</th>
-                                <th width="30%">Amount (₹)</th>
+                                <th width="45%">Details</th>
+                                <th width="25%">Amount (₹)</th>
                                 <th>Status</th>
                                 <th class="text-center">Actions</th>
                             </tr>
@@ -283,7 +283,7 @@
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <?php if($jw['status'] == 0) {  ?>
-                                            <a href="javascript:void(0)" data-id="<?php echo $jw['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="" class="btn btn-sm btn-warning">Pending</a>
+                                            <a href="javascript:void(0)" data-id="<?php echo $jw['id']; ?>" onclick="updateDueDate(this);" data-toggle="tooltip" title="Pending" class="btn btn-sm btn-warning"><i class="fa fa-clock-o"></i></a>
                                         <?php } else { ?>
                                             <a href="javascript:void(0)" class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>
                                         <?php } ?>
@@ -611,7 +611,7 @@
 </script>
 <style>
     .table-responsive {
-        min-height: 580px !important;
+        min-height: 635px !important;
     }
 </style>
 </div>

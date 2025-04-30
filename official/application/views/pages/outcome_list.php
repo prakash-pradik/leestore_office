@@ -62,8 +62,8 @@
                         <td><?php echo $outcome['notes']; ?></td>
                         <td class="text-center">
                             <div class="btn-group">
-                                <a href="javascript:void(0)" data-inc_type="plus" data-user_id="<?php echo $outcome['id']; ?>" onclick="fetchOutcomeData(this);" data-toggle="tooltip" title="Add" class="btn btn-success"><i class="fa fa-plus"></i></a>
-                                <a href="javascript:void(0)" data-inc_type="minus" data-user_id="<?php echo $outcome['id']; ?>" onclick="fetchOutcomeData(this);" data-toggle="tooltip" title="Minus" class="btn btn-warning"><i class="fa fa-minus"></i></a>
+                                <a href="javascript:void(0)" data-inc_type="plus" data-user_id="<?php echo $outcome['id']; ?>" data-available="<?php echo $outcome['total_available']; ?>" onclick="fetchOutcomeData(this);" data-toggle="tooltip" title="Add" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                                <a href="javascript:void(0)" data-inc_type="minus" data-user_id="<?php echo $outcome['id']; ?>" data-available="<?php echo $outcome['total_available']; ?>" onclick="fetchOutcomeData(this);" data-toggle="tooltip" title="Minus" class="btn btn-warning"><i class="fa fa-minus"></i></a>
                             </div>
                             <div class="btn-group">
                                 <a href="javascript:void(0)" data-user_id="<?php echo $outcome['id']; ?>" onclick="deleteOutcomeData(this);" data-toggle="tooltip" title="Delete" class="btn btn-danger"><i class="fa fa-trash"></i></a>
@@ -180,6 +180,12 @@
                         </div>
                     </div> -->
                     <div class="form-group">
+                        <label class="col-md-4 control-label" for="user-settings-email">Balance Amount</label>
+                        <div class="col-md-8">
+                            <p class="form-control-static" id="user_available_amt"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
                         <div class="col-md-8">
                             <div class="input-group">
@@ -239,6 +245,8 @@
     function fetchOutcomeData(mythis){
         var incType = $(mythis).data('inc_type');
         var userId = $(mythis).data('user_id');
+
+        $("#user_available_amt").text($(mythis).data('available')+' ₹');
 
         if(incType == 'plus'){
             $("#insert_type").val('new_plus');

@@ -599,6 +599,17 @@ class Admin_model extends CI_Model{
         else
             return false;
     }
+	
+	public function get_yesterday_booking(){
+
+        $sql = "SELECT * FROM `booking` WHERE status != 2 AND deadline_date >= NOW() - INTERVAL 1 DAY";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0 )
+            return $query->result_array();
+        else
+            return false;
+    }
 
 }
 ?>

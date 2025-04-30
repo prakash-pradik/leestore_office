@@ -29,7 +29,13 @@
                             <div class="sidebar-section sidebar-user clearfix sidebar-nav-mini-hide">
                                 <div class="sidebar-user-avatar">
                                     <a href="javascript:void(0)">
-                                        <img src="<?php echo base_url(IMG); ?>/placeholders/avatars/avatar2.jpg" alt="avatar">
+                                        <?php if(!empty($session_user) && $session_user['role_type'] === 'super_admin') { ?>
+                                            <img src="<?php echo base_url(IMG); ?>/ceo.jpg" alt="avatar">
+                                        <?php } else if($session_user['profile_image'] != "") { ?>
+                                            <img src="<?php echo base_url(IMG).'/staffs/'.$session_user['profile_image']; ?>" alt="avatar">
+                                        <?php }  else { ?>
+                                            <img src="<?php echo base_url(IMG); ?>/placeholders/avatars/avatar2.jpg" alt="avatar">
+                                        <?php } ?>
                                     </a>
                                 </div>
                                 <div class="sidebar-user-name"> <?php if(!empty($session_user) && $session_user['role_type'] === 'super_admin') echo $session_user['name']; else echo $session_user['first_name'].' ('.$session_user['last_name'].')'; ?></div>

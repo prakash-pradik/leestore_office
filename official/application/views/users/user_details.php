@@ -72,7 +72,9 @@
 
         </div>
         <div class="col-lg-8">
-            <div class="block">
+            
+			<?php if(!empty($incomes)) { ?>    
+			<div class="block">
                 <div class="block-title">
                     <div class="block-options pull-right">
                         <span class="label label-success" style="font-size:20px;">
@@ -84,9 +86,8 @@
                     </div>
                     <h2><i class="fa fa-inr"></i> <strong>Income</strong> Table</h2>
                 </div>
-                
                 <div class="table-responsive">
-                    <table id="advance-datatable" class="table table-vcenter table-condensed table-bordered">
+                    <table id="sales-datatable" class="table table-vcenter table-condensed table-bordered">
                         <thead>
                             <tr>
                                 <th class="text-center">Sl.No</th>
@@ -97,13 +98,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if(!empty($incomes)) {
-                                $i = 1; 
+                            <?php 
+								$i = 1; 
                                 foreach($incomes as $inc){
                             ?>
                             <tr>
                                 <td class="text-center" style="width: 10%;"><?php echo $i; ?></td>
-                                <td style="width: 30%;"><?php echo $inc['notes']; ?></td>
+                                <td style="width: 30%;"><?php if(!empty($inc['notes'])) echo $inc['notes']; else echo $user->name; ?></td>
                                 <td class="text-right"><strong class="<?php if($inc['amount_type'] == 'DEB') echo 'text-success'; else echo 'text-danger'; ?>">₹ <?php echo $inc['amount']; ?></strong></td>
                                 <td><?php echo date('d-m-Y h:i a', strtotime($inc['date_added'])); ?></td>
                                 <td class="text-center">
@@ -114,15 +115,17 @@
                                 </td>
                             </tr>
                             <?php
-                            $i++;
-                                }
-                            }?>
+								$i++;
+								}
+							?>
                             
                         </tbody>
                     </table><br/>
-                </div>
+                </div>	
             </div>
-
+			<?php } ?>
+			
+			<?php if(!empty($outcomes)) { ?>
             <div class="block">
                 <div class="block-title">
                     <div class="block-options pull-right">
@@ -145,13 +148,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if(!empty($outcomes)) {
+                            <?php 
                                 $i = 1; 
                                 foreach($outcomes as $out){
                             ?>
                             <tr>
                                 <td class="text-center" style="width: 10%;"><?php echo $i; ?></td>
-                                <td style="width: 30%;"><?php echo $out['notes']; ?></td>
+                                <td style="width: 30%;"><?php if(!empty($out['notes'])) echo $out['notes']; else echo $user->name; ?></td>
                                 <td class="text-right"><strong class="<?php if($out['amount_type'] == 'DEB') echo 'text-success'; else echo 'text-danger'; ?>">₹ <?php echo $out['amount']; ?></strong></td>
                                 <td><?php echo date('d-m-Y h:i a', strtotime($out['date_added'])); ?></td>
                                 <td class="text-center">
@@ -164,13 +167,13 @@
                             <?php
                             $i++;
                                 }
-                            }?>
-                            
+                            ?>                
                         </tbody>
                     </table><br/>
                 </div>    
             </div>
-
+			<?php } ?>
+			
         </div>
     </div>
 </div>
@@ -180,7 +183,7 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header text-center bg-primary">
-                <h2 class="modal-title"><i class="fa fa-inr"></i> Edit Income</h2>
+                <h2 class="modal-title"><i class="fa fa-inr"></i> Edit Amount</h2>
             </div>
             <!-- END Modal Header -->
 

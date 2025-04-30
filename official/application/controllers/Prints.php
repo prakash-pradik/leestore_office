@@ -248,6 +248,29 @@ class Prints extends CI_Controller {
 		$mpdf->Output($file_name, 'D'); 
     }
 
+	public function notesPdf()
+    {
+		$today_dt = date('d-M-y');
+		$file_name = 'notes_'.$today_dt.'.pdf';
+		
+		$data['base_url'] = base_url();
+		$data['daily_notes'] = $this->admin_model->get_daily_notes();
+
+		$html = $this->load->view('prints/notes_pdf', $data, true);
+		
+        $mpdf = new \Mpdf\Mpdf([
+            'format'=>'A4',
+            'margin_top'=>10,
+            'margin_right'=>5,
+            'margin_left'=>5,
+            'margin_bottom'=>15,
+        ]);
+		$mpdf->SetHTMLFooter('<div style="display:flex; justify-content:space-between; padding-top:10px; margin-left:10px;"><span style="">Created at:'.$today_dt.'</span> <span style="color:#777;font-size:12px;">&nbsp;&nbsp;Receipt was created on a computer and is valid without the signature and seal.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>');
+        $mpdf->WriteHTML($html);
+		//$mpdf->Output();
+		$mpdf->Output($file_name, 'D');
+    }
+
 	public function print_test()
     {
 		$data['base_url'] = base_url();

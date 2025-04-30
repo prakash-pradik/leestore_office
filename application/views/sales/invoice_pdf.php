@@ -127,7 +127,7 @@
 					</div>
 
 					<div class="" style="width:100%; margin-top: 130px; margin-left:523px;">
-						<h4><?php if(!empty($session_user)) echo $session_user['last_name']; ?></h4>
+						<h4><?php echo $order->emp_name; ?></h4>
 					</div>
 
 				</div>

@@ -10,7 +10,20 @@
         <script src="<?php echo base_url(JS); ?>/pages/officeValidation.js"></script>
         <script>$(function(){ OfficeValidation.init(); });</script>
 
+        <script src="https://html2canvas.hertzen.com/dist/html2canvas.js" type="text/javascript"></script> 
+
         <script>
+            function takeshot(){
+                let timestamp = Date.now();
+
+                html2canvas(document.getElementById("example-datatable")).then(function (canvas) {
+                    var anchorTag = document.createElement("a");
+                    anchorTag.download = timestamp+".jpg";
+                    anchorTag.href = canvas.toDataURL();
+                    anchorTag.target = '_blank';
+                    anchorTag.click();
+                });
+            }
             $(document).ready(function(){
                 startTime();
             })
@@ -138,8 +151,44 @@
                             }
                         });
                     }
+                });        
+            }
+
+            function bookingReturn(){
+                var id = $('#view_booking_id').val();
+                swal({
+                    title: "Are you sure?",
+                    text: "Product return to this customer!",
+                    type: "info",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, Return it!"
+                }).then((result) => {
+                    if (result.value) {
+                        $("#modal-view-booking").modal('hide');
+                        $.ajax({
+                            url: base_url + 'booking/return_booking',
+                            type: 'post',
+                            data: { id: id, tbl_name: 'booking' },
+                            success: function (res) {
+
+                                swal({
+                                    title: "Returned!",
+                                    text: "Product successfully returned.!",
+                                }).then((res1) => {
+                                    if (res1.value) {
+                                        window.location.reload();
+                                    }
+                                });
+
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 3000);
+                            }
+                        });
+                    }
                 });
-                
             }
         </script>
 

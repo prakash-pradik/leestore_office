@@ -18,7 +18,10 @@
         <div class="block-title">
             <h2><strong>Booking</strong> Table</h2>
             <div class="block-options pull-right">
+
                 <a href="#modal-new-booking" class="btn btn-success" data-toggle="modal" title="Add New"><i class="fa fa-plus"></i> Add New</a>
+
+				<a href="#" class="btn btn-info" data-toggle="tooltip" title="Screenshot" onclick="takeshot()"><i class="fa fa-camera"></i> </a>
             </div>
         </div>
 
@@ -45,6 +48,8 @@
                                 $bookStatus = '<a href="javascript:void(0)" class="label label-success">Paid</a>';
                             else if($book['pay_type'] == 'advance')
                                 $bookStatus = '<a href="javascript:void(0)" class="label label-warning">Advance</a>';
+							else if($book['pay_type'] == 'sell')
+                                $bookStatus = '<a href="javascript:void(0)" class="label label-danger">Sell</a>';
 							else
                                 $bookStatus = '<a href="javascript:void(0)" class="label label-info">Just Book</a>';
 							
@@ -77,7 +82,6 @@
         </div>
     </div>
     <!-- END Datatables Content -->
-	
 	<div id="modal-new-booking" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -109,6 +113,12 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-md-4 control-label">DeadLine Date</label>
+							<div class="col-md-8">
+								<input type="text" id="booking_end" name="booking_end" class="form-control input-datepicker-close" data-date-format="dd/mm/yyyy" placeholder="dd/mm/yyyy">
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-md-4 control-label">Amount</label>
 							<div class="col-md-8">
 								<input type="text" id="booking_amount" name="booking_amount" class="form-control numeric" placeholder="Amount..">
@@ -122,6 +132,7 @@
 									<option value="paid">Full Paid</option>
 									<option value="advance">Advance</option>
 									<option value="just">Just Book</option>
+									<option value="sell">Sell</option>
 								</select>
 							</div>
 						</div>
@@ -189,6 +200,7 @@
 									<option value="paid">Full Paid</option>
 									<option value="advance">Advance</option>
 									<option value="just">Just Book</option>
+									<option value="sell">Sell</option>
 								</select>
 							</div>
 						</div>
@@ -216,7 +228,7 @@
 			<div class="modal-content">
 				<!-- Modal Header -->
 				<div class="modal-header text-center bg-warning">
-					<h2 class="modal-title"><i class="fa fa-pencil"></i> Booking Details</h2>
+     					<h2 class="modal-title"><i class="fa fa-pencil"></i> Booking Details</h2>
 				</div>
 				<!-- END Modal Header -->
 
@@ -264,8 +276,10 @@
 						</fieldset>
 						<div class="form-group form-actions">
 							<div class="col-xs-12 text-right">
+								<button type="button" class="btn btn-info" onclick="bookingReturn();">Return</button>
 								<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 								<button type="submit" class="btn btn-warning">Deliver</button>
+								
 							</div>
 						</div>
 					</form>

@@ -17,7 +17,7 @@
             <div class="block-options pull-right">
                 <a href="#modal-income" class="btn btn-alt btn-sm btn-success " data-toggle="modal" title="Add New User"><i class="fa fa-user-plus"></i> Add New Advance</a>
 
-                <a href="#modal-income-old" class="btn btn-alt btn-sm btn-info" data-toggle="modal" title="Update User"><i class="fa fa-user-plus"></i> Update Advance</a>
+                <!-- <a href="#modal-income-old" class="btn btn-alt btn-sm btn-info" data-toggle="modal" title="Update User"><i class="fa fa-user-plus"></i> Update Advance</a> -->
             </div>
         </div>
 
@@ -46,8 +46,12 @@
                         <td><h4 class="text-success">₹ <?php echo $income['total_available']; ?></h4></td>
                         <td class="text-center">
                             <div class="btn-group">
-                                <a href="javascript:void(0)" data-user_id="<?php echo $income['id']; ?>" onclick="deleteAdvData(this);" data-toggle="tooltip" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                                <a href="javascript:void(0)" data-inc_type="plus" data-user_id="<?php echo $income['id']; ?>" onclick="fetchAmountData(this);" data-toggle="tooltip" title="Add" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                                <a href="javascript:void(0)" data-inc_type="minus" data-user_id="<?php echo $income['id']; ?>" onclick="fetchAmountData(this);" data-toggle="tooltip" title="Minus" class="btn btn-warning"><i class="fa fa-minus"></i></a>
                             </div>
+                            <!--<div class="btn-group">
+                                <a href="javascript:void(0)" data-user_id="<?php echo $income['id']; ?>" onclick="deleteAdvData(this);" data-toggle="tooltip" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                            </div>-->
                         </td>
                     </tr>
                     <?php
@@ -61,16 +65,13 @@
     </div>
     <!-- END Datatables Content -->
 
-<div id="modal-income" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- <div id="modal-income" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <!-- Modal Header -->
             <div class="modal-header text-center bg-success">
                 <h2 class="modal-title"><i class="fa fa-inr"></i> Add New Advance</h2>
             </div>
-            <!-- END Modal Header -->
 
-            <!-- Modal Body -->
             <div class="modal-body">
                 <form action="<?php echo base_url('admin/insert_advance_data'); ?>" id="income-validation" method="post" class="form-horizontal form-bordered">
                     <input type="hidden" id="insert_type" name="insert_type" value="new">
@@ -105,21 +106,17 @@
                     </div>
                 </form>
             </div>
-            <!-- END Modal Body -->
         </div>
     </div>
-</div>
+</div> -->
 
-<div id="modal-income-old" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- <div id="modal-income-old" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <!-- Modal Header -->
             <div class="modal-header text-center bg-info">
                 <h2 class="modal-title"><i class="fa fa-inr"></i> Update Advance</h2>
             </div>
-            <!-- END Modal Header -->
 
-            <!-- Modal Body -->
             <div class="modal-body">
                 <form action="<?php echo base_url('admin/insert_advance_data'); ?>" id="income-validation-old" method="post" class="form-horizontal form-bordered">
                     <input type="hidden" id="insert_type" name="insert_type" value="old">
@@ -144,6 +141,62 @@
                                 <input type="text" id="old_income_amt" name="old_income_amt" class="form-control" placeholder="Enter Amount" require="true">
                                 <span class="input-group-addon"><i class="fa fa-inr"></i></span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-info">Update Amount</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div id="modal-outcome-old" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center bg-info">
+                <h2 class="modal-title"><i class="fa fa-angle-double-down"></i> Update Advance</h2>
+            </div>
+            <!-- END Modal Header -->
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="<?php echo base_url('admin/insert_advance_data'); ?>" id="income-validation-old" method="post" class="form-horizontal form-bordered">
+                    <input type="hidden" id="insert_type" name="insert_type" value="old">
+                    <input type="hidden" id="old_user_id" name="old_user_id" value="">
+                    <input type="hidden" id="old_amount_type" name="old_amount_type" value="">
+                    <!-- <div class="form-group">
+                        <label class="col-md-4 control-label">Name</label>
+                        <div class="col-md-8">
+                            <select id="old_user_id" name="old_user_id" class="form-control" size="1" require="true">
+                            <option value="">Please select</option>
+                            <?php if(!empty($users)) {
+                                $i = 1; 
+                                foreach($users as $user){
+                                    echo '<option value="'.$user['id'].'">'.$user['name'].'</option>';
+                                }
+                            }?>
+                            </select>
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="user-settings-email">Amount</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="old_income_amt" name="old_income_amt" class="form-control" placeholder="Enter Amount" require="true">
+                                <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Notes</label>
+                        <div class="col-md-8">
+                            <textarea id="old_income_notes" name="old_income_notes" rows="4" class="form-control" placeholder="Notes.."></textarea>
                         </div>
                     </div>
                     <div class="form-group form-actions">
@@ -186,7 +239,25 @@
 
                 }
             })
-    }    
+    }
+    
+    function fetchAmountData(mythis){
+        var incType = $(mythis).data('inc_type');
+        var userId = $(mythis).data('user_id');
+
+        if(incType == 'plus'){
+            $("#insert_type").val('new_plus');
+            $("#old_amount_type").val('DEB');
+        }else{
+            $("#insert_type").val('old');
+            $("#old_amount_type").val('CRE');
+        }
+
+        $("#old_user_id").val(userId);
+        
+        $('#modal-outcome-old').modal('show');
+        
+    }
 </script>
 
 </div>

@@ -76,4 +76,6 @@ $route['createExcel'] = 'prints/createExcel';
 $route['booking'] = 'booking/home';
 $route['suppliers'] = 'suppliers/suppliers_list';
 
+$route['late_pay'] = 'admin/late_pay';
+
 $route['print_test'] = 'admin/print_test';

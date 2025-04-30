@@ -12,8 +12,8 @@
 				$getDate = date("Y-m-d"); 
 
 				if(isset($day_close) && !empty($day_close)){
-					$cashBalance = $day_close->balance_cash; 
-					$gpayBalance = $day_close->balance_gpay;
+					//$cashBalance = $day_close->balance_cash; 
+					//$gpayBalance = $day_close->balance_gpay;
 
 					$getDate = $day_close->closing_date;
 				}
@@ -40,6 +40,20 @@
 				if(!empty($gpay_stats)) {
 					if(!empty($gpay_stats->gpay_available))
 						$store_gpay = $gpay_stats->gpay_available;
+				}
+			?>
+
+			<?php 
+				if(!empty($wallets)) {
+					foreach($wallets as $wallet){
+						if($wallet['details'] == "Hand Cash"){
+							$cashBalance = $wallet['amount'];
+						}
+						else{
+							if($wallet['amount'] > 0 )
+							$gpayBalance = $gpayBalance + $wallet['amount'];
+						}
+					}
 				}
 			?>
 

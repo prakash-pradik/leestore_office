@@ -77,14 +77,41 @@
                         <td class="text-capitalize"><?php echo $sale['description']; ?></td>
                         <td class="text-right">
                             <h4 class="text-danger">
-                                <?php if($sale['amount_type'] == 'exp') echo $sale['amount'].' ₹'; if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning"> (GPay)</small>'; ?>
+                                <?php 
+                                    if($sale['amount_type'] == 'exp') 
+                                        echo '₹'.preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $sale['amount']);
+                                    
+                                    if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'open_cash') 
+                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open Cash)</small>';
+                                    
+                                    if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'gpay') 
+                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (GPay)</small>';
+                                    
+                                    if($sale['amount_type'] == 'exp' && $sale['amount_mode'] == 'open_gpay') 
+                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open GPay)</small>';
+                                ?>
                             </h4>
                         </td>
 						<td class="text-right">
                             <h4 class="text-success">
-                                <?php if($sale['amount_type'] != 'exp') echo $sale['amount'].' ₹'; 
-                                if($sale['amount_type'] == 'late') echo '<small class="text-bold text-warning"> (Late Pay)</small>'; if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') echo '<small class="text-bold text-warning"> (GPay)</small>';
-                                if($sale['amount_type'] == 'card') echo '<small class="text-bold text-warning">(Card Pay)</small>';?>
+                                <?php 
+                                    if($sale['amount_type'] != 'exp') 
+                                        echo '₹'.preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $sale['amount']); 
+                                    
+                                    if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'open_cash') 
+                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open Cash)</small>';
+
+                                    if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'open_gpay') 
+                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (Open GPay)</small>';
+
+                                    if($sale['amount_type'] != 'exp' && $sale['amount_mode'] == 'gpay') 
+                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (GPay)</small>';
+
+                                    if($sale['amount_type'] == 'late') 
+                                        echo '<small class="text-bold text-warning" style="font-size:12px;"> (Late Pay)</small>';
+
+                                    if($sale['amount_type'] == 'card') echo '<small class="text-bold text-warning" style="font-size:12px;"> (Card Pay)</small>'; 
+                                ?>
                             </h4>
                         </td>
 						<td class=""><?php echo $sale['name']; ?></td>

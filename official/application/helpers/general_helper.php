@@ -33,5 +33,21 @@
 			
 		}
 	}
+	
+	if ( ! function_exists('get_booking'))
+	{
+		function get_booking() {
+			$CI =&  get_instance();
+			$CI->load->database();
+			$sessionUser = $CI->session->userdata('user_loggedin');
+
+			$data = $CI->admin_model->get_yesterday_booking();
+			if ($data) {
+				return $data;
+			} else
+				return false;
+			
+		}
+	}
 
 ?>

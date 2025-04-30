@@ -49,7 +49,7 @@
                                 <td><?php echo $buy['phone_number']; ?></td>
                                 <td><?php echo $buy['phone_name']; ?></td>
                                 <td class="text-center">
-                                    <div class="btn-group">
+                                    <div class="btn-group-xs btn-group">
                                         <a href="#modal-view-buysell" data-id="<?php echo $buy['id']; ?>" onclick="fetchBuySellDetails(this);" data-toggle="modal" title="View" class="btn btn-info enable-tooltip"><i class="fa fa-eye"></i></a>
                                         <a href="#modal-update-buysell" data-toggle="modal" title="Update" data-placement="top" class="btn btn-default enable-tooltip" data-id="<?php echo $buy['id']; ?>" onclick="fetchBuySellDetails(this)"><i class="fa fa-pencil"></i></a>
                                         <a href="javascript:void(0)" data-id="<?php echo $buy['id']; ?>" onclick="deleteBuyData(this);" data-toggle="tooltip" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></a>
@@ -99,7 +99,7 @@
                                 <td><?php echo $sell['phone_number']; ?></td>
                                 <td><?php echo $sell['phone_name']; ?></td>
                                 <td class="text-center">
-                                    <div class="btn-group">
+                                    <div class="btn-group-xs btn-group">
                                         <a href="#modal-view-buysell" data-id="<?php echo $sell['id']; ?>" onclick="fetchBuySellDetails(this);" data-toggle="modal" title="View" class="btn btn-info enable-tooltip"><i class="fa fa-eye"></i></a>
                                         <a href="#modal-update-buysell" data-toggle="modal" title="Update" data-placement="top" class="btn btn-default enable-tooltip" data-id="<?php echo $sell['id']; ?>" onclick="fetchBuySellDetails(this)"><i class="fa fa-pencil"></i></a>
                                         <a href="javascript:void(0)" data-id="<?php echo $sell['id']; ?>" onclick="deleteBuyData(this);" data-toggle="tooltip" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></a>

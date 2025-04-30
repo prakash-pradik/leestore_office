@@ -64,14 +64,20 @@
                                     <?php if(isset($session_user['store_id']) && $session_user['store_id'] !== '0') $sId = $session_user['store_id']; else $sId = 1; ?>
                                     <a href="<?php echo base_url('daily_sales/'.$sId); ?>" class="<?php if($this->uri->segment(1) == 'daily_sales') echo 'active'; ?>"><i class="hi hi-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Daily Sales</span></a>
                                 </li>
+
                                 <li>
-                                    <a href="<?php echo base_url('wallet'); ?>" class="<?php if($this->uri->segment(1) == 'wallet') echo 'active'; ?>"><i class="gi gi-wallet sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Wallet</span></a>
+                                    <?php if(isset($session_user['store_id']) && $session_user['store_id'] !== '0') $sId = $session_user['store_id']; else $sId = 1; ?>
+                                    <a href="<?php echo base_url('late_pay'); ?>" class="<?php if($this->uri->segment(1) == 'late_pay') echo 'active'; ?>"><i class="hi hi-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Late Pay</span></a>
                                 </li>
+                                
                                 <li>
                                     <a href="<?php echo base_url('buy_sell'); ?>" class="<?php if($this->uri->segment(1) == 'buy_sell') echo 'active'; ?>"><i class="hi hi-shopping-cart sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Buy/Sell Mobiles</span></a>
                                 </li>
 
                                 <?php if(!empty($session_user) && $session_user['admin_type'] === 'super_admin') { ?>
+                                <li>
+                                    <a href="<?php echo base_url('wallet'); ?>" class="<?php if($this->uri->segment(1) == 'wallet') echo 'active'; ?>"><i class="gi gi-wallet sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Wallet</span></a>
+                                </li>
                                 <li>
                                     <a href="<?php echo base_url('inactive_sales'); ?>" class="<?php if($this->uri->segment(1) == 'inactive_sales') echo 'active'; ?>"><i class="gi gi-ban sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"> Inactive Sales</span></a>
                                 </li>
@@ -104,14 +110,14 @@
 
                                 <li>
                                     <?php $daily_notes = get_notes(); ?>
-                                    <form action="<?php echo base_url('admin/insert_notes'); ?>" id="income-validation" method="post" class="form-horizontal" style="margin:10px 5px 5px; padding:0px;">
+                                    <form action="javascript:void(0);" method="post" class="form-horizontal" style="margin:10px 5px 5px; padding:0px;">
                                         <div class="form-group">
                                             <div class="col-md-12">
                                                 <textarea id="daily_notes" name="daily_notes" rows="14" class="form-control" placeholder="Notes.." required="true" onKeyUp="saveNotes(this);"><?php if(!empty($daily_notes)) echo $daily_notes->notes; ?></textarea>
                                             </div>
-                                            <!-- <div class="col-xs-12 text-right">
-                                                <button type="submit" class="btn btn-success">Save</button>
-                                            </div> -->
+                                            <div class="col-xs-12 text-right">
+                                                <a href="<?php echo base_url('prints/notesPdf'); ?>" class="btn btn-success">Print</a>
+                                            </div>
                                         </div>
                                     </form>
                                 </li>
@@ -140,6 +146,35 @@
                         </ul>
                         <!-- END Left Header Navigation -->
                         
+						<ul class="nav navbar-nav-custom" style="margin-left:10em;">
+                            <!-- Main Sidebar Toggle Button -->
+                            <li class="booking-alert themed-background-fancy">
+                                
+									<?php
+										$get_booking = get_booking(); 
+										if(!empty($get_booking)){
+											$i = 1;
+											$today = date("d-m-Y");
+											
+											foreach($get_booking as $bok){
+												
+												$end_date = date("d-m-Y", strtotime($bok['deadline_date']));
+												
+												if($today === $end_date)
+													$bookDate = "Today";
+												else
+													$bookDate = "Tomorrow";
+												
+												echo "<h5>".$i.". ".$end_date." : ".$bok['name']." (".$bok['phone_number'].")"." - ".$bok['details']."</h5>";
+												$i++;
+											}
+										}
+									?>
+                                
+                            </li>
+                            <!-- END Main Sidebar Toggle Button -->
+                        </ul>
+						
                         <!-- Right Header Navigation -->
                         <ul class="nav navbar-nav-custom pull-right">
                             <li>
@@ -182,5 +217,7 @@
                             <!-- END User Dropdown -->
                         </ul>
                         <!-- END Right Header Navigation -->
+						
+						
                     </header>
                     <!-- END Header -->

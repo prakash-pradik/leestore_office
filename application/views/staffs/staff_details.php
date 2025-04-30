@@ -23,7 +23,7 @@
                 <div class="block-section text-center">
                     <?php 
                         if(!empty($employee) && isset($employee->profile_image) && $employee->profile_image != NULL) 
-                            $photo = base_url().'uploads/'.$employee->profile_image.'.jpg'; 
+                            $photo = base_url(IMG).'/staffs/'.$employee->profile_image; 
                         else 
                             $photo = base_url(IMG).'/placeholders/avatars/avatar4@2x.jpg';
                     ?>
@@ -44,6 +44,10 @@
                         <tr>
                             <td class="text-right"><strong>Birthdate</strong></td>
                             <td><?php if(!empty($employee)) echo date('M d, Y', strtotime($employee->birthdate)); ?></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><strong>Blood Group</strong></td>
+                            <td><?php if(!empty($employee)) echo $employee->blood_group; ?></td>
                         </tr>
                         <tr>
                             <td class="text-right"><strong>Phone Number</strong></td>
@@ -84,12 +88,13 @@
 
                 <!-- Products in Cart Content -->
                 <div class="table-responsive">
-                    <table id="sales-datatable" class="table table-vcenter table-condensed table-bordered">
+                    <table id="orders-datatable" class="table table-vcenter table-condensed table-bordered">
                         <thead>
                             <tr>
                                 <th class="text-center">Sl.No</th>
                                 <th class="">Invoice #</th>
                                 <th class="">Customer Name</th>
+                                <th class="">Phone Number</th>
                                 <th class="">Date & Time</th>
                             </tr>
                         </thead>
@@ -100,8 +105,9 @@
                             ?>
                             <tr>
                                 <td class="text-center" style="width: 10%;"><?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?></td>
-                                <td style="width:20%;"><a href="<?php echo base_url('invoice/'.$order['ord_id']); ?>" class="text-info"><?php echo $order['invoice_no']; ?></a></td>
+                                <td style="width:20%;"><a href="<?php echo base_url('invoice/'.$order['ord_id']); ?>" class="text-info" target="_blank"><?php echo $order['invoice_no']; ?></a></td>
                                 <td class=""><?php echo $order['customer_name']; ?></td>
+                                <td class=""><?php echo $order['customer_phone']; ?></td>
                                 <td><?php echo date('d-m-Y h:i a', strtotime($order['date_added'])); ?></td>
                             </tr>
                             <?php

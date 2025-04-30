@@ -39,6 +39,7 @@ class Booking extends CI_Controller {
 			'name' => $this->input->post('booking_name'),
 			'phone_number' => $this->input->post('booking_phone'),
 			'details' => $this->input->post('booking_details'),
+			'deadline_date' => date("Y-m-d" , strtotime($this->input->post('booking_end'))),
 			'amount' => $this->input->post('booking_amount'),
 			'pay_type' => $this->input->post('booking_pay'),
 			'address' => $this->input->post('booking_address'),
@@ -87,6 +88,33 @@ class Booking extends CI_Controller {
 			$response = array(
 				'status' => 200,
 				'message' => 'Product successfully delivered.!'
+			);
+			
+		} else {
+			$response = array(
+				'status' => 500,
+				'message' => 'Something went wrong.!'
+			);
+		}
+		
+		echo json_encode($response);
+		return;
+	}
+
+	public function return_booking(){
+
+		$id = $this->input->post('id');
+		$data = array(
+			'status' => 4,
+			'date_modified' => date("Y-m-d H:i:s")
+		);
+
+		$where = array('id' => $id );
+		$update = $this->admin_model->update_row_data('booking', $where, $data);
+		if($update){
+			$response = array(
+				'status' => 200,
+				'message' => 'Product successfully returned.!'
 			);
 			
 		} else {

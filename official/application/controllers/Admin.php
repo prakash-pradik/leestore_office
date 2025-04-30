@@ -247,7 +247,8 @@ class Admin extends CI_Controller {
 		$data['daily_sales'] = $this->admin_model->get_all_sales('today', 'desc', $store_id);
 		$data['today_stats'] = $this->admin_model->get_sales_stats('today');
 		$data['gpay_stats'] = $this->admin_model->get_gpay_stats('today');
-		
+
+		$data['wallets'] = $this->admin_model->get_wallets();
 		$data['open_stats'] = $this->admin_model->get_opening_stats();
 		$data['daily_notes'] = $this->admin_model->get_daily_notes();
 		$data['stores'] = $this->admin_model->get_data('stores', array('status'=>'1'), 'result_array', 'id', 'asc');
@@ -466,6 +467,40 @@ class Admin extends CI_Controller {
 				'amount_type' => 'DEB',
 				'date_added' => date("Y-m-d H:i:s")
 			);
+		} else if($type == 'new_plus') {
+			$data = array(
+				'emp_id' => $user_id,
+				'amount' => $this->input->post('old_income_amt'),
+				'amount_type' => $this->input->post('old_amount_type'),
+				'date_added' => date("Y-m-d H:i:s")
+			);
+		} else {
+			$data = array(
+				'emp_id' => $user_id,
+				'amount' => $this->input->post('old_income_amt'),
+				'amount_type' => $this->input->post('old_amount_type'),
+				'date_added' => date("Y-m-d H:i:s")
+			);
+		}
+
+		$insert = $this->admin_model->insert_row('employee_advance', $data);
+		if($insert){
+			redirect(base_url('employee_advance'));
+		}
+	}
+
+	/* public function insert_advance_data(){
+		
+		$type = $this->input->post('insert_type');
+		$user_id = $this->input->post('old_user_id');
+
+		if($type == 'new'){
+			$data = array(
+				'emp_id' => $user_id,
+				'amount' => $this->input->post('income_amt_value'),
+				'amount_type' => 'DEB',
+				'date_added' => date("Y-m-d H:i:s")
+			);
 			$insert = $this->admin_model->insert_row('employee_advance', $data);
 
 		} else if($type == 'old') {
@@ -490,7 +525,7 @@ class Admin extends CI_Controller {
 		if($insert){
 			redirect(base_url('employee_advance'));
 		}
-	}
+	} */
 
 	public function employee_details($id)
 	{
@@ -799,5 +834,54 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	public function late_pay()
+	{
+		$data['session_user'] = $this->session->userdata('user_loggedin');
+		$data['sales_list'] = $this->admin_model->get_data('daily_sales', array('amount_type'=>'late', 'status'=>1), 'result_array', 'id', 'desc');
+		$this->load->view('config/template_start');
+		$this->load->view('config/page_head',$data);
+		$this->load->view('pages/latePay_list', $data);
+		$this->load->view('config/page_footer');
+		$this->load->view('config/template_scripts');
+		$this->load->view('config/template_end');
+	}
+
+	public function update_late()
+	{
+		$id= $this->input->post('late_id');
+		$data = array(
+			'description' => $this->input->post('update_late_desc'),
+			'amount' => $this->input->post('update_late_amount'),
+			'date_modified' => date("Y-m-d H:i:s")
+		);
+
+		$where = array('id' => $id );
+		
+		if($id){
+			$update = $this->admin_model->update_row_data('daily_sales', $where, $data);
+			if($update){
+				$this->session->set_flashdata('officeMessage', 'Data Successfully Updated..!');
+			}
+		}
+		redirect(base_url('late_pay'));
+	}
+
+	public function latePayUpdate(){
+		$id= $this->input->post('view_late_id');
+		$data = array(
+			'amount_type' => 'inc',
+			'amount_mode'=>'cash',
+			'date_modified' => date("Y-m-d H:i:s")
+		);
+		$where = array('id' => $id );
+		
+		if($id){
+			$update = $this->admin_model->update_row_data('daily_sales', $where, $data);
+			if($update){
+				$this->session->set_flashdata('officeMessage', 'Data Successfully Updated..!');
+			}
+		}
+		redirect(base_url('late_pay'));
+	}
 
 }

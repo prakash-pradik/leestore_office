@@ -416,7 +416,10 @@ class Admin_model extends CI_Model{
 
     public function get_emp_sales($id){
 
-        $sql = "SELECT oi.*, ord.id as ord_id, ord.invoice_no, ord.net_amount, ord.date_added, (SELECT name FROM customers WHERE id = ord.customer_id) as customer_name FROM `order_items` as oi, `orders` ord WHERE oi.order_id = ord.id AND ord.emp_id = $id ORDER BY ord.id DESC";
+        $sql = "SELECT ord.id as ord_id, ord.invoice_no, ord.net_amount, ord.date_added, 
+                (SELECT name FROM customers WHERE id = ord.customer_id) as customer_name,
+                (SELECT phone_number FROM customers WHERE id = ord.customer_id) as customer_phone  
+                FROM `orders` ord WHERE ord.emp_id = $id ORDER BY ord.id DESC";
         $query = $this->db->query($sql);
 
         if($query->num_rows() > 0 )

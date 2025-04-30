@@ -23,7 +23,7 @@
                 <div class="block-section text-center">
                     <?php 
                         if(!empty($employee) && isset($employee->profile_image) && $employee->profile_image != NULL) 
-                            $photo = base_url().'uploads/'.$employee->profile_image.'.jpg'; 
+                            $photo = base_url(IMG).'/staffs/'.$employee->profile_image; 
                         else 
                             $photo = base_url(IMG).'/placeholders/avatars/avatar4@2x.jpg';
                     ?>
@@ -81,9 +81,9 @@
                         <span class="label label-success" style="font-size:20px;">
                             <strong>₹ <?php if(!empty($adv_stats)) if(!empty($adv_stats->balance_amt)) echo $adv_stats->balance_amt; else echo '0'; ?></strong>
                         </span>
-                        <a href="#modal-add-advance" class="btn btn-alt btn-sm btn-success " data-toggle="modal" title="Add New User"><i class="fa fa-user-plus"></i> Add New Advance</a>
+                        <!-- <a href="#modal-add-advance" class="btn btn-alt btn-sm btn-success " data-toggle="modal" title="Add New User"><i class="fa fa-user-plus"></i> Add New Advance</a>
 
-                        <a href="#modal-update-advance" class="btn btn-alt btn-sm btn-info" data-toggle="modal" title="Update User"><i class="fa fa-user-plus"></i> Update Advance</a>
+                        <a href="#modal-update-advance" class="btn btn-alt btn-sm btn-info" data-toggle="modal" title="Update User"><i class="fa fa-user-plus"></i> Update Advance</a> -->
                     </div>
                     <h2><i class="fa fa-inr"></i> <strong>Advance</strong> Table</h2>
                 </div>
